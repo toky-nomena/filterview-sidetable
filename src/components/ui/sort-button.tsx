@@ -9,13 +9,13 @@ interface SortButtonProps<TData> {
 
 export function SortButton<TData>({ column, label }: SortButtonProps<TData>) {
 	const handleSort = () => {
-		const currentSort = column.getIsSorted();
-		if (currentSort === false) {
-			column.toggleSorting(false); // Set to ascending
-		} else if (currentSort === "asc") {
-			column.toggleSorting(true); // Set to descending
+		console.log(column.getIsSorted());
+		if (column.getIsSorted() === "asc") {
+			column.toggleSorting(true); // Toggle to descending
+		} else if (column.getIsSorted() === "desc") {
+			column.clearSorting(); // Clear sorting (unsorted state)
 		} else {
-			column.clearSorting();
+			column.toggleSorting(false); // Toggle to ascending
 		}
 	};
 
