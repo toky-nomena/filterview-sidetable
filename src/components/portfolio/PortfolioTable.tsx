@@ -8,6 +8,7 @@ import {
 	type SortingState,
 	type VisibilityState,
 	useReactTable,
+	type PaginationState,
 } from "@tanstack/react-table";
 import { useState, memo } from "react";
 import { usePortfolioColumns } from "./hooks/use-portfolio-columns";
@@ -29,10 +30,14 @@ export interface PortfolioTableProps {
 
 function PortfolioTableComponent({ data }: PortfolioTableProps) {
 	const [sorting, setSorting] = useState<SortingState>([]);
-	const [pageSize, setPageSize] = useState(20);
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 	const [globalFilter, setGlobalFilter] = useState("");
 	const columns = usePortfolioColumns();
+
+	const [pagination, setPagination] = useState<PaginationState>({
+		pageIndex: 0,
+		pageSize: 10,
+	});
 
 	const table = useReactTable({
 		data,
@@ -43,12 +48,10 @@ function PortfolioTableComponent({ data }: PortfolioTableProps) {
 		getFilteredRowModel: getFilteredRowModel(),
 		onSortingChange: setSorting,
 		onColumnVisibilityChange: setColumnVisibility,
+		onPaginationChange: setPagination,
 		state: {
 			sorting,
-			pagination: {
-				pageSize,
-				pageIndex: 0,
-			},
+			pagination,
 			columnVisibility,
 			globalFilter,
 		},
@@ -124,13 +127,13 @@ function PortfolioTableComponent({ data }: PortfolioTableProps) {
 				</div>
 			</div>
 			<Pagination
-				currentPage={table.getState().pagination.pageIndex + 1}
-				pageSize={pageSize}
-				totalItems={data.length}
+				currentPage={pagination.pageIndex + 1}
+				pageSize={pagination.pageSize}
+				totalItems={table.getFilteredRowModel().rows.length}
 				onPageChange={(page) => table.setPageIndex(page - 1)}
 				onPageSizeChange={(size) => {
-					setPageSize(size);
 					table.setPageSize(size);
+					table.setPageIndex(0); // Reset to first page when changing page size
 				}}
 				className="ml-auto"
 			/>
