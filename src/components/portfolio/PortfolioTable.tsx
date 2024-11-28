@@ -4,7 +4,9 @@ import {
 	getCoreRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
+	getFilteredRowModel,
 	type SortingState,
+	type VisibilityState,
 	useReactTable,
 } from "@tanstack/react-table";
 import { useState, memo } from "react";
@@ -18,6 +20,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { ColumnToggle } from "@/components/ui/column-toggle";
+import { SearchInput } from "@/components/ui/search-input";
 
 export interface PortfolioTableProps {
 	data: Company[];
@@ -26,6 +30,8 @@ export interface PortfolioTableProps {
 function PortfolioTableComponent({ data }: PortfolioTableProps) {
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [pageSize, setPageSize] = useState(20);
+	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+	const [globalFilter, setGlobalFilter] = useState("");
 	const columns = usePortfolioColumns();
 
 	const table = useReactTable({
@@ -34,17 +40,33 @@ function PortfolioTableComponent({ data }: PortfolioTableProps) {
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
 		getSortedRowModel: getSortedRowModel(),
-		initialState: {
+		getFilteredRowModel: getFilteredRowModel(),
+		onSortingChange: setSorting,
+		onColumnVisibilityChange: setColumnVisibility,
+		state: {
+			sorting,
 			pagination: {
 				pageSize,
+				pageIndex: 0,
 			},
-			sorting,
+			columnVisibility,
+			globalFilter,
 		},
-		onSortingChange: setSorting,
+		onGlobalFilterChange: setGlobalFilter,
 	});
 
 	return (
 		<div className="space-y-2">
+			<div className="flex items-center justify-between gap-4">
+				<div className="flex-1">
+					<SearchInput
+						value={globalFilter}
+						onChange={setGlobalFilter}
+						placeholder="Search all columns..."
+					/>
+				</div>
+				<ColumnToggle table={table} />
+			</div>
 			<div className="rounded-md border">
 				<div className="overflow-auto">
 					<Table>
@@ -52,7 +74,10 @@ function PortfolioTableComponent({ data }: PortfolioTableProps) {
 							{table.getHeaderGroups().map((headerGroup) => (
 								<TableRow key={headerGroup.id}>
 									{headerGroup.headers.map((header) => (
-										<TableHead key={header.id} className="px-4 whitespace-nowrap">
+										<TableHead
+											key={header.id}
+											className="px-4 whitespace-nowrap"
+										>
 											{header.isPlaceholder
 												? null
 												: flexRender(
@@ -72,7 +97,10 @@ function PortfolioTableComponent({ data }: PortfolioTableProps) {
 										data-state={row.getIsSelected() && "selected"}
 									>
 										{row.getVisibleCells().map((cell) => (
-											<TableCell key={cell.id} className="px-4 py-0 whitespace-nowrap">
+											<TableCell
+												key={cell.id}
+												className="px-4 py-0 whitespace-nowrap"
+											>
 												{flexRender(
 													cell.column.columnDef.cell,
 													cell.getContext(),
@@ -95,24 +123,19 @@ function PortfolioTableComponent({ data }: PortfolioTableProps) {
 					</Table>
 				</div>
 			</div>
-			<div className="flex items-center justify-between">
-				<Pagination
-					currentPage={table.getState().pagination.pageIndex + 1}
-					pageSize={pageSize}
-					totalItems={data.length}
-					onPageChange={(page) => table.setPageIndex(page - 1)}
-					onPageSizeChange={(size) => {
-						setPageSize(size);
-						table.setPageSize(size);
-					}}
-					className="ml-auto"
-				/>
-			</div>
+			<Pagination
+				currentPage={table.getState().pagination.pageIndex + 1}
+				pageSize={pageSize}
+				totalItems={data.length}
+				onPageChange={(page) => table.setPageIndex(page - 1)}
+				onPageSizeChange={(size) => {
+					setPageSize(size);
+					table.setPageSize(size);
+				}}
+				className="ml-auto"
+			/>
 		</div>
 	);
 }
 
-const PortfolioTable = memo(PortfolioTableComponent);
-PortfolioTable.displayName = "PortfolioTable";
-
-export { PortfolioTable };
+export const PortfolioTable = memo(PortfolioTableComponent);

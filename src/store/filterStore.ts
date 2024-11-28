@@ -2,25 +2,21 @@ import { create } from "zustand";
 
 // Define the state interface
 export interface FilterState {
-	search: string;
 	brand: string[];
 	state: string[];
 	productType: string[];
 	riskState: string[];
 	transaction: string[];
 	province: string[];
-	page: number;
 }
 
 const initialState: FilterState = {
-	search: "",
 	brand: [],
 	state: [],
 	productType: [],
 	riskState: [],
 	transaction: [],
 	province: [],
-	page: 1,
 };
 
 // State-only store

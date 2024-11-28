@@ -84,15 +84,8 @@ export const getCompanies = async (filters: FilterState) => {
 	await new Promise((resolve) => setTimeout(resolve, 1500));
 
 	return companies.filter((company) => {
-		const byName =
-			validateFilter(filters.search, "firstName", company) ||
-			validateFilter(filters.search, "lastName", company);
-
-		return (
-			byName &&
-			keys.every((field) =>
-				validateFilter(filters[field], field as keyof Company, company),
-			)
+		return keys.every((field) =>
+			validateFilter(filters[field], field as keyof Company, company),
 		);
 	});
 };

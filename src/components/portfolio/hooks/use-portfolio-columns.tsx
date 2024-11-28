@@ -1,15 +1,13 @@
 import type { Company } from "@/services/data.service";
 import type { ColumnDef } from "@tanstack/react-table";
-import { provinceLabels } from "@/lib/status-labels";
-import { PortfolioActions } from "../components/portfolio-actions";
 import { useMemo } from "react";
 import { SortButton } from "@/components/ui/sort-button";
-import { TooltipCell } from "@/components/ui/tooltip-cell";
 import {
 	RiskStateBadge,
 	StateBadge,
 	TransactionBadge,
 } from "@/components/ui/status-badge";
+import { PortfolioActions } from "../components/portfolio-actions";
 
 export function usePortfolioColumns() {
 	return useMemo<ColumnDef<Company>[]>(
@@ -19,36 +17,43 @@ export function usePortfolioColumns() {
 				header: ({ column }) => (
 					<SortButton column={column} label="First Name" />
 				),
+				enableHiding: true,
 			},
 			{
 				accessorKey: "lastName",
 				header: ({ column }) => (
 					<SortButton column={column} label="Last Name" />
 				),
+				enableHiding: true,
 			},
 			{
 				accessorKey: "language",
 				header: ({ column }) => <SortButton column={column} label="Language" />,
+				enableHiding: true,
 			},
 			{
 				accessorKey: "province",
 				header: ({ column }) => <SortButton column={column} label="Province" />,
 				cell: ({ row }) => <span>{row.original.province}</span>,
+				enableHiding: true,
 			},
 			{
 				accessorKey: "brand",
 				header: ({ column }) => <SortButton column={column} label="Brand" />,
+				enableHiding: true,
 			},
 			{
 				accessorKey: "state",
 				header: ({ column }) => <SortButton column={column} label="State" />,
 				cell: ({ row }) => <StateBadge value={row.original.state} />,
+				enableHiding: true,
 			},
 			{
 				accessorKey: "productType",
 				header: ({ column }) => (
 					<SortButton column={column} label="Product Type" />
 				),
+				enableHiding: true,
 			},
 			{
 				accessorKey: "riskState",
@@ -56,6 +61,7 @@ export function usePortfolioColumns() {
 					<SortButton column={column} label="Risk State" />
 				),
 				cell: ({ row }) => <RiskStateBadge value={row.original.riskState} />,
+				enableHiding: true,
 			},
 			{
 				accessorKey: "transaction",
@@ -65,10 +71,13 @@ export function usePortfolioColumns() {
 				cell: ({ row }) => (
 					<TransactionBadge value={row.original.transaction} />
 				),
+				enableHiding: true,
 			},
 			{
 				id: "actions",
+				header: () => <span>Actions</span>,
 				cell: ({ row }) => <PortfolioActions company={row.original} />,
+				enableHiding: false,
 			},
 		],
 		[],
