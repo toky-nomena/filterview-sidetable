@@ -12,7 +12,7 @@ import {
 	SidebarMenuSub,
 } from "@/components/ui/sidebar";
 import { Check, ChevronRight, Circle, CircleCheck } from "lucide-react";
-import { Checkbox } from "../ui/checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 import { update, useFilterState, type FilterState } from "@/store/filterStore";
 import { cn } from "@/lib/utils";
 

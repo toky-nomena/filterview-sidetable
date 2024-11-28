@@ -1,4 +1,4 @@
-import { CompaniesTable } from "@/components/CompaniesTable";
+import { PortfolioTable } from "@/components/portfolio/PortfolioTable";
 import { type Company, getCompanies } from "@/services/data.service";
 import { useFilterState, update } from "@/store/filterStore";
 import { Search } from "lucide-react";
@@ -68,11 +68,7 @@ export function Index() {
 					onChange={(e) => handleSearch(e.target.value)}
 				/>
 			</div>
-			<CompaniesTable
-				data={filteredCompanies}
-				currentPage={state.page}
-				onPageChange={handlePageChange}
-			/>
+			<PortfolioTable data={filteredCompanies} />
 		</div>
 	);
 }
