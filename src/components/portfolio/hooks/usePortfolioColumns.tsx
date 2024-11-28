@@ -8,6 +8,8 @@ import {
 	TransactionBadge,
 } from "@/components/ui/status-badge";
 import { PortfolioActions } from "../components/PortfolioActions";
+import { Button } from "@/components/ui/button";
+import { Eye } from "lucide-react";
 
 export function usePortfolioColumns() {
 	return useMemo<ColumnDef<Company>[]>(
@@ -76,7 +78,17 @@ export function usePortfolioColumns() {
 			{
 				id: "actions",
 				header: () => <span>Actions</span>,
-				cell: ({ row }) => <PortfolioActions company={row.original} />,
+				cell: ({ row }) => (
+					<PortfolioActions company={row.original}>
+						<Button
+							variant="ghost"
+							size="icon"
+							className="dark:hover:bg-gray-800 p-0 hover:bg-transparent hover:text-muted-foreground"
+						>
+							<Eye className="size-4" />
+						</Button>
+					</PortfolioActions>
+				),
 				enableHiding: false,
 			},
 		],

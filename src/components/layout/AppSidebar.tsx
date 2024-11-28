@@ -55,7 +55,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	];
 
 	return (
-		<Sidebar {...props}>
+		<Sidebar {...props} className="bg-background">
 			<SidebarHeader>
 				<SidebarMenu>
 					<SidebarMenuItem>

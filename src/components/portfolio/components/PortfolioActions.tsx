@@ -12,20 +12,13 @@ import { Button } from "@/components/ui/button";
 
 interface PortfolioActionsProps {
 	company: Company;
+	children?: React.ReactNode;
 }
 
-export function PortfolioActions({ company }: PortfolioActionsProps) {
+export function PortfolioActions({ company, children }: PortfolioActionsProps) {
 	return (
 		<Sheet>
-			<SheetTrigger asChild>
-				<Button
-					variant="ghost"
-					size="icon"
-					className="dark:hover:bg-gray-800 p-0 hover:bg-transparent hover:text-muted-foreground"
-				>
-					<Eye className="size-4" />
-				</Button>
-			</SheetTrigger>
+			<SheetTrigger asChild>{children}</SheetTrigger>
 			<SheetContent>
 				<SheetHeader>
 					<SheetTitle>Portfolio Details</SheetTitle>
