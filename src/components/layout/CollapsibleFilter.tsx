@@ -10,10 +10,12 @@ import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
+	SidebarMenuSub,
 } from "@/components/ui/sidebar";
-import { ChevronRight, Database } from "lucide-react";
+import { Check, ChevronRight, Circle, CircleCheck } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 import { update, useFilterState, type FilterState } from "@/store/filterStore";
+import { cn } from "@/lib/utils";
 
 export interface CollapsibleFilterProps {
 	title: string;
@@ -35,6 +37,7 @@ export function CollapsibleFilter({
 	const state = useFilterState();
 	const activeFilters = (state[stateKey] || []) as string[];
 	const activeItems = activeFilters.filter((filter) => items.includes(filter));
+	const allSelected = activeItems.length === items.length;
 
 	const handleCheckedChange = (checked: boolean, item: string) => {
 		update(stateKey, (currentFilters = []) => {
@@ -43,6 +46,11 @@ export function CollapsibleFilter({
 			}
 			return currentFilters.filter((filter) => filter !== item);
 		});
+	};
+
+	const handleToggleAll = (e: React.MouseEvent) => {
+		e.stopPropagation();
+		update(stateKey, () => (allSelected ? [] : [...items]));
 	};
 
 	return (
@@ -54,10 +62,38 @@ export function CollapsibleFilter({
 				>
 					<CollapsibleTrigger>
 						<div className="flex items-center gap-2">
-							<Database className="w-6 h-6 stroke-2 text-slate-500" />
-							<span className="font-bold">
+							<button
+								type="button"
+								onClick={handleToggleAll}
+								className={cn(
+									"flex size-6 items-center justify-center rounded-full transition-colors",
+								)}
+							>
+								{allSelected ? (
+									<CircleCheck className="size-8 stroke-[2] text-primary" />
+								) : (
+									<Circle className="size-8 stroke-[2] text-muted-foreground hover:text-foreground" />
+								)}
+							</button>
+							<span className="flex items-center">
 								{title}
-								{activeItems.length > 0 && ` (${activeItems.length})`}
+								{activeItems.length > 0 && (
+									<>
+										<span className="ml-2 text-xs text-muted-foreground font-bold">
+											({activeItems.length})
+										</span>
+										<button
+											type="button"
+											onClick={(e) => {
+												e.stopPropagation();
+												update(stateKey, () => []);
+											}}
+											className="ml-2 text-xs text-muted-foreground font-normal hover:text-destructive"
+										>
+											Clear
+										</button>
+									</>
+								)}
 							</span>
 						</div>
 						<ChevronRight className="w-4 h-4 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
@@ -65,7 +101,7 @@ export function CollapsibleFilter({
 				</SidebarGroupLabel>
 				<CollapsibleContent className="pl-1">
 					<SidebarGroupContent>
-						<SidebarMenu>
+						<SidebarMenuSub>
 							{items.map((item) => (
 								<SidebarMenuItem key={item}>
 									<SidebarMenuButton
@@ -90,7 +126,7 @@ export function CollapsibleFilter({
 									</SidebarMenuButton>
 								</SidebarMenuItem>
 							))}
-						</SidebarMenu>
+						</SidebarMenuSub>
 					</SidebarGroupContent>
 				</CollapsibleContent>
 			</SidebarGroup>

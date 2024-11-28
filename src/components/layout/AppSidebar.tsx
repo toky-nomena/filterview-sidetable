@@ -2,6 +2,9 @@ import {
 	Sidebar,
 	SidebarContent,
 	SidebarHeader,
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarMenuItem,
 	SidebarRail,
 } from "@/components/ui/sidebar";
 import {
@@ -9,6 +12,7 @@ import {
 	type CollapsibleFilterProps,
 } from "./CollapsibleFilter";
 import { data } from "@/services/data";
+import { Hexagon } from "lucide-react";
 
 interface FilterGroup {
 	title: string;
@@ -53,7 +57,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
 		<Sidebar {...props}>
 			<SidebarHeader>
-				<span className="sr-only">Navigation</span>
+				<SidebarMenu>
+					<SidebarMenuItem>
+						<SidebarMenuButton size="lg" asChild className="rounded-none">
+							<div className="">
+								<div className="flex aspect-square items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+									<Hexagon className="size-7 stroke-[3]" />
+								</div>
+								<div className="flex flex-col gap-0.5 leading-none">
+									<span className="font-bold text-lg">Search</span>
+								</div>
+							</div>
+						</SidebarMenuButton>
+					</SidebarMenuItem>
+				</SidebarMenu>
 			</SidebarHeader>
 			<SidebarContent className="px-2">
 				{items.map((item) => (

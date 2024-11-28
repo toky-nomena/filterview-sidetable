@@ -22,7 +22,9 @@ import {
 	PaginationLink,
 	PaginationNext,
 	PaginationPrevious,
+	PaginationEllipsis,
 } from "@/components/ui/pagination";
+import { cn } from "@/lib/utils";
 
 const getRiskStateColor = (riskState: string) => {
 	const colors: Record<string, string> = {
@@ -106,7 +108,6 @@ const columns: ColumnDef<Company>[] = [
 
 interface CompaniesTableProps {
 	data: Company[];
-	pageCount: number;
 	pageSize: number;
 	currentPage: number;
 	onPageChange: (page: number) => void;
@@ -114,9 +115,8 @@ interface CompaniesTableProps {
 
 export function CompaniesTable({
 	data,
-	pageCount,
-	currentPage,
 	pageSize,
+	currentPage,
 	onPageChange,
 }: CompaniesTableProps) {
 	const table = useReactTable({
@@ -124,79 +124,161 @@ export function CompaniesTable({
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
+		pageCount: Math.ceil(data.length / pageSize),
 		state: {
 			pagination: {
 				pageIndex: currentPage - 1,
 				pageSize,
 			},
 		},
+		onPaginationChange: (updater) => {
+			if (typeof updater === "function") {
+				const newState = updater({
+					pageIndex: currentPage - 1,
+					pageSize,
+				});
+				onPageChange(newState.pageIndex + 1);
+			}
+		},
 	});
 
 	return (
 		<div className="space-y-4">
-			<h2>{data.length}</h2>
-			<div className="rounded-md border bg-card">
+			<div className="rounded-md border dark:border-gray-700">
 				<Table>
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (
-							<TableRow key={headerGroup.id}>
+							<TableRow
+								key={headerGroup.id}
+								className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted dark:border-gray-700 dark:hover:bg-gray-800/50"
+							>
 								{headerGroup.headers.map((header) => (
-									<TableHead key={header.id}>
-										{flexRender(
-											header.column.columnDef.header,
-											header.getContext(),
-										)}
+									<TableHead
+										key={header.id}
+										className="h-12 px-4 text-left align-middle font-medium text-muted-foreground dark:text-gray-400"
+									>
+										{header.isPlaceholder
+											? null
+											: flexRender(
+													header.column.columnDef.header,
+													header.getContext(),
+												)}
 									</TableHead>
 								))}
 							</TableRow>
 						))}
 					</TableHeader>
 					<TableBody>
-						{table.getRowModel().rows.map((row) => (
-							<TableRow key={row.id}>
-								{row.getVisibleCells().map((cell) => (
-									<TableCell key={cell.id} className="py-2.5">
-										{flexRender(cell.column.columnDef.cell, cell.getContext())}
-									</TableCell>
-								))}
+						{table.getRowModel().rows?.length ? (
+							table.getRowModel().rows.map((row) => (
+								<TableRow
+									key={row.id}
+									data-state={row.getIsSelected() && "selected"}
+									className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted dark:border-gray-700 dark:hover:bg-gray-800/50"
+								>
+									{row.getVisibleCells().map((cell) => (
+										<TableCell
+											key={cell.id}
+											className="px-4 py-3 dark:text-gray-300"
+										>
+											{flexRender(
+												cell.column.columnDef.cell,
+												cell.getContext(),
+											)}
+										</TableCell>
+									))}
+								</TableRow>
+							))
+						) : (
+							<TableRow>
+								<TableCell
+									colSpan={columns.length}
+									className="h-24 text-center dark:text-gray-400"
+								>
+									No results.
+								</TableCell>
 							</TableRow>
-						))}
+						)}
 					</TableBody>
 				</Table>
 			</div>
-
-			<Pagination>
-				<PaginationContent>
-					<PaginationItem>
-						<PaginationPrevious
-							onClick={() => onPageChange(currentPage - 1)}
-							className={
-								currentPage === 1 ? "pointer-events-none opacity-50" : ""
-							}
-						/>
-					</PaginationItem>
-					{Array.from({ length: pageCount }, (_, i) => i + 1).map((page) => (
-						<PaginationItem key={page}>
-							<PaginationLink
-								onClick={() => onPageChange(page)}
-								isActive={currentPage === page}
-							>
-								{page}
-							</PaginationLink>
+			<div className="flex items-center justify-between">
+				<div className="text-sm text-muted-foreground">
+					{pageSize} of {data.length} total items
+				</div>
+				<Pagination>
+					<PaginationContent>
+						<PaginationItem>
+							<PaginationPrevious
+								onClick={(e) => {
+									e.preventDefault();
+									table.previousPage();
+								}}
+								className={cn(
+									!table.getCanPreviousPage() &&
+										"pointer-events-none opacity-50",
+									"dark:text-gray-300 dark:hover:bg-gray-800",
+								)}
+							/>
 						</PaginationItem>
-					))}
-					<PaginationItem>
-						<PaginationNext
-							onClick={() => onPageChange(currentPage + 1)}
-							className={
-								currentPage === pageCount
-									? "pointer-events-none opacity-50"
-									: ""
+						{table.getPageOptions().map((index) => {
+							const page = index + 1;
+							const isCurrentPage = currentPage === page;
+							const isFirstPage = page === 1;
+							const isLastPage = page === table.getPageCount();
+							const isNearCurrentPage = Math.abs(currentPage - page) <= 1;
+
+							if (
+								isFirstPage ||
+								isLastPage ||
+								isNearCurrentPage ||
+								(isCurrentPage && (page === 1 || page === table.getPageCount()))
+							) {
+								return (
+									<PaginationItem key={page}>
+										<PaginationLink
+											onClick={(e) => {
+												e.preventDefault();
+												onPageChange(page);
+											}}
+											isActive={isCurrentPage}
+											className="dark:text-gray-300 dark:hover:bg-gray-800 dark:data-[active=true]:bg-gray-700"
+										>
+											{page}
+										</PaginationLink>
+									</PaginationItem>
+								);
 							}
-						/>
-					</PaginationItem>
-				</PaginationContent>
-			</Pagination>
+
+							if (
+								(page === 2 && currentPage > 3) ||
+								(page === table.getPageCount() - 1 &&
+									currentPage < table.getPageCount() - 2)
+							) {
+								return (
+									<PaginationItem key={`ellipsis-${page}`}>
+										<PaginationEllipsis />
+									</PaginationItem>
+								);
+							}
+
+							return null;
+						})}
+						<PaginationItem>
+							<PaginationNext
+								onClick={(e) => {
+									e.preventDefault();
+									table.nextPage();
+								}}
+								className={cn(
+									!table.getCanNextPage() && "pointer-events-none opacity-50",
+									"dark:text-gray-300 dark:hover:bg-gray-800",
+								)}
+							/>
+						</PaginationItem>
+					</PaginationContent>
+				</Pagination>
+			</div>
 		</div>
 	);
 }
