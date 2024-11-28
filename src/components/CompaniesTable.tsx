@@ -25,6 +25,15 @@ import {
 	PaginationEllipsis,
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+	Sheet,
+	SheetContent,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@/components/ui/sheet";
+import { Eye } from "lucide-react";
 
 const getRiskStateColor = (riskState: string) => {
 	const colors: Record<string, string> = {
@@ -104,38 +113,73 @@ const columns: ColumnDef<Company>[] = [
 			</Badge>
 		),
 	},
+	{
+		id: "actions",
+		cell: ({ row }) => {
+			return (
+				<Sheet>
+					<SheetTrigger asChild>
+						<Button
+							variant="ghost"
+							size="icon"
+							className="dark:hover:bg-gray-800 p-0"
+						>
+							<Eye className="size-4" />
+						</Button>
+					</SheetTrigger>
+					<SheetContent>
+						<SheetHeader>
+							<SheetTitle>Company Details</SheetTitle>
+						</SheetHeader>
+						<div className="mt-6 space-y-4">
+							{Object.entries(row.original).map(([key, value]) => (
+								<div key={key} className="flex flex-col space-y-1">
+									<span className="text-sm font-medium text-muted-foreground capitalize">
+										{key.replace(/([A-Z])/g, " $1").trim()}
+									</span>
+									<span className="text-sm dark:text-gray-300">
+										{typeof value === "string" ? value : String(value)}
+									</span>
+								</div>
+							))}
+						</div>
+					</SheetContent>
+				</Sheet>
+			);
+		},
+	},
 ];
 
 interface CompaniesTableProps {
 	data: Company[];
-	pageSize: number;
 	currentPage: number;
 	onPageChange: (page: number) => void;
 }
 
+const PAGE_SIZE = 20;
+
 export function CompaniesTable({
 	data,
-	pageSize,
 	currentPage,
 	onPageChange,
 }: CompaniesTableProps) {
 	const table = useReactTable({
 		data,
-		columns,
+		columns: [...columns],
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
-		pageCount: Math.ceil(data.length / pageSize),
+		pageCount: Math.ceil(data.length / PAGE_SIZE),
 		state: {
 			pagination: {
 				pageIndex: currentPage - 1,
-				pageSize,
+				pageSize: PAGE_SIZE,
 			},
 		},
 		onPaginationChange: (updater) => {
 			if (typeof updater === "function") {
 				const newState = updater({
 					pageIndex: currentPage - 1,
-					pageSize,
+					pageSize: PAGE_SIZE,
 				});
 				onPageChange(newState.pageIndex + 1);
 			}
@@ -179,7 +223,7 @@ export function CompaniesTable({
 									{row.getVisibleCells().map((cell) => (
 										<TableCell
 											key={cell.id}
-											className="px-4 py-3 dark:text-gray-300"
+											className="px-4 py-0 dark:text-gray-300"
 										>
 											{flexRender(
 												cell.column.columnDef.cell,
@@ -192,7 +236,7 @@ export function CompaniesTable({
 						) : (
 							<TableRow>
 								<TableCell
-									colSpan={columns.length}
+									colSpan={columns.length + 1}
 									className="h-24 text-center dark:text-gray-400"
 								>
 									No results.
@@ -204,7 +248,7 @@ export function CompaniesTable({
 			</div>
 			<div className="flex items-center justify-between">
 				<div className="text-sm text-muted-foreground">
-					{pageSize} of {data.length} total items
+					{currentPage * PAGE_SIZE} of {data.length} total items
 				</div>
 				<Pagination>
 					<PaginationContent>

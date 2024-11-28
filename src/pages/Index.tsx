@@ -1,22 +1,20 @@
 import { CompaniesTable } from "@/components/CompaniesTable";
-import { useQuery } from "@tanstack/react-query";
 import { getCompanies } from "@/services/data.service";
 import { useFilterState, update } from "@/store/filterStore";
-
-const PAGE_SIZE = 10;
+import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { useQuery } from "@tanstack/react-query";
 
 export function Index() {
-	// Access state from Zustand
 	const state = useFilterState();
 
-	const { data = [], isLoading } = useQuery({
-		queryKey: ["companies", { ...state }],
-		queryFn: () => getCompanies({ ...state }),
+	const { data: companies = [], isLoading } = useQuery({
+		queryKey: ["companies"],
+		queryFn: () => getCompanies({ ...state, search: "" }),
 	});
 
-	// Handle page change
 	const handlePageChange = (newPage: number) => {
-		update("page", () => newPage); // Update page in Zustand
+		update("page", () => newPage);
 	};
 
 	if (isLoading) {
@@ -24,11 +22,20 @@ export function Index() {
 	}
 
 	return (
-		<CompaniesTable
-			data={data}
-			pageSize={PAGE_SIZE}
-			currentPage={state.page}
-			onPageChange={handlePageChange}
-		/>
+		<div className="space-y-4">
+			<div className="relative">
+				<Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
+				<Input
+					type="search"
+					placeholder="Search companies..."
+					className="pl-9 dark:bg-background"
+				/>
+			</div>
+			<CompaniesTable
+				data={companies}
+				currentPage={state.page}
+				onPageChange={handlePageChange}
+			/>
+		</div>
 	);
 }
