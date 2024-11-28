@@ -1,13 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Search, Filter } from "lucide-react";
-import { useSearchParams } from "react-router-dom";
+import { Filter } from "lucide-react";
+import { parseAsArrayOf, parseAsString, useQueryState } from "nuqs";
 import Select from "react-select";
 import type {
 	Brand,
 	ProductType,
-	Province,
 	RiskState,
 	State,
 	TransactionType,
@@ -35,72 +33,77 @@ interface SidebarProps {
 	isCollapsed: boolean;
 }
 
+const parser = parseAsArrayOf(parseAsString).withDefault([]);
+
 export const Sidebar = ({ isCollapsed }: SidebarProps) => {
-	const [searchParams, setSearchParams] = useSearchParams();
-
-	const search = searchParams.get("search") || "";
-	const selectedBrands = searchParams.getAll("brand") as Brand[];
-	const selectedStates = searchParams.getAll("state") as State[];
-	const selectedProductTypes = searchParams.getAll(
+	const [search, setSearch] = useQueryState(
+		"search",
+		parseAsString.withDefault(""),
+	);
+	const [selectedBrands, setSelectedBrands] = useQueryState("brand", parser);
+	const [selectedStates, setSelectedStates] = useQueryState("state", parser);
+	const [selectedProductTypes, setSelectedProductTypes] = useQueryState(
 		"productType",
-	) as ProductType[];
-	const selectedRiskStates = searchParams.getAll("riskState") as RiskState[];
-	const selectedTransactions = searchParams.getAll(
+		parser,
+	);
+	const [selectedRiskStates, setSelectedRiskStates] = useQueryState(
+		"riskState",
+		parser,
+	);
+	const [selectedTransactions, setSelectedTransactions] = useQueryState(
 		"transaction",
-	) as TransactionType[];
-	const selectedProvinces = searchParams.getAll("province") as Province[];
-
-	const handleSearch = (value: string) => {
-		setSearchParams((prev) => {
-			const newParams = new URLSearchParams(prev);
-			if (value) {
-				newParams.set("search", value);
-			} else {
-				newParams.delete("search");
-			}
-			return newParams;
-		});
-	};
+		parser,
+	);
+	const [selectedProvinces, setSelectedProvinces] = useQueryState(
+		"province",
+		parser,
+	);
 
 	const handleArrayParamChange = (param: string, value: string) => {
-		setSearchParams((prev) => {
-			const newParams = new URLSearchParams(prev);
-			const current = newParams.getAll(param);
+		const setters = {
+			brand: setSelectedBrands,
+			state: setSelectedStates,
+			productType: setSelectedProductTypes,
+			riskState: setSelectedRiskStates,
+			province: setSelectedProvinces,
+		} as const;
 
-			if (current.includes(value)) {
-				const filtered = current.filter((v) => v !== value);
-				newParams.delete(param);
-				for (const v of filtered) {
-					newParams.append(param, v);
-				}
-			} else {
-				newParams.append(param, value);
-			}
+		const currentArray = {
+			brand: selectedBrands,
+			state: selectedStates,
+			productType: selectedProductTypes,
+			riskState: selectedRiskStates,
+			province: selectedProvinces,
+		}[param as keyof typeof setters];
 
-			return newParams;
-		});
+		const setter = setters[param as keyof typeof setters];
+
+		if (currentArray.includes(value)) {
+			setter(currentArray.filter((v) => v !== value));
+		} else {
+			setter([...currentArray, value]);
+		}
 	};
 
 	const handleTransactionChange = (
 		selected: { value: TransactionType; label: string }[],
 	) => {
-		setSearchParams((prev) => {
-			const newParams = new URLSearchParams(prev);
-			newParams.delete("transaction");
-			for (const option of selected) {
-				newParams.append("transaction", option.value);
-			}
-			return newParams;
-		});
+		setSelectedTransactions(selected.map((s) => s.value));
 	};
 
 	const clearFilters = () => {
-		setSearchParams({});
+		setSearch(null);
+		setSelectedBrands([]);
+		setSelectedStates([]);
+		setSelectedProductTypes([]);
+		setSelectedRiskStates([]);
+		setSelectedTransactions([]);
+		setSelectedProvinces([]);
 	};
 
 	return (
 		<div
-			className={`flex flex-col h-screen border-r bg-card dark:bg-card transition-all duration-300 ${isCollapsed ? "w-16" : "w-64"}`}
+			className={`flex flex-col h-screen border-r bg-card dark:bg-card transition-all duration-300 ${isCollapsed ? "w-16" : "w-80"}`}
 		>
 			{!isCollapsed && (
 				<>
@@ -131,6 +134,33 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
 
 					<ScrollArea className="flex-1">
 						<div className="p-4 space-y-6">
+							<div className="space-y-3">
+								<h3 className="text-sm font-medium">Transaction Type</h3>
+								<Select
+									isMulti
+									options={transactionTypes}
+									value={transactionTypes.filter((opt) =>
+										selectedTransactions.includes(opt.value),
+									)}
+									onChange={(selected) =>
+										handleTransactionChange(
+											selected as { value: TransactionType; label: string }[],
+										)
+									}
+									className="react-select-container z-50"
+									classNamePrefix="react-select"
+									theme={(theme) => ({
+										...theme,
+										colors: {
+											...theme.colors,
+											neutral0: "var(--background)",
+											neutral80: "var(--foreground)",
+											primary: "#8B5CF6",
+											primary25: "#F3E8FF",
+										},
+									})}
+								/>
+							</div>
 							<FilterSection
 								title="Brand"
 								items={brands.map((brand) => ({ id: brand, label: brand }))}
@@ -165,34 +195,6 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
 									handleArrayParamChange("province", province)
 								}
 							/>
-
-							<div className="space-y-3">
-								<h3 className="text-sm font-medium">Transaction Type</h3>
-								<Select
-									isMulti
-									options={transactionTypes}
-									value={transactionTypes.filter((opt) =>
-										selectedTransactions.includes(opt.value),
-									)}
-									onChange={(selected) =>
-										handleTransactionChange(
-											selected as { value: TransactionType; label: string }[],
-										)
-									}
-									className="react-select-container"
-									classNamePrefix="react-select"
-									theme={(theme) => ({
-										...theme,
-										colors: {
-											...theme.colors,
-											neutral0: "var(--background)",
-											neutral80: "var(--foreground)",
-											primary: "#8B5CF6",
-											primary25: "#F3E8FF",
-										},
-									})}
-								/>
-							</div>
 						</div>
 					</ScrollArea>
 				</>

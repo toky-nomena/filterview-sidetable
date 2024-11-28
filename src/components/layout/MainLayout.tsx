@@ -1,29 +1,26 @@
-import { Sidebar } from "./Sidebar";
+import { Sidebar } from "./SidebarFilter";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun, ChevronRight, ChevronLeft } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useState } from "react";
+
+import {
+	SidebarInset,
+	SidebarProvider,
+	SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { AppSidebar } from "./AppSidebar";
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
 	const { theme, setTheme } = useTheme();
 	const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
 	return (
-		<div className="flex h-screen overflow-hidden bg-background">
-			<Sidebar isCollapsed={isSidebarCollapsed} />
-			<div className="flex flex-col flex-1">
+		<SidebarProvider className="flex h-screen overflow-hidden bg-background">
+			<AppSidebar />
+			<SidebarInset className="flex flex-col flex-1">
 				<div className="flex items-center justify-between p-4 border-b">
-					<Button
-						variant="ghost"
-						size="icon"
-						onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-					>
-						{isSidebarCollapsed ? (
-							<ChevronRight className="h-4 w-4" />
-						) : (
-							<ChevronLeft className="h-4 w-4" />
-						)}
-					</Button>
+					<SidebarTrigger className="-ml-1" />
 					<Button
 						variant="ghost"
 						size="icon"
@@ -37,7 +34,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
 				<main className="flex-1 overflow-auto">
 					<div className="container py-6">{children}</div>
 				</main>
-			</div>
-		</div>
+			</SidebarInset>
+		</SidebarProvider>
 	);
 };

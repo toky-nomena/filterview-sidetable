@@ -33,28 +33,22 @@ const Index = () => {
 	});
 
 	return (
-		<MainLayout>
-			<div className="space-y-4">
-				<div className="flex justify-between items-center">
-					<h1 className="text-2xl font-bold">Companies</h1>
-				</div>
-
-				{isLoading ? (
-					<div>Loading...</div>
-				) : (
-					<CompaniesTable
-						data={data?.companies || []}
-						pageCount={Math.ceil((data?.total || 0) / (data?.pageSize || 10))}
-						currentPage={currentPage}
-						onPageChange={(page) => {
-							const newParams = new URLSearchParams(searchParams);
-							newParams.set("page", page.toString());
-							// setSearchParams(newParams);
-						}}
-					/>
-				)}
-			</div>
-		</MainLayout>
+		<div className="space-y-4">
+			{isLoading ? (
+				<div>Loading...</div>
+			) : (
+				<CompaniesTable
+					data={data?.companies || []}
+					pageCount={Math.ceil((data?.total || 0) / (data?.pageSize || 10))}
+					currentPage={currentPage}
+					onPageChange={(page) => {
+						const newParams = new URLSearchParams(searchParams);
+						newParams.set("page", page.toString());
+						// setSearchParams(newParams);
+					}}
+				/>
+			)}
+		</div>
 	);
 };
 

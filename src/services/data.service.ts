@@ -96,8 +96,16 @@ export const getCompanies = async (filters: FilterParams) => {
 
 			return (
 				searchValid &&
-				(["brand", "state", "productType", "riskState", "transaction", "province"] as const)
-					.every((field) => validateFilter(filters[field], field, company))
+				(
+					[
+						"brand",
+						"state",
+						"productType",
+						"riskState",
+						"transaction",
+						"province",
+					] as const
+				).every((field) => validateFilter(filters[field], field, company))
 			);
 		},
 	);
