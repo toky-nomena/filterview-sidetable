@@ -10,7 +10,6 @@ import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
-	SidebarSeparator,
 } from "@/components/ui/sidebar";
 import { ChevronRight } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
@@ -59,7 +58,6 @@ export function CollapsibleFilter({ title, items }: CollapsibleFilterProps) {
 					</SidebarGroupContent>
 				</CollapsibleContent>
 			</SidebarGroup>
-			<SidebarSeparator className="mx-0" />
 		</Collapsible>
 	);
 }
