@@ -33,7 +33,7 @@ const getRiskStateColor = (riskState: string) => {
 export function StateBadge({ value }: StatusBadgeProps) {
 	return (
 		<Badge
-			variant={value === "Active" ? "default" : "secondary"}
+			variant={value === "Active" ? "default" : "muted"}
 			className="text-xs"
 		>
 			{stateLabels[value]}

@@ -65,16 +65,13 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
 					<Separator />
 					<div className="grid grid-cols-2 gap-4">
 						<DetailItem label="State">
-							<StateBadge value={company.state} showFullLabel={true} />
+							<StateBadge value={company.state} />
 						</DetailItem>
 						<DetailItem label="Risk State">
-							<RiskStateBadge value={company.riskState} showFullLabel={true} />
+							<RiskStateBadge value={company.riskState} />
 						</DetailItem>
 						<DetailItem label="Transaction">
-							<TransactionBadge
-								value={company.transaction}
-								showFullLabel={true}
-							/>
+							<TransactionBadge value={company.transaction} />
 						</DetailItem>
 					</div>
 				</div>
