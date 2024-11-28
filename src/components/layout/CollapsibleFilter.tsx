@@ -7,7 +7,6 @@ import {
 	SidebarGroup,
 	SidebarGroupContent,
 	SidebarGroupLabel,
-	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
 	SidebarMenuSub,
@@ -62,8 +61,8 @@ export function CollapsibleFilter({
 				>
 					<CollapsibleTrigger>
 						<div className="flex items-center gap-2">
-							<button
-								type="button"
+							{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
+							<div
 								onClick={handleToggleAll}
 								className={cn(
 									"flex size-6 items-center justify-center rounded-full transition-colors",
@@ -74,7 +73,7 @@ export function CollapsibleFilter({
 								) : (
 									<Circle className="size-8 stroke-[2] text-muted-foreground hover:text-foreground" />
 								)}
-							</button>
+							</div>
 							<span className="flex items-center">
 								{title}
 								{activeItems.length > 0 && (

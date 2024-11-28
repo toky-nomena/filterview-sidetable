@@ -80,6 +80,7 @@ const validateFilter = <Data, T extends keyof Data>(
 const companies = Array.from({ length: 300 }, generateCompany);
 
 export const getCompanies = async (filters: FilterState) => {
+	console.log("get companies", filters);
 	await new Promise((resolve) => setTimeout(resolve, 500));
 
 	return companies.filter((company) => {
