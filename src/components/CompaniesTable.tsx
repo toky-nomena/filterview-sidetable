@@ -14,7 +14,7 @@ import {
 	getPaginationRowModel,
 	useReactTable,
 } from "@tanstack/react-table";
-import { Badge } from "./ui/badge";
+import { Badge } from "@/components/ui/badge";
 import {
 	Pagination,
 	PaginationContent,
@@ -22,7 +22,7 @@ import {
 	PaginationLink,
 	PaginationNext,
 	PaginationPrevious,
-} from "./ui/pagination";
+} from "@/components/ui/pagination";
 
 const getRiskStateColor = (riskState: string) => {
 	const colors: Record<string, string> = {
@@ -107,12 +107,12 @@ interface CompaniesTableProps {
 	onPageChange: (page: number) => void;
 }
 
-export const CompaniesTable = ({
+export function CompaniesTable({
 	data,
 	pageCount,
 	currentPage,
 	onPageChange,
-}: CompaniesTableProps) => {
+}: CompaniesTableProps) {
 	const table = useReactTable({
 		data,
 		columns,
@@ -186,4 +186,4 @@ export const CompaniesTable = ({
 			</Pagination>
 		</div>
 	);
-};
+}

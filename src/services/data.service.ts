@@ -7,6 +7,7 @@ import type {
 	State,
 	TransactionType,
 } from "@/types/schema";
+import { data, keys } from "./data";
 
 export interface Company {
 	id: string;
@@ -33,79 +34,56 @@ export interface FilterParams {
 	page?: number;
 }
 
-const generateActivityData = () =>
-	Array.from({ length: 7 }, () => faker.number.int({ min: 0, max: 100 }));
+const generateActivityData = () => {
+	return Array.from({ length: 7 }, () =>
+		faker.number.int({ min: 0, max: 100 }),
+	);
+};
 
 const generateCompany = (): Company => ({
 	id: faker.string.uuid(),
 	firstName: faker.person.firstName(),
 	lastName: faker.person.lastName(),
-	language: faker.helpers.arrayElement(["en", "fr"]),
-	brand: faker.helpers.arrayElement(["Nike", "Adidas"]),
-	state: faker.helpers.arrayElement(["Active", "Inactive"]),
-	productType: faker.helpers.arrayElement(["Shoes", "Apparel"]),
-	riskState: faker.helpers.arrayElement([
-		"LowRisk",
-		"ModerateRisk",
-		"HighRisk",
-		"CriticalRisk",
-		"PendingReview",
-		"UnderInvestigation",
-	]),
-	transaction: faker.helpers.arrayElement(["Purchase", "Refund"]),
-	province: faker.helpers.arrayElement([
-		"AB",
-		"BC",
-		"MB",
-		"NB",
-		"NL",
-		"NS",
-		"ON",
-		"PE",
-		"QC",
-		"SK",
-	]),
 	activity: generateActivityData(),
+	language: faker.helpers.arrayElement(data.language),
+	brand: faker.helpers.arrayElement(data.brand),
+	state: faker.helpers.arrayElement(data.state),
+	productType: faker.helpers.arrayElement(data.productType),
+	riskState: faker.helpers.arrayElement(data.riskStates),
+	transaction: faker.helpers.arrayElement(data.transactions),
+	province: faker.helpers.arrayElement(data.provinces),
 });
 
 const PAGE_SIZE = 10;
 
+const validateFilter = <Data, T extends keyof Data>(
+	value: string | string[] | undefined,
+	field: T,
+	data: Data,
+): boolean => {
+	if (!value?.length) {
+		return true;
+	}
+
+	if (typeof value === "string") {
+		return data[field].toString().toLowerCase().includes(value.toLowerCase());
+	}
+
+	return value.includes(data[field] as string);
+};
+
 export const getCompanies = async (filters: FilterParams) => {
 	console.log("Fetching companies with filters:", filters);
 
-	const validateFilter = <T extends keyof Company>(
-		value: string | string[] | undefined,
-		field: T,
-		company: Company,
-	): boolean => {
-		if (!value?.length) return true;
-		if (typeof value === "string") {
-			return company[field]
-				.toString()
-				.toLowerCase()
-				.includes(value.toLowerCase());
-		}
-		return value.includes(company[field] as string);
-	};
-
 	const companies = Array.from({ length: 100 }, generateCompany).filter(
 		(company) => {
-			const searchValid =
+			const byName =
 				validateFilter(filters.search, "firstName", company) ||
 				validateFilter(filters.search, "lastName", company);
 
 			return (
-				searchValid &&
-				(
-					[
-						"brand",
-						"state",
-						"productType",
-						"riskState",
-						"transaction",
-						"province",
-					] as const
-				).every((field) => validateFilter(filters[field], field, company))
+				byName &&
+				keys.every((field) => validateFilter(filters[field], field, company))
 			);
 		},
 	);
