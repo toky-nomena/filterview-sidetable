@@ -58,6 +58,10 @@ const columns: ColumnDef<Company>[] = [
 		header: "Language",
 	},
 	{
+		accessorKey: "province",
+		header: "Province",
+	},
+	{
 		accessorKey: "brand",
 		header: "Brand",
 	},
@@ -103,6 +107,7 @@ const columns: ColumnDef<Company>[] = [
 interface CompaniesTableProps {
 	data: Company[];
 	pageCount: number;
+	pageSize: number;
 	currentPage: number;
 	onPageChange: (page: number) => void;
 }
@@ -111,6 +116,7 @@ export function CompaniesTable({
 	data,
 	pageCount,
 	currentPage,
+	pageSize,
 	onPageChange,
 }: CompaniesTableProps) {
 	const table = useReactTable({
@@ -118,10 +124,17 @@ export function CompaniesTable({
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
+		state: {
+			pagination: {
+				pageIndex: currentPage - 1,
+				pageSize,
+			},
+		},
 	});
 
 	return (
 		<div className="space-y-4">
+			<h2>{data.length}</h2>
 			<div className="rounded-md border bg-card">
 				<Table>
 					<TableHeader>

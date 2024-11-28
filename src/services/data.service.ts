@@ -8,6 +8,7 @@ import type {
 	TransactionType,
 } from "@/types/schema";
 import { data, keys } from "./data";
+import type { FilterState } from "@/store/filterStore";
 
 export interface Company {
 	id: string;
@@ -46,15 +47,17 @@ const generateCompany = (): Company => ({
 	lastName: faker.person.lastName(),
 	activity: generateActivityData(),
 	language: faker.helpers.arrayElement(data.language),
-	brand: faker.helpers.arrayElement(data.brand),
-	state: faker.helpers.arrayElement(data.state),
-	productType: faker.helpers.arrayElement(data.productType),
-	riskState: faker.helpers.arrayElement(data.riskStates),
-	transaction: faker.helpers.arrayElement(data.transactions),
-	province: faker.helpers.arrayElement(data.provinces),
+	brand: faker.helpers.arrayElement(data.brand) as Company["brand"],
+	state: faker.helpers.arrayElement(data.state) as Company["state"],
+	productType: faker.helpers.arrayElement(
+		data.productType,
+	) as Company["productType"],
+	riskState: faker.helpers.arrayElement(data.riskState) as Company["riskState"],
+	transaction: faker.helpers.arrayElement(
+		data.transaction,
+	) as Company["transaction"],
+	province: faker.helpers.arrayElement(data.province) as Company["province"],
 });
-
-const PAGE_SIZE = 10;
 
 const validateFilter = <Data, T extends keyof Data>(
 	value: string | string[] | undefined,
@@ -69,33 +72,26 @@ const validateFilter = <Data, T extends keyof Data>(
 		return data[field].toString().toLowerCase().includes(value.toLowerCase());
 	}
 
-	return value.includes(data[field] as string);
+	return value.some(
+		(item) => item.toLowerCase() === (data[field] as string).toLowerCase(),
+	);
 };
 
-export const getCompanies = async (filters: FilterParams) => {
-	console.log("Fetching companies with filters:", filters);
+const companies = Array.from({ length: 200 }, generateCompany);
 
-	const companies = Array.from({ length: 100 }, generateCompany).filter(
-		(company) => {
-			const byName =
-				validateFilter(filters.search, "firstName", company) ||
-				validateFilter(filters.search, "lastName", company);
+export const getCompanies = async (filters: FilterState) => {
+	await new Promise((resolve) => setTimeout(resolve, 500));
 
-			return (
-				byName &&
-				keys.every((field) => validateFilter(filters[field], field, company))
-			);
-		},
-	);
+	return companies.filter((company) => {
+		const byName =
+			validateFilter(filters.search, "firstName", company) ||
+			validateFilter(filters.search, "lastName", company);
 
-	const page = filters.page || 1;
-	const start = (page - 1) * PAGE_SIZE;
-	const paginatedCompanies = companies.slice(start, start + PAGE_SIZE);
-
-	return {
-		companies: paginatedCompanies,
-		total: companies.length,
-		page,
-		pageSize: PAGE_SIZE,
-	};
+		return (
+			byName &&
+			keys.every((field) =>
+				validateFilter(filters[field], field as keyof Company, company),
+			)
+		);
+	});
 };

@@ -3,11 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import { getCompanies } from "@/services/data.service";
 import { useFilterState, update } from "@/store/filterStore";
 
+const PAGE_SIZE = 20;
+
 export function Index() {
 	// Access state from Zustand
 	const state = useFilterState();
 
-	const { data, isLoading } = useQuery({
+	const { data = [], isLoading } = useQuery({
 		queryKey: ["companies", { ...state }],
 		queryFn: () => getCompanies({ ...state }),
 	});
@@ -23,8 +25,9 @@ export function Index() {
 				<div>Loading...</div>
 			) : (
 				<CompaniesTable
-					data={data?.companies || []}
-					pageCount={Math.ceil((data?.total || 0) / (data?.pageSize || 10))}
+					data={data}
+					pageSize={PAGE_SIZE}
+					pageCount={Math.ceil((data.length || 0) / PAGE_SIZE)}
 					currentPage={state.page}
 					onPageChange={handlePageChange}
 				/>

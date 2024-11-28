@@ -1,34 +1,25 @@
 import { create } from "zustand";
-import type {
-	Brand,
-	ProductType,
-	Province,
-	RiskState,
-	State,
-	TransactionType,
-} from "@/types/schema";
-import { set } from "zod";
 
 // Define the state interface
-interface FilterState {
+export interface FilterState {
 	search: string;
-	brands: Brand[];
-	states: State[];
-	productTypes: ProductType[];
-	riskStates: RiskState[];
-	transactions: TransactionType[];
-	provinces: Province[];
+	brand: string[];
+	state: string[];
+	productType: string[];
+	riskState: string[];
+	transaction: string[];
+	province: string[];
 	page: number;
 }
 
 const initialState: FilterState = {
 	search: "",
-	brands: [],
-	states: [],
-	productTypes: [],
-	riskStates: [],
-	transactions: [],
-	provinces: [],
+	brand: [],
+	state: [],
+	productType: [],
+	riskState: [],
+	transaction: [],
+	province: [],
 	page: 1,
 };
 

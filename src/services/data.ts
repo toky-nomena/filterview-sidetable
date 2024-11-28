@@ -1,5 +1,5 @@
 export const data = {
-	riskStates: [
+	riskState: [
 		"LowRisk",
 		"ModerateRisk",
 		"HighRisk",
@@ -7,19 +7,19 @@ export const data = {
 		"PendingReview",
 		"UnderInvestigation",
 	],
-	provinces: ["AB", "BC", "MB", "NB", "NL", "NS", "ON", "PE", "QC", "SK"],
-	transactions: ["Purchase", "Refund"],
+	transaction: ["Purchase", "Refund"],
+	province: ["AB", "BC", "MB", "NB", "NL", "NS", "ON", "PE", "QC", "SK"],
 	language: ["en", "fr"],
 	brand: ["Nike", "Adidas"],
 	state: ["Active", "Inactive"],
 	productType: ["Shoes", "Apparel"],
-} as const;
+};
 
-export const keys = [
+export const keys: (keyof typeof data)[] = [
 	"brand",
 	"state",
 	"productType",
 	"riskState",
 	"transaction",
 	"province",
-] as const;
+];
