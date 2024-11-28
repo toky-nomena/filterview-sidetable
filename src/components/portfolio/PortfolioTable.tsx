@@ -10,6 +10,8 @@ import {
 } from "@tanstack/react-table";
 import { useReactTable } from "@tanstack/react-table";
 import { useState } from "react";
+import { parseAsString, useQueryState } from "nuqs";
+
 import { usePortfolioColumns } from "./hooks/usePortfolioColumns";
 import { Pagination } from "@/components/ui/pagination";
 import {
@@ -22,15 +24,14 @@ import {
 } from "@/components/ui/table";
 import { ColumnToggle } from "@/components/ui/column-toggle";
 import { SearchInput } from "@/components/ui/search-input";
-import { Grid3x3, List, Table as TableIcon, Eye } from "lucide-react";
+import { Grid3x3, List, Table as TableIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Company } from "@/services/data.service";
 import { PortfolioGridItem } from "./components/PortfolioGridItem";
 import { PortfolioListItem } from "./components/PortfolioListItem";
+import { usePaginationSearchParams } from "./usePaginationSearchParams";
 
-type ViewMode = "table" | "grid" | "list";
-
-export interface PortfolioTableProps {
+interface PortfolioTableProps {
 	data: Company[];
 }
 
@@ -39,13 +40,15 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
 	const [columnVisibility, onColumnVisibilityChange] =
 		useState<VisibilityState>({});
 	const [globalFilter, onGlobalFilterChange] = useState("");
-	const [viewMode, setViewMode] = useState<ViewMode>("table");
+
+	const [viewMode, setViewMode] = useQueryState(
+		"view",
+		parseAsString.withDefault("table"),
+	);
+
 	const columns = usePortfolioColumns();
 
-	const [pagination, onPaginationChange] = useState<PaginationState>({
-		pageIndex: 0,
-		pageSize: 10,
-	});
+	const [pagination, onPaginationChange] = usePaginationSearchParams();
 
 	const table = useReactTable({
 		data,
@@ -190,7 +193,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
 				</div>
 			</div>
 
-			<div className="bg-background rounded-lg">
+			<div className="rounded-md border bg-background">
 				{viewMode === "table" && renderTableView()}
 				{viewMode === "grid" && renderGridView()}
 				{viewMode === "list" && renderListView()}
@@ -200,12 +203,12 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
 				currentPage={pagination.pageIndex + 1}
 				pageSize={pagination.pageSize}
 				totalItems={table.getFilteredRowModel().rows.length}
-				onPageChange={(page) => table.setPageIndex(page - 1)}
-				onPageSizeChange={(size) => {
-					table.setPageSize(size);
-					table.setPageIndex(0);
-				}}
-				className="ml-auto"
+				onPageChange={(page) =>
+					onPaginationChange({ ...pagination, pageIndex: page - 1 })
+				}
+				onPageSizeChange={(size) =>
+					onPaginationChange({ ...pagination, pageSize: size, pageIndex: 0 })
+				}
 			/>
 		</div>
 	);
