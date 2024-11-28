@@ -8,7 +8,7 @@ import {
 	TransactionBadge,
 } from "@/components/ui/status-badge";
 
-import { DetailsSection } from "./components/details-section";
+import { PortfolioDetailsSection } from "./components/PortfolioDetailsSection";
 
 interface PortfolioDetailsProps {
 	company: Company;
@@ -35,23 +35,23 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
 		<ScrollArea className="h-[calc(100vh-8rem)] pr-4 mt-4">
 			<div className="space-y-8">
 				{/* Personal Information */}
-				<DetailsSection title="Personal Information">
+				<PortfolioDetailsSection title="Personal Information">
 					<DetailItem label="First Name">{company.firstName}</DetailItem>
 					<DetailItem label="Last Name">{company.lastName}</DetailItem>
 					<DetailItem label="Language">{company.language}</DetailItem>
 					<DetailItem label="Province">
 						{provinceLabels[company.province] || company.province}
 					</DetailItem>
-				</DetailsSection>
+				</PortfolioDetailsSection>
 
 				{/* Business Information */}
-				<DetailsSection title="Business Information">
+				<PortfolioDetailsSection title="Business Information">
 					<DetailItem label="Brand">{company.brand}</DetailItem>
 					<DetailItem label="Product Type">{company.productType}</DetailItem>
-				</DetailsSection>
+				</PortfolioDetailsSection>
 
 				{/* Status Information */}
-				<DetailsSection title="Status Information">
+				<PortfolioDetailsSection title="Status Information">
 					<DetailItem label="State">
 						<StateBadge value={company.state} />
 					</DetailItem>
@@ -61,10 +61,10 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
 					<DetailItem label="Transaction">
 						<TransactionBadge value={company.transaction} />
 					</DetailItem>
-				</DetailsSection>
+				</PortfolioDetailsSection>
 
 				{/* Additional Information */}
-				<DetailsSection title="Additional Details">
+				<PortfolioDetailsSection title="Additional Details">
 					{Object.entries(company).map(([key, value]) => {
 						// Skip already displayed fields
 						if (
@@ -91,7 +91,7 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
 							</DetailItem>
 						);
 					})}
-				</DetailsSection>
+				</PortfolioDetailsSection>
 			</div>
 		</ScrollArea>
 	);

@@ -11,7 +11,7 @@ import {
 	type PaginationState,
 } from "@tanstack/react-table";
 import { useState } from "react";
-import { usePortfolioColumns } from "./hooks/use-portfolio-columns";
+import { usePortfolioColumns } from "./hooks/usePortfolioColumns";
 import { Pagination } from "@/components/ui/pagination";
 import {
 	Table,

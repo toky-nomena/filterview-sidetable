@@ -7,7 +7,7 @@ import {
 	StateBadge,
 	TransactionBadge,
 } from "@/components/ui/status-badge";
-import { PortfolioActions } from "../components/portfolio-actions";
+import { PortfolioActions } from "../components/PortfolioActions";
 
 export function usePortfolioColumns() {
 	return useMemo<ColumnDef<Company>[]>(

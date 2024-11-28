@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/sheet";
 import type { Company } from "@/services/data.service";
 import { Eye } from "lucide-react";
-import { memo } from "react";
 import { PortfolioDetails } from "../PortfolioDetails";
 import { Button } from "@/components/ui/button";
 
@@ -15,7 +14,7 @@ interface PortfolioActionsProps {
 	company: Company;
 }
 
-function PortfolioActionsComponent({ company }: PortfolioActionsProps) {
+export function PortfolioActions({ company }: PortfolioActionsProps) {
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
@@ -36,5 +35,3 @@ function PortfolioActionsComponent({ company }: PortfolioActionsProps) {
 		</Sheet>
 	);
 }
-
-export const PortfolioActions = memo(PortfolioActionsComponent);

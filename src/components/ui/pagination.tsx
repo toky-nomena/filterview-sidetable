@@ -45,7 +45,7 @@ export function Pagination({
 		>
 			<div className="flex items-center gap-2 text-xs text-muted-foreground">
 				<span>
-					{startItem}-{endItem} of {totalItems}
+					{startItem} - {endItem} of {totalItems}
 				</span>
 				<Select
 					value={pageSize.toString()}
