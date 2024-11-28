@@ -193,7 +193,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
 				</div>
 			</div>
 
-			<div className="rounded-md border bg-background">
+			<div className="bg-background">
 				{viewMode === "table" && renderTableView()}
 				{viewMode === "grid" && renderGridView()}
 				{viewMode === "list" && renderListView()}
