@@ -73,46 +73,34 @@ const PAGE_SIZE = 10;
 export const getCompanies = async (filters: FilterParams) => {
 	console.log("Fetching companies with filters:", filters);
 
-	let companies = Array.from({ length: 100 }, generateCompany);
+	const validateFilter = <T extends keyof Company>(
+		value: string | string[] | undefined,
+		field: T,
+		company: Company,
+	): boolean => {
+		if (!value?.length) return true;
+		if (typeof value === "string") {
+			return company[field]
+				.toString()
+				.toLowerCase()
+				.includes(value.toLowerCase());
+		}
+		return value.includes(company[field] as string);
+	};
 
-	if (filters.search) {
-		const searchLower = filters.search.toLowerCase();
-		companies = companies.filter(
-			(c) =>
-				c.firstName.toLowerCase().includes(searchLower) ||
-				c.lastName.toLowerCase().includes(searchLower),
-		);
-	}
+	const companies = Array.from({ length: 100 }, generateCompany).filter(
+		(company) => {
+			const searchValid =
+				validateFilter(filters.search, "firstName", company) ||
+				validateFilter(filters.search, "lastName", company);
 
-	if (filters.brand?.length) {
-		companies = companies.filter((c) => filters.brand.includes(c.brand));
-	}
-
-	if (filters.state?.length) {
-		companies = companies.filter((c) => filters.state.includes(c.state));
-	}
-
-	if (filters.productType?.length) {
-		companies = companies.filter((c) =>
-			filters.productType.includes(c.productType),
-		);
-	}
-
-	if (filters.riskState?.length) {
-		companies = companies.filter((c) =>
-			filters.riskState.includes(c.riskState),
-		);
-	}
-
-	if (filters.transaction?.length) {
-		companies = companies.filter((c) =>
-			filters.transaction.includes(c.transaction),
-		);
-	}
-
-	if (filters.province?.length) {
-		companies = companies.filter((c) => filters.province.includes(c.province));
-	}
+			return (
+				searchValid &&
+				(["brand", "state", "productType", "riskState", "transaction", "province"] as const)
+					.every((field) => validateFilter(filters[field], field, company))
+			);
+		},
+	);
 
 	const page = filters.page || 1;
 	const start = (page - 1) * PAGE_SIZE;

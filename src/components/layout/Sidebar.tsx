@@ -70,7 +70,9 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
 			if (current.includes(value)) {
 				const filtered = current.filter((v) => v !== value);
 				newParams.delete(param);
-				filtered.forEach((v) => newParams.append(param, v));
+				for (const v of filtered) {
+					newParams.append(param, v);
+				}
 			} else {
 				newParams.append(param, value);
 			}
@@ -85,9 +87,9 @@ export const Sidebar = ({ isCollapsed }: SidebarProps) => {
 		setSearchParams((prev) => {
 			const newParams = new URLSearchParams(prev);
 			newParams.delete("transaction");
-			selected.forEach((option) =>
-				newParams.append("transaction", option.value),
-			);
+			for (const option of selected) {
+				newParams.append("transaction", option.value);
+			}
 			return newParams;
 		});
 	};
