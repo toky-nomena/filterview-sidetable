@@ -6,6 +6,20 @@ import {
 	transactionLabels,
 } from "@/lib/status-labels";
 
+const stateVariants: Record<string, "success" | "muted"> = {
+	Active: "success",
+	Inactive: "muted",
+};
+
+const riskVariants: Record<string, "success" | "warning" | "danger"> = {
+	LowRisk: "success",
+	ModerateRisk: "warning",
+	HighRisk: "danger",
+	CriticalRisk: "danger",
+	PendingReview: "warning",
+	UnderInvestigation: "warning",
+};
+
 interface StatusBadgeProps {
 	value: string;
 }
@@ -32,10 +46,7 @@ const getRiskStateColor = (riskState: string) => {
 
 export function StateBadge({ value }: StatusBadgeProps) {
 	return (
-		<Badge
-			variant={value === "Active" ? "default" : "muted"}
-			className="text-xs"
-		>
+		<Badge variant={stateVariants[value]}>
 			{stateLabels[value]}
 		</Badge>
 	);
@@ -43,7 +54,9 @@ export function StateBadge({ value }: StatusBadgeProps) {
 
 export function RiskStateBadge({ value }: StatusBadgeProps) {
 	return (
-		<Badge className={getRiskStateColor(value)}>{riskStateLabels[value]}</Badge>
+		<Badge variant={riskVariants[value]}>
+			{riskStateLabels[value]}
+		</Badge>
 	);
 }
 

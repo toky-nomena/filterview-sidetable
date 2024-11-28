@@ -10,15 +10,7 @@ import {
 import { useState, memo } from "react";
 import { cn } from "@/lib/utils";
 import { usePortfolioColumns } from "./hooks/use-portfolio-columns";
-import {
-	Pagination,
-	PaginationContent,
-	PaginationItem,
-	PaginationLink,
-	PaginationNext,
-	PaginationPrevious,
-	PaginationEllipsis,
-} from "@/components/ui/pagination";
+import { Pagination } from "@/components/ui/pagination";
 import {
 	Table,
 	TableBody,
@@ -27,6 +19,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { PortfolioActions } from "./components/portfolio-actions";
 
 export interface PortfolioTableProps {
 	data: Company[];
@@ -34,6 +27,7 @@ export interface PortfolioTableProps {
 
 function PortfolioTableComponent({ data }: PortfolioTableProps) {
 	const [sorting, setSorting] = useState<SortingState>([]);
+	const [pageSize, setPageSize] = useState(20);
 	const columns = usePortfolioColumns();
 
 	const table = useReactTable({
@@ -42,34 +36,35 @@ function PortfolioTableComponent({ data }: PortfolioTableProps) {
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
 		getSortedRowModel: getSortedRowModel(),
-		onSortingChange: setSorting,
-		state: {
+		initialState: {
+			pagination: {
+				pageSize,
+			},
 			sorting,
 		},
+		onSortingChange: setSorting,
 	});
 
 	const { pageIndex } = table.getState().pagination;
 	const totalPages = table.getPageCount();
 
 	return (
-		<div className="space-y-4">
+		<div className="space-y-2">
 			<div className="rounded-md border">
 				<Table>
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (
 							<TableRow key={headerGroup.id}>
-								{headerGroup.headers.map((header) => {
-									return (
-										<TableHead key={header.id}>
-											{header.isPlaceholder
-												? null
-												: flexRender(
-														header.column.columnDef.header,
-														header.getContext(),
-													)}
-										</TableHead>
-									);
-								})}
+								{headerGroup.headers.map((header) => (
+									<TableHead key={header.id} className="px-4">
+										{header.isPlaceholder
+											? null
+											: flexRender(
+													header.column.columnDef.header,
+													header.getContext(),
+												)}
+									</TableHead>
+								))}
 							</TableRow>
 						))}
 					</TableHeader>
@@ -81,7 +76,7 @@ function PortfolioTableComponent({ data }: PortfolioTableProps) {
 									data-state={row.getIsSelected() && "selected"}
 								>
 									{row.getVisibleCells().map((cell) => (
-										<TableCell key={cell.id} className="px-4 py-1">
+										<TableCell key={cell.id} className="px-4 py-0">
 											{flexRender(
 												cell.column.columnDef.cell,
 												cell.getContext(),
@@ -103,56 +98,24 @@ function PortfolioTableComponent({ data }: PortfolioTableProps) {
 					</TableBody>
 				</Table>
 			</div>
-
-			<Pagination>
-				<PaginationContent>
-					<PaginationItem>
-						<PaginationPrevious
-							onClick={() => table.previousPage()}
-							className={cn(
-								"cursor-pointer",
-								!table.getCanPreviousPage() && "pointer-events-none opacity-50",
-							)}
-						/>
-					</PaginationItem>
-					{Array.from({ length: totalPages }, (_, i) => {
-						const page = i + 1;
-						const isCurrentPage = pageIndex === i;
-						const isNearCurrentPage =
-							i === 0 || i === totalPages - 1 || Math.abs(pageIndex - i) <= 1;
-
-						if (!isNearCurrentPage) {
-							if (i === 1 || i === totalPages - 2) {
-								return <PaginationEllipsis key={String(i)} />;
-							}
-							return null;
-						}
-
-						return (
-							<PaginationItem key={String(i)}>
-								<PaginationLink
-									onClick={() => table.setPageIndex(i)}
-									isActive={isCurrentPage}
-									className="cursor-pointer"
-								>
-									{page}
-								</PaginationLink>
-							</PaginationItem>
-						);
-					})}
-					<PaginationItem>
-						<PaginationNext
-							onClick={() => table.nextPage()}
-							className={cn(
-								"cursor-pointer",
-								!table.getCanNextPage() && "pointer-events-none opacity-50",
-							)}
-						/>
-					</PaginationItem>
-				</PaginationContent>
-			</Pagination>
+			<div className="flex items-center justify-between">
+				<Pagination
+					currentPage={table.getState().pagination.pageIndex + 1}
+					pageSize={pageSize}
+					totalItems={data.length}
+					onPageChange={(page) => table.setPageIndex(page - 1)}
+					onPageSizeChange={(size) => {
+						setPageSize(size);
+						table.setPageSize(size);
+					}}
+					className="ml-auto"
+				/>
+			</div>
 		</div>
 	);
 }
 
-export const PortfolioTable = memo(PortfolioTableComponent);
+const PortfolioTable = memo(PortfolioTableComponent);
+PortfolioTable.displayName = "PortfolioTable";
+
+export { PortfolioTable };

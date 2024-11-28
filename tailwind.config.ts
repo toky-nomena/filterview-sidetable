@@ -18,6 +18,9 @@ export default {
 			},
 		},
 		extend: {
+			zIndex: {
+				"100": "100",
+			},
 			colors: {
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
@@ -47,6 +50,10 @@ export default {
 				card: {
 					DEFAULT: "#ffffff",
 					foreground: "#1A1F2C",
+				},
+				popover: {
+					DEFAULT: "hsl(var(--background))",
+					foreground: "hsl(var(--foreground))",
 				},
 				sidebar: {
 					DEFAULT: "hsl(var(--sidebar-background))",
