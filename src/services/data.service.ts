@@ -81,7 +81,7 @@ const companies = Array.from({ length: 300 }, generateCompany);
 
 export const getCompanies = async (filters: FilterState) => {
 	console.log("get companies", filters);
-	await new Promise((resolve) => setTimeout(resolve, 500));
+	await new Promise((resolve) => setTimeout(resolve, 1500));
 
 	return companies.filter((company) => {
 		const byName =

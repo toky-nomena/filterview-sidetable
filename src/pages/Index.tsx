@@ -22,7 +22,7 @@ function filterCompanies(search: string, companies: Company[]) {
 export function Index() {
 	const state = useFilterState();
 	const [pendingSearch, setPendingSearch] = useState(state.search); // Temporary search state
-	const [isPending, startTransition] = useTransition();
+	const [, startTransition] = useTransition();
 
 	// Query companies
 	const { data: companies = [], isLoading } = useQuery({

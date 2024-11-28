@@ -13,7 +13,6 @@ import { AppSidebar } from "./AppSidebar";
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
 	const { theme, setTheme } = useTheme();
-	const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
 	return (
 		<SidebarProvider className="flex h-screen overflow-hidden bg-background">
