@@ -15,7 +15,7 @@ interface GridItemProps {
 	company: Company;
 }
 
-export function GridItem({ company }: GridItemProps) {
+export function PortfolioGridItem({ company }: GridItemProps) {
 	return (
 		<Card className="hover:shadow-lg transition-shadow bg-background border">
 			<CardHeader>
@@ -48,11 +48,7 @@ export function GridItem({ company }: GridItemProps) {
 			</CardContent>
 			<CardFooter>
 				<PortfolioActions company={company}>
-					<Button
-						variant="action"
-						size="sm"
-						className="ml-auto"
-					>
+					<Button variant="action" size="sm" className="ml-auto">
 						<Eye className="h-4 w-4 mr-2" />
 						View Details
 					</Button>

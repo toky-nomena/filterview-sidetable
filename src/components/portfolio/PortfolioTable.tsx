@@ -25,8 +25,8 @@ import { SearchInput } from "@/components/ui/search-input";
 import { Grid3x3, List, Table as TableIcon, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Company } from "@/services/data.service";
-import { GridItem } from "./components/GridItem";
-import { ListItem } from "./components/ListItem";
+import { PortfolioGridItem } from "./components/PortfolioGridItem";
+import { PortfolioListItem } from "./components/PortfolioListItem";
 
 type ViewMode = "table" | "grid" | "list";
 
@@ -35,13 +35,14 @@ export interface PortfolioTableProps {
 }
 
 export function PortfolioTable({ data }: PortfolioTableProps) {
-	const [sorting, setSorting] = useState<SortingState>([]);
-	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-	const [globalFilter, setGlobalFilter] = useState("");
+	const [sorting, onSortingChange] = useState<SortingState>([]);
+	const [columnVisibility, onColumnVisibilityChange] =
+		useState<VisibilityState>({});
+	const [globalFilter, onGlobalFilterChange] = useState("");
 	const [viewMode, setViewMode] = useState<ViewMode>("table");
 	const columns = usePortfolioColumns();
 
-	const [pagination, setPagination] = useState<PaginationState>({
+	const [pagination, onPaginationChange] = useState<PaginationState>({
 		pageIndex: 0,
 		pageSize: 10,
 	});
@@ -53,16 +54,16 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
 		getPaginationRowModel: getPaginationRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
-		onSortingChange: setSorting,
-		onColumnVisibilityChange: setColumnVisibility,
-		onPaginationChange: setPagination,
+		onSortingChange,
+		onColumnVisibilityChange,
+		onPaginationChange,
 		state: {
 			sorting,
 			pagination,
 			columnVisibility,
 			globalFilter,
 		},
-		onGlobalFilterChange: setGlobalFilter,
+		onGlobalFilterChange,
 	});
 
 	const renderTableView = () => (
@@ -127,7 +128,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
 				table
 					.getRowModel()
 					.rows.map((row) => (
-						<GridItem key={row.id} company={row.original as Company} />
+						<PortfolioGridItem key={row.id} company={row.original as Company} />
 					))
 			) : (
 				<div className="col-span-full text-center text-muted-foreground">
@@ -143,7 +144,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
 				table
 					.getRowModel()
 					.rows.map((row) => (
-						<ListItem key={row.id} company={row.original as Company} />
+						<PortfolioListItem key={row.id} company={row.original as Company} />
 					))
 			) : (
 				<div className="text-center text-muted-foreground">No results.</div>
@@ -157,13 +158,13 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
 				<div className="flex-1">
 					<SearchInput
 						value={globalFilter}
-						onChange={setGlobalFilter}
+						onChange={onGlobalFilterChange}
 						placeholder="Search all columns..."
 					/>
 				</div>
 				<div className="flex items-center gap-2">
 					<ColumnToggle table={table} />
-					<div className="flex gap-1">
+					<div className="flex gap-2">
 						<Button
 							variant={viewMode === "table" ? "default" : "outline"}
 							size="icon"

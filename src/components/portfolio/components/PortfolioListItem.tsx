@@ -9,7 +9,7 @@ interface ListItemProps {
 	company: Company;
 }
 
-export function ListItem({ company }: ListItemProps) {
+export function PortfolioListItem({ company }: ListItemProps) {
 	return (
 		<Card className="hover:shadow-lg transition-shadow bg-background border">
 			<CardContent className="flex items-center justify-between p-4">
@@ -34,17 +34,12 @@ export function ListItem({ company }: ListItemProps) {
 						</span>
 						<span className="text-muted-foreground/50">•</span>
 						<span className="text-muted-foreground">
-							Risk:{" "}
-							<span className="text-foreground">{company.riskState}</span>
+							Risk: <span className="text-foreground">{company.riskState}</span>
 						</span>
 					</div>
 				</div>
 				<PortfolioActions company={company}>
-					<Button
-						variant="action"
-						size="sm"
-						className="ml-4"
-					>
+					<Button variant="action" size="sm" className="ml-4">
 						<Eye className="h-4 w-4 mr-2" />
 						View Details
 					</Button>

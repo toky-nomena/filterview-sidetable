@@ -6,9 +6,7 @@ import {
 	SheetTrigger,
 } from "@/components/ui/sheet";
 import type { Company } from "@/services/data.service";
-import { Eye } from "lucide-react";
 import { PortfolioDetails } from "../PortfolioDetails";
-import { Button } from "@/components/ui/button";
 
 interface PortfolioActionsProps {
 	company: Company;

@@ -1,3 +1,4 @@
+import { Hexagon } from "lucide-react";
 import {
 	Sidebar,
 	SidebarContent,
@@ -12,7 +13,6 @@ import {
 	type CollapsibleFilterProps,
 } from "./CollapsibleFilter";
 import { data } from "@/services/data";
-import { Hexagon } from "lucide-react";
 
 interface FilterGroup {
 	title: string;
@@ -55,7 +55,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	];
 
 	return (
-		<Sidebar {...props} className="bg-background">
+		<Sidebar {...props}>
 			<SidebarHeader>
 				<SidebarMenu>
 					<SidebarMenuItem>
