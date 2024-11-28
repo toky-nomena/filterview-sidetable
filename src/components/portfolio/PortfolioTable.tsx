@@ -10,7 +10,7 @@ import {
 	useReactTable,
 	type PaginationState,
 } from "@tanstack/react-table";
-import { useState, memo } from "react";
+import { useState } from "react";
 import { usePortfolioColumns } from "./hooks/use-portfolio-columns";
 import { Pagination } from "@/components/ui/pagination";
 import {
@@ -28,7 +28,7 @@ export interface PortfolioTableProps {
 	data: Company[];
 }
 
-function PortfolioTableComponent({ data }: PortfolioTableProps) {
+export function PortfolioTable({ data }: PortfolioTableProps) {
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 	const [globalFilter, setGlobalFilter] = useState("");
@@ -140,5 +140,3 @@ function PortfolioTableComponent({ data }: PortfolioTableProps) {
 		</div>
 	);
 }
-
-export const PortfolioTable = memo(PortfolioTableComponent);

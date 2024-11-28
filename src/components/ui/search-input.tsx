@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface SearchInputProps {
 	value: string;
@@ -21,6 +22,17 @@ export function SearchInput({
 				onChange={(e) => onChange(e.target.value)}
 				className="pl-8"
 			/>
+			{value && (
+				<Button
+					variant="ghost"
+					size="sm"
+					className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+					onClick={() => onChange("")}
+				>
+					<X className="h-4 w-4" />
+					<span className="sr-only">Clear search</span>
+				</Button>
+			)}
 		</div>
 	);
 }
