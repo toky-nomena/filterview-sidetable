@@ -1,8 +1,7 @@
 import { useLookupValue } from "@/hooks/use-lookup";
-import type { LookupType } from "@/services/lookup/lookup.types";
 
 interface LookupProps {
-  type: LookupType;
+  type: string;
   code: string;
   children: (props: { label: string; isLoading: boolean }) => React.ReactNode;
 }

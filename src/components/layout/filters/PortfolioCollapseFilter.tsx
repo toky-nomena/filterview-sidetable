@@ -13,21 +13,21 @@ import {
   SidebarMenuSub,
 } from "@/components/ui/sidebar";
 
-import { FilterHeader } from "./FilterHeader";
-import { FilterItem } from "./FilterItem";
+import { SidebarFilterHeader } from "./SidebarFilterHeader";
+import { SidebarFilterItem } from "./SidebarFilterItem";
 import type { FilterStateKey } from "./types";
 
-export interface CollapsibleFilterProps {
+export interface PortfolioCollapseFilterProps {
   title: string;
   stateKey: FilterStateKey;
   items: string[];
 }
 
-export function CollapsibleFilter({
+export function PortfolioCollapseFilter({
   title,
   stateKey,
   items,
-}: CollapsibleFilterProps) {
+}: PortfolioCollapseFilterProps) {
   const state = useFilterState();
   const activeFilters = (state[stateKey] || []) as string[];
   const activeItems = activeFilters.filter((filter) => items.includes(filter));
@@ -57,7 +57,7 @@ export function CollapsibleFilter({
           className="group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
         >
           <CollapsibleTrigger>
-            <FilterHeader
+            <SidebarFilterHeader
               title={title}
               activeItemsCount={activeItems.length}
               allSelected={allSelected}
@@ -71,7 +71,7 @@ export function CollapsibleFilter({
           <SidebarGroupContent>
             <SidebarMenuSub>
               {items.map((item) => (
-                <FilterItem
+                <SidebarFilterItem
                   key={item}
                   item={item}
                   isActive={activeFilters.includes(item)}

@@ -1,7 +1,7 @@
 import { Circle, CircleCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export interface FilterHeaderProps {
+export interface SidebarFilterHeaderProps {
   title: string;
   activeItemsCount: number;
   allSelected: boolean;
@@ -9,13 +9,13 @@ export interface FilterHeaderProps {
   onClear: () => void;
 }
 
-export function FilterHeader({
+export function SidebarFilterHeader({
   title,
   activeItemsCount,
   allSelected,
   onToggleAll,
   onClear,
-}: FilterHeaderProps) {
+}: SidebarFilterHeaderProps) {
   return (
     <div className="flex items-center gap-2">
       {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}

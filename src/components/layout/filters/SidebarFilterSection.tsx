@@ -7,19 +7,19 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 
-export interface FilterSectionProps {
+export interface SidebarFilterSectionProps {
   title: string;
   items: { id: string; label: string }[];
   selectedItems: string[];
   onChange: (value: string) => void;
 }
 
-export function FilterSection({
+export function SidebarFilterSection({
   title,
   items,
   selectedItems,
   onChange,
-}: FilterSectionProps) {
+}: SidebarFilterSectionProps) {
   return (
     <Collapsible defaultOpen className="space-y-2">
       <CollapsibleTrigger className="flex w-full items-center justify-between">

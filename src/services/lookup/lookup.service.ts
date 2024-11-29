@@ -1,6 +1,6 @@
-import type { LookupValue, LookupType } from "./lookup.types";
+import type { LookupValue } from "./lookup.types";
 
-async function loadLookupData(type: LookupType): Promise<LookupValue[]> {
+async function loadLookupData(type: string): Promise<LookupValue[]> {
   if (process.env.NODE_ENV === "development") {
     await new Promise((resolve) => setTimeout(resolve, 5000));
   }
@@ -15,32 +15,24 @@ async function loadLookupData(type: LookupType): Promise<LookupValue[]> {
 
 const lookupCache = new Map<string, LookupValue[]>();
 
-export async function getLookupValue(
-  type: LookupType,
-  code: string,
-): Promise<string> {
-  let lookup = lookupCache.get(type);
+export async function getLookupValues(name: string): Promise<LookupValue[]> {
+  let lookups = lookupCache.get(name);
 
-  if (!lookup) {
-    lookup = (await loadLookupData(type)) || [];
-    lookupCache.set(type, lookup);
+  if (!lookups) {
+    lookups = await loadLookupData(name);
+    lookupCache.set(name, lookups);
   }
 
-  const item = lookup.find((item) => item.code === code);
-  return item?.label ?? code;
+  return lookups;
 }
 
-export async function getLookupValues(
-  type: LookupType,
-): Promise<LookupValue[]> {
-  let lookup = lookupCache.get(type);
-
-  if (!lookup) {
-    lookup = await loadLookupData(type);
-    lookupCache.set(type, lookup);
-  }
-
-  return lookup;
+export async function getLookupValue(
+  name: string,
+  code: string,
+): Promise<string> {
+  const lookup = await getLookupValues(name);
+  const item = lookup.find((item) => item.code === code);
+  return item?.label ?? code;
 }
 
 export async function preloadLookups(): Promise<void> {
@@ -53,5 +45,3 @@ export async function preloadLookups(): Promise<void> {
   ]);
   await Promise.all(lookupTypes.map(loadLookupData));
 }
-
-export type { LookupValue as LookupItem, LookupType };

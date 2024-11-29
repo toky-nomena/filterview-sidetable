@@ -1,4 +1,3 @@
-import type { LookupType } from "@/services/lookup/lookup.service";
 import {
   Select,
   SelectContent,
@@ -11,19 +10,19 @@ import type { ComponentProps } from "react";
 import { Skeleton } from "../ui/skeleton";
 
 interface LookupSelectProps extends ComponentProps<typeof Select> {
-  type: LookupType;
+  name: string;
   placeholder?: string;
 }
 
 export function LookupSelect({
-  type,
+  name,
   value,
   onValueChange,
   placeholder = "Select...",
   disabled,
 }: LookupSelectProps) {
   return (
-    <LookupList type={type}>
+    <LookupList name={name}>
       {({ values, isLoading }) => (
         <Select
           value={value}

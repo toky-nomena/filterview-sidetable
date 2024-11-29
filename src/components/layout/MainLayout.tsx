@@ -4,18 +4,22 @@ import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
 import { Sidebar } from "./SidebarFilter";
-import { AppSidebar } from "./AppSidebar";
+import { PortfolioSidebarFilter } from "./filters/PortfolioSidebarFilter";
 import { EnvSelector } from "./EnvSelector";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun, ChevronRight, ChevronLeft } from "lucide-react";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { theme, setTheme } = useTheme();
 
   return (
     <SidebarProvider className="flex h-screen overflow-hidden bg-background">
-      <AppSidebar />
+      <PortfolioSidebarFilter />
       <SidebarInset className="flex flex-col flex-1">
         <div className="flex items-center justify-between p-4 border-b">
           <SidebarTrigger className="-ml-1" />

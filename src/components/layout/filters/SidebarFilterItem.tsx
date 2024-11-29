@@ -1,13 +1,17 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 
-interface FilterItemProps {
+interface SidebarFilterItemProps {
   item: string;
   isActive: boolean;
   onToggle: (checked: boolean) => void;
 }
 
-export function FilterItem({ item, isActive, onToggle }: FilterItemProps) {
+export function SidebarFilterItem({
+  item,
+  isActive,
+  onToggle,
+}: SidebarFilterItemProps) {
   return (
     <SidebarMenuItem>
       <SidebarMenuButton asChild isActive={isActive}>

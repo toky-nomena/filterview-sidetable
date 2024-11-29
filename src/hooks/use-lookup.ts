@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import {
   getLookupValue,
   getLookupValues,
-  type LookupType,
 } from "@/services/lookup/lookup.service";
 import type { LookupValue } from "@/services/lookup/lookup.types";
 
@@ -15,18 +14,18 @@ const CACHE_OPTIONS = {
   refetchOnReconnect: false,
 } as const;
 
-export function useLookupValue(type: LookupType, code: string) {
+export function useLookupValue(name: string, code: string) {
   return useQuery({
-    queryKey: ["lookupValue", type, code],
-    queryFn: () => getLookupValue(type, code),
+    queryKey: ["lookupValue", name, code],
+    queryFn: () => getLookupValue(name, code),
     ...CACHE_OPTIONS,
   });
 }
 
-export function useLookupValues(type: LookupType, values?: LookupValue[]) {
+export function useLookupValues(name: string, values?: LookupValue[]) {
   return useQuery({
-    queryKey: ["lookupValues", type],
-    queryFn: () => getLookupValues(type),
+    queryKey: ["lookupValues", name],
+    queryFn: () => getLookupValues(name),
     initialData: values,
     enabled: !values,
     ...CACHE_OPTIONS,

@@ -11,19 +11,21 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-import { EnvSelector } from "./EnvSelector";
+import { EnvSelector } from "../EnvSelector";
 import {
-  CollapsibleFilter,
-  type CollapsibleFilterProps,
-} from "./filters/CollapsibleFilter";
+  PortfolioCollapseFilter,
+  type PortfolioCollapseFilterProps,
+} from "./PortfolioCollapseFilter";
 
 interface FilterGroup {
   title: string;
-  stateKey: CollapsibleFilterProps["stateKey"];
+  stateKey: PortfolioCollapseFilterProps["stateKey"];
   items: string[];
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function PortfolioSidebarFilter({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   const items: FilterGroup[] = [
     {
       title: "Risk State",
@@ -80,7 +82,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent className="px-2">
         {items.map((item) => (
-          <CollapsibleFilter
+          <PortfolioCollapseFilter
             key={item.title}
             title={item.title}
             items={item.items}
