@@ -1,18 +1,15 @@
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
-import {
-  riskStateLabels,
-  stateLabels,
-  transactionLabels,
-} from "@/lib/status-labels";
+import { Lookup } from "@/components/ui/lookup";
+import { Skeleton } from "@/components/ui/skeleton";
+import type { RiskState, State, TransactionType } from "@/types/schema";
 
-const stateVariants: Record<string, "success" | "muted"> = {
-  Active: "success",
-  Inactive: "muted",
+const stateVariants: Record<State, "default" | "outline"> = {
+  Active: "default",
+  Inactive: "outline",
 };
 
-const riskVariants: Record<string, "success" | "warning" | "danger"> = {
-  LowRisk: "success",
+const riskVariants: Record<RiskState, "default" | "warning" | "danger"> = {
+  LowRisk: "default",
   ModerateRisk: "warning",
   HighRisk: "danger",
   CriticalRisk: "danger",
@@ -20,42 +17,40 @@ const riskVariants: Record<string, "success" | "warning" | "danger"> = {
   UnderInvestigation: "warning",
 };
 
-interface StatusBadgeProps {
-  value: string;
-}
-
-const getRiskStateColor = (riskState: string) => {
-  const colors: Record<string, string> = {
-    LowRisk:
-      "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100",
-    ModerateRisk:
-      "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100",
-    HighRisk:
-      "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100",
-    CriticalRisk: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100",
-    PendingReview:
-      "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100",
-    UnderInvestigation:
-      "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100",
-  };
-  return (
-    colors[riskState] ||
-    "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100"
-  );
+const transactionVariants: Record<TransactionType, "success" | "danger"> = {
+  Purchase: "success",
+  Refund: "danger",
 };
 
-export function StateBadge({ value }: StatusBadgeProps) {
-  return <Badge variant={stateVariants[value]}>{stateLabels[value]}</Badge>;
+type BadgeType = "state" | "riskState" | "transaction";
+type BadgeValue = State | RiskState | TransactionType;
+
+function getVariant(type: BadgeType, value: BadgeValue) {
+  switch (type) {
+    case "state":
+      return stateVariants[value as State];
+    case "riskState":
+      return riskVariants[value as RiskState];
+    case "transaction":
+      return transactionVariants[value as TransactionType];
+  }
 }
 
-export function RiskStateBadge({ value }: StatusBadgeProps) {
-  return <Badge variant={riskVariants[value]}>{riskStateLabels[value]}</Badge>;
+interface StatusBadgeProps {
+  value: BadgeValue;
+  type: BadgeType;
 }
 
-export function TransactionBadge({ value }: StatusBadgeProps) {
+export function StatusBadge({ value, type }: StatusBadgeProps) {
   return (
-    <Badge variant={value === "Purchase" ? "default" : "destructive"}>
-      {transactionLabels[value]}
-    </Badge>
+    <Lookup type={type} value={value}>
+      {({ label, isLoading }) =>
+        isLoading ? (
+          <Skeleton className="h-6 w-16 rounded-full" />
+        ) : (
+          <Badge variant={getVariant(type, value)}>{label}</Badge>
+        )
+      }
+    </Lookup>
   );
 }

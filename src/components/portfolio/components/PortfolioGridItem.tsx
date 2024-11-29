@@ -2,7 +2,6 @@ import { Eye } from "lucide-react";
 
 import type { Company } from "@/services/data.service";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { StatusBadge } from "@/components/ui/status-badge";
 import { PortfolioActions } from "./PortfolioActions";
 
 interface GridItemProps {
@@ -23,9 +23,7 @@ export function PortfolioGridItem({ company }: GridItemProps) {
       <CardHeader>
         <CardTitle className="flex items-center justify-between text-foreground">
           <span>{`${company.firstName} ${company.lastName}`}</span>
-          <Badge variant={company.state === "Active" ? "success" : "muted"}>
-            {company.state}
-          </Badge>
+          <StatusBadge type="state" value={company.state} />
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">

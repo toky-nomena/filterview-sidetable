@@ -2,14 +2,10 @@ import type { Company } from "@/services/data.service";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { SortButton } from "@/components/ui/sort-button";
-import {
-  RiskStateBadge,
-  StateBadge,
-  TransactionBadge,
-} from "@/components/ui/status-badge";
 import { PortfolioActions } from "../components/PortfolioActions";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
+import { StatusBadge } from "@/components/ui/status-badge";
 
 export function usePortfolioColumns() {
   return useMemo<ColumnDef<Company>[]>(
@@ -47,7 +43,9 @@ export function usePortfolioColumns() {
       {
         accessorKey: "state",
         header: ({ column }) => <SortButton column={column} label="State" />,
-        cell: ({ row }) => <StateBadge value={row.original.state} />,
+        cell: ({ row }) => (
+          <StatusBadge value={row.original.state} type="state" />
+        ),
         enableHiding: true,
       },
       {
@@ -62,7 +60,9 @@ export function usePortfolioColumns() {
         header: ({ column }) => (
           <SortButton column={column} label="Risk State" />
         ),
-        cell: ({ row }) => <RiskStateBadge value={row.original.riskState} />,
+        cell: ({ row }) => (
+          <StatusBadge value={row.original.riskState} type="riskState" />
+        ),
         enableHiding: true,
       },
       {
@@ -71,7 +71,7 @@ export function usePortfolioColumns() {
           <SortButton column={column} label="Transaction" />
         ),
         cell: ({ row }) => (
-          <TransactionBadge value={row.original.transaction} />
+          <StatusBadge value={row.original.transaction} type="transaction" />
         ),
         enableHiding: true,
       },

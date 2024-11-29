@@ -2,9 +2,9 @@ import { Eye } from "lucide-react";
 
 import type { Company } from "@/services/data.service";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { StatusBadge } from "@/components/ui/status-badge";
 import { PortfolioActions } from "./PortfolioActions";
 
 interface ListItemProps {
@@ -18,9 +18,7 @@ export function PortfolioListItem({ company }: ListItemProps) {
         <div className="flex-1">
           <div className="flex items-center gap-2">
             <span className="font-bold text-foreground">{`${company.firstName} ${company.lastName}`}</span>
-            <Badge variant={company.state === "Active" ? "success" : "muted"}>
-              {company.state}
-            </Badge>
+            <StatusBadge type="state" value={company.state} />
           </div>
           <div className="mt-1 flex items-center gap-4 text-sm">
             <span className="text-foreground">{company.brand}</span>

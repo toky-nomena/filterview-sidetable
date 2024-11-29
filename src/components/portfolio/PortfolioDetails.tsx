@@ -1,14 +1,10 @@
 import type { Company } from "@/services/data.service";
-import { provinceLabels } from "@/lib/status-labels";
 import { memo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  StateBadge,
-  RiskStateBadge,
-  TransactionBadge,
-} from "@/components/ui/status-badge";
+import { Lookup } from "@/components/ui/lookup";
 
 import { PortfolioDetailsSection } from "./components/PortfolioDetailsSection";
+import { StatusBadge } from "../ui/status-badge";
 
 interface PortfolioDetailsProps {
   company: Company;
@@ -40,7 +36,7 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
           <DetailItem label="Last Name">{company.lastName}</DetailItem>
           <DetailItem label="Language">{company.language}</DetailItem>
           <DetailItem label="Province">
-            {provinceLabels[company.province] || company.province}
+            <Lookup type="province" value={company.province} />
           </DetailItem>
         </PortfolioDetailsSection>
 
@@ -53,13 +49,13 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
         {/* Status Information */}
         <PortfolioDetailsSection title="Status Information">
           <DetailItem label="State">
-            <StateBadge value={company.state} />
+            <StatusBadge type="state" value={company.state} />
           </DetailItem>
           <DetailItem label="Risk State">
-            <RiskStateBadge value={company.riskState} />
+            <StatusBadge type="riskState" value={company.riskState} />
           </DetailItem>
           <DetailItem label="Transaction">
-            <TransactionBadge value={company.transaction} />
+            <StatusBadge type="transaction" value={company.transaction} />
           </DetailItem>
         </PortfolioDetailsSection>
 
