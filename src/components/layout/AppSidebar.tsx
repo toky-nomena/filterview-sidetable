@@ -1,9 +1,6 @@
 import { Hexagon } from "lucide-react";
-import { useState } from "react";
-
 import { data } from "@/services/data/data";
 
-import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -14,11 +11,11 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
+import { EnvSelector } from "./EnvSelector";
 import {
   CollapsibleFilter,
   type CollapsibleFilterProps,
 } from "./filters/CollapsibleFilter";
-import { EnvSelector } from "./EnvSelector";
 
 interface FilterGroup {
   title: string;

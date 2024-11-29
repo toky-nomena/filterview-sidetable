@@ -1,0 +1,34 @@
+[
+  {
+    "code": "apple",
+    "label": "Apple"
+  },
+  {
+    "code": "samsung",
+    "label": "Samsung"
+  },
+  {
+    "code": "google",
+    "label": "Google"
+  },
+  {
+    "code": "microsoft",
+    "label": "Microsoft"
+  },
+  {
+    "code": "amazon",
+    "label": "Amazon"
+  },
+  {
+    "code": "meta",
+    "label": "Meta"
+  },
+  {
+    "code": "tesla",
+    "label": "Tesla"
+  },
+  {
+    "code": "nvidia",
+    "label": "NVIDIA"
+  }
+]

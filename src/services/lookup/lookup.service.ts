@@ -1,8 +1,8 @@
-import type { LookupItem, LookupType } from "./lookup.types";
+import type { LookupValue, LookupType } from "./lookup.types";
 
-async function loadLookupData(type: LookupType): Promise<LookupItem[]> {
+async function loadLookupData(type: LookupType): Promise<LookupValue[]> {
   if (process.env.NODE_ENV === "development") {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 5000));
   }
 
   try {
@@ -13,7 +13,7 @@ async function loadLookupData(type: LookupType): Promise<LookupItem[]> {
   }
 }
 
-const lookupCache = new Map<string, LookupItem[]>();
+const lookupCache = new Map<string, LookupValue[]>();
 
 export async function getLookupValue(
   type: LookupType,
@@ -30,7 +30,9 @@ export async function getLookupValue(
   return item?.label ?? code;
 }
 
-export async function getLookupValues(type: LookupType): Promise<LookupItem[]> {
+export async function getLookupValues(
+  type: LookupType,
+): Promise<LookupValue[]> {
   let lookup = lookupCache.get(type);
 
   if (!lookup) {
@@ -52,4 +54,4 @@ export async function preloadLookups(): Promise<void> {
   await Promise.all(lookupTypes.map(loadLookupData));
 }
 
-export type { LookupItem, LookupType };
+export type { LookupValue as LookupItem, LookupType };

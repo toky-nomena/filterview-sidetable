@@ -1,11 +1,13 @@
 export type LookupType =
-  | "province"
   | "riskState"
-  | "state"
   | "transaction"
+  | "province"
+  | "brand"
+  | "state"
+  | "productType"
   | "language";
 
-export interface LookupItem {
+export interface LookupValue {
   code: string;
   label: string;
 }

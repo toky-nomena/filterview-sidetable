@@ -4,6 +4,7 @@ import {
   getLookupValues,
   type LookupType,
 } from "@/services/lookup/lookup.service";
+import type { LookupValue } from "@/services/lookup/lookup.types";
 
 // Cache forever since lookup values are static
 const CACHE_OPTIONS = {
@@ -22,10 +23,12 @@ export function useLookupValue(type: LookupType, code: string) {
   });
 }
 
-export function useLookupValues(type: LookupType) {
+export function useLookupValues(type: LookupType, values?: LookupValue[]) {
   return useQuery({
     queryKey: ["lookupValues", type],
     queryFn: () => getLookupValues(type),
+    initialData: values,
+    enabled: !values,
     ...CACHE_OPTIONS,
   });
 }

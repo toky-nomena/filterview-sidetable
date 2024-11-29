@@ -1,0 +1,26 @@
+[
+  {
+    "code": "hardware",
+    "label": "Hardware"
+  },
+  {
+    "code": "software",
+    "label": "Software"
+  },
+  {
+    "code": "service",
+    "label": "Service"
+  },
+  {
+    "code": "subscription",
+    "label": "Subscription"
+  },
+  {
+    "code": "consulting",
+    "label": "Consulting"
+  },
+  {
+    "code": "support",
+    "label": "Support"
+  }
+]

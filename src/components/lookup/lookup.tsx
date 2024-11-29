@@ -1,25 +1,13 @@
 import { useLookupValue } from "@/hooks/use-lookup";
-import type { LookupType } from "@/services/lookup/lookup.service";
-
-interface LookupRenderProps {
-  code: string;
-  label: string | undefined;
-  isLoading: boolean;
-  isError: boolean;
-}
+import type { LookupType } from "@/services/lookup/lookup.types";
 
 interface LookupProps {
   type: LookupType;
   code: string;
-  children?: (props: LookupRenderProps) => React.ReactNode;
+  children: (props: { label: string; isLoading: boolean }) => React.ReactNode;
 }
 
 export function Lookup({ type, code, children }: LookupProps) {
-  const { data, isLoading, isError } = useLookupValue(type, code);
-
-  if (children) {
-    return <>{children({ code, label: data, isLoading, isError })}</>;
-  }
-
-  return null;
+  const { data: label, isLoading } = useLookupValue(type, code);
+  return <>{children({ label: label ?? code, isLoading })}</>;
 }
