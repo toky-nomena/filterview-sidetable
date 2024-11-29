@@ -1,5 +1,5 @@
 import { useLookupValues } from "@/hooks/use-lookup";
-import type { LookupType } from "@/services/lookup.service";
+import type { LookupType } from "@/services/lookup/lookup.service";
 import {
   Select,
   SelectContent,

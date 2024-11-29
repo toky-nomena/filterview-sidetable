@@ -4,7 +4,7 @@ import type { Company } from "@/services/data.service";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { StatusBadge } from "@/components/ui/status-badge";
+import { LookupBadge } from "@/components/portfolio/LookupBadge";
 import { PortfolioActions } from "./PortfolioActions";
 
 interface ListItemProps {
@@ -18,7 +18,7 @@ export function PortfolioListItem({ company }: ListItemProps) {
         <div className="flex-1">
           <div className="flex items-center gap-2">
             <span className="font-bold text-foreground">{`${company.firstName} ${company.lastName}`}</span>
-            <StatusBadge type="state" value={company.state} />
+            <LookupBadge type="state" value={company.state} />
           </div>
           <div className="mt-1 flex items-center gap-4 text-sm">
             <span className="text-foreground">{company.brand}</span>

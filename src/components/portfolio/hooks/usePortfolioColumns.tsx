@@ -5,7 +5,7 @@ import { SortButton } from "@/components/ui/sort-button";
 import { PortfolioActions } from "../components/PortfolioActions";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
-import { StatusBadge } from "@/components/ui/status-badge";
+import { LookupBadge } from "@/components/portfolio/LookupBadge";
 
 export function usePortfolioColumns() {
   return useMemo<ColumnDef<Company>[]>(
@@ -44,7 +44,7 @@ export function usePortfolioColumns() {
         accessorKey: "state",
         header: ({ column }) => <SortButton column={column} label="State" />,
         cell: ({ row }) => (
-          <StatusBadge value={row.original.state} type="state" />
+          <LookupBadge value={row.original.state} type="state" />
         ),
         enableHiding: true,
       },
@@ -61,7 +61,7 @@ export function usePortfolioColumns() {
           <SortButton column={column} label="Risk State" />
         ),
         cell: ({ row }) => (
-          <StatusBadge value={row.original.riskState} type="riskState" />
+          <LookupBadge value={row.original.riskState} type="riskState" />
         ),
         enableHiding: true,
       },
@@ -71,7 +71,7 @@ export function usePortfolioColumns() {
           <SortButton column={column} label="Transaction" />
         ),
         cell: ({ row }) => (
-          <StatusBadge value={row.original.transaction} type="transaction" />
+          <LookupBadge value={row.original.transaction} type="transaction" />
         ),
         enableHiding: true,
       },

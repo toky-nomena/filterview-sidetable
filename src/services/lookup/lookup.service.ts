@@ -1,17 +1,24 @@
 import {
+  languageLabels,
   provinceLabels,
   riskStateLabels,
   stateLabels,
   transactionLabels,
-} from "@/lib/status-labels";
+} from "./lookup-data";
 
-export type LookupType = "province" | "riskState" | "state" | "transaction";
+export type LookupType =
+  | "province"
+  | "riskState"
+  | "state"
+  | "transaction"
+  | "language";
 
 const lookupMap: Record<LookupType, Record<string, string>> = {
   province: provinceLabels,
   riskState: riskStateLabels,
   state: stateLabels,
   transaction: transactionLabels,
+  language: languageLabels,
 };
 
 export async function getLookupValue(

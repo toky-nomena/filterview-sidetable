@@ -4,7 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Lookup } from "@/components/ui/lookup";
 
 import { PortfolioDetailsSection } from "./components/PortfolioDetailsSection";
-import { StatusBadge } from "../ui/status-badge";
+import { LookupBadge } from "./LookupBadge";
 
 interface PortfolioDetailsProps {
   company: Company;
@@ -34,7 +34,9 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
         <PortfolioDetailsSection title="Personal Information">
           <DetailItem label="First Name">{company.firstName}</DetailItem>
           <DetailItem label="Last Name">{company.lastName}</DetailItem>
-          <DetailItem label="Language">{company.language}</DetailItem>
+          <DetailItem label="Language">
+            <Lookup type="language" value={company.language} />
+          </DetailItem>
           <DetailItem label="Province">
             <Lookup type="province" value={company.province} />
           </DetailItem>
@@ -49,13 +51,13 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
         {/* Status Information */}
         <PortfolioDetailsSection title="Status Information">
           <DetailItem label="State">
-            <StatusBadge type="state" value={company.state} />
+            <LookupBadge type="state" value={company.state} />
           </DetailItem>
           <DetailItem label="Risk State">
-            <StatusBadge type="riskState" value={company.riskState} />
+            <LookupBadge type="riskState" value={company.riskState} />
           </DetailItem>
           <DetailItem label="Transaction">
-            <StatusBadge type="transaction" value={company.transaction} />
+            <LookupBadge type="transaction" value={company.transaction} />
           </DetailItem>
         </PortfolioDetailsSection>
 

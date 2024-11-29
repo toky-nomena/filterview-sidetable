@@ -3,7 +3,7 @@ import {
   getLookupValue,
   getLookupValues,
   type LookupType,
-} from "@/services/lookup.service";
+} from "@/services/lookup/lookup.service";
 
 // Cache forever since lookup values are static
 const CACHE_OPTIONS = {

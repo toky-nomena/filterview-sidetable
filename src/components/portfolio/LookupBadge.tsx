@@ -41,7 +41,7 @@ interface StatusBadgeProps {
   type: BadgeType;
 }
 
-export function StatusBadge({ value, type }: StatusBadgeProps) {
+export function LookupBadge({ value, type }: StatusBadgeProps) {
   return (
     <Lookup type={type} value={value}>
       {({ label, isLoading }) =>

@@ -1,12 +1,11 @@
 import { useLookup } from "@/hooks/use-lookup";
-import type { LookupType } from "@/services/lookup.service";
+import type { LookupType } from "@/services/lookup/lookup.service";
 
 interface LookupRenderProps {
   value: string;
   label: string | undefined;
   isLoading: boolean;
   isError: boolean;
-  className?: string;
 }
 
 interface LookupProps {
