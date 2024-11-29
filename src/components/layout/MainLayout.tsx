@@ -1,15 +1,14 @@
+import { useState, useEffect } from "react";
+
+import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
+
 import { Sidebar } from "./SidebarFilter";
+import { AppSidebar } from "./AppSidebar";
+import { EnvSelector } from "./EnvSelector";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun, ChevronRight, ChevronLeft } from "lucide-react";
-import { useTheme } from "next-themes";
-import { useState } from "react";
-
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { AppSidebar } from "./AppSidebar";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { theme, setTheme } = useTheme();

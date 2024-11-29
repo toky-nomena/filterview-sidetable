@@ -1,9 +1,11 @@
 import { Eye } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
+import type { Company } from "@/services/data.service";
+
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { PortfolioActions } from "./PortfolioActions";
-import type { Company } from "@/services/data.service";
 
 interface ListItemProps {
   company: Company;

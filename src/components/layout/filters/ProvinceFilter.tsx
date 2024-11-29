@@ -1,3 +1,5 @@
+import { useFilterState } from "@/store/filterStore";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import type { Province } from "@/types/schema";
 import {
@@ -6,6 +8,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import { FilterSection } from "./FilterSection";
 
 const provinces: Province[] = [
   "AB",

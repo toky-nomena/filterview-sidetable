@@ -1,12 +1,18 @@
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import { useState } from "react";
 
-interface FilterSectionProps {
+import { cn } from "@/lib/utils";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+
+export interface FilterSectionProps {
   title: string;
   items: { id: string; label: string }[];
   selectedItems: string[];

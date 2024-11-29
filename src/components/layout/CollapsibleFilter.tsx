@@ -1,3 +1,9 @@
+import { Check, ChevronRight, Circle, CircleCheck } from "lucide-react";
+import { useState } from "react";
+
+import { cn } from "@/lib/utils";
+import { update, useFilterState, type FilterState } from "@/store/filterStore";
+
 import {
   Collapsible,
   CollapsibleContent,
@@ -11,10 +17,7 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
 } from "@/components/ui/sidebar";
-import { Check, ChevronRight, Circle, CircleCheck } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-import { update, useFilterState, type FilterState } from "@/store/filterStore";
-import { cn } from "@/lib/utils";
 
 export interface CollapsibleFilterProps {
   title: string;

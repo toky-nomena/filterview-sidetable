@@ -1,4 +1,6 @@
 import { faker } from "@faker-js/faker";
+
+import type { FilterState } from "@/store/filterStore";
 import type {
   Brand,
   ProductType,
@@ -8,7 +10,6 @@ import type {
   TransactionType,
 } from "@/types/schema";
 import { data, keys } from "./data";
-import type { FilterState } from "@/store/filterStore";
 
 export interface Company {
   id: string;
@@ -77,13 +78,13 @@ const validateFilter = <Data, T extends keyof Data>(
   );
 };
 
-const companies = Array.from({ length: 300 }, generateCompany);
+const portfolio = Array.from({ length: 300 }, generateCompany);
 
-export const getCompanies = async (filters: FilterState) => {
-  console.log("get companies", filters);
-  await new Promise((resolve) => setTimeout(resolve, 1500));
+export const getPortfolio = async (filters: FilterState) => {
+  console.log("get portfolio", filters);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  return companies.filter((company) => {
+  return portfolio.filter((company) => {
     return keys.every((field) =>
       validateFilter(filters[field], field as keyof Company, company),
     );

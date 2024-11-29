@@ -9,11 +9,16 @@ import {
   type VisibilityState,
 } from "@tanstack/react-table";
 import { useReactTable } from "@tanstack/react-table";
-import { useState } from "react";
+import { Grid3x3, List, Table as TableIcon } from "lucide-react";
 import { parseAsString, useQueryState } from "nuqs";
+import { useState } from "react";
 
-import { usePortfolioColumns } from "./hooks/usePortfolioColumns";
+import type { Company } from "@/services/data.service";
+
+import { Button } from "@/components/ui/button";
+import { ColumnToggle } from "@/components/ui/column-toggle";
 import { Pagination } from "@/components/ui/pagination";
+import { SearchInput } from "@/components/ui/search-input";
 import {
   Table,
   TableBody,
@@ -22,13 +27,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ColumnToggle } from "@/components/ui/column-toggle";
-import { SearchInput } from "@/components/ui/search-input";
-import { Grid3x3, List, Table as TableIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import type { Company } from "@/services/data.service";
+
 import { PortfolioGridItem } from "./components/PortfolioGridItem";
 import { PortfolioListItem } from "./components/PortfolioListItem";
+import { usePortfolioColumns } from "./hooks/usePortfolioColumns";
 import { usePaginationSearchParams } from "./usePaginationSearchParams";
 
 interface PortfolioTableProps {

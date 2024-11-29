@@ -1,15 +1,16 @@
-import { PortfolioTable } from "@/components/portfolio/PortfolioTable";
-import { getCompanies } from "@/services/data.service";
-import { useFilterState } from "@/store/filterStore";
 import { useQuery } from "@tanstack/react-query";
+
+import { useFilterState } from "@/store/filterStore";
+import { getPortfolio } from "@/services/data.service";
+import { PortfolioTable } from "@/components/portfolio/PortfolioTable";
 
 export function Index() {
   const state = useFilterState();
 
-  // Query companies
+  // Query portfolio
   const { data = [], isLoading } = useQuery({
-    queryKey: ["companies", state],
-    queryFn: () => getCompanies(state),
+    queryKey: ["portfolio", state],
+    queryFn: () => getPortfolio(state),
   });
 
   if (isLoading) {

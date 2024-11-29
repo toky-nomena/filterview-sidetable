@@ -1,4 +1,9 @@
 import { Hexagon } from "lucide-react";
+import { useState } from "react";
+
+import { data } from "@/services/data";
+
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -8,11 +13,12 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+
 import {
   CollapsibleFilter,
   type CollapsibleFilterProps,
 } from "./CollapsibleFilter";
-import { data } from "@/services/data";
+import { EnvSelector } from "./EnvSelector";
 
 interface FilterGroup {
   title: string;
@@ -69,6 +75,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </div>
               </div>
             </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <EnvSelector />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
