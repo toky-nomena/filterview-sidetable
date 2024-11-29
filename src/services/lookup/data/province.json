@@ -1,54 +1,54 @@
 [
   {
-    "value": "AB",
+    "code": "AB",
     "label": "Alberta"
   },
   {
-    "value": "BC",
+    "code": "BC",
     "label": "British Columbia"
   },
   {
-    "value": "MB",
+    "code": "MB",
     "label": "Manitoba"
   },
   {
-    "value": "NB",
+    "code": "NB",
     "label": "New Brunswick"
   },
   {
-    "value": "NL",
+    "code": "NL",
     "label": "Newfoundland and Labrador"
   },
   {
-    "value": "NS",
+    "code": "NS",
     "label": "Nova Scotia"
   },
   {
-    "value": "NT",
+    "code": "NT",
     "label": "Northwest Territories"
   },
   {
-    "value": "NU",
+    "code": "NU",
     "label": "Nunavut"
   },
   {
-    "value": "ON",
+    "code": "ON",
     "label": "Ontario"
   },
   {
-    "value": "PE",
+    "code": "PE",
     "label": "Prince Edward Island"
   },
   {
-    "value": "QC",
+    "code": "QC",
     "label": "Quebec"
   },
   {
-    "value": "SK",
+    "code": "SK",
     "label": "Saskatchewan"
   },
   {
-    "value": "YT",
+    "code": "YT",
     "label": "Yukon"
   }
 ]

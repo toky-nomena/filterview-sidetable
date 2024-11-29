@@ -1,4 +1,4 @@
-export type StateKey =
+export type FilterStateKey =
   | "riskState"
   | "transaction"
   | "province"

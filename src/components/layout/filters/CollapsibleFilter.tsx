@@ -15,11 +15,11 @@ import {
 
 import { FilterHeader } from "./FilterHeader";
 import { FilterItem } from "./FilterItem";
-import type { StateKey } from "./types";
+import type { FilterStateKey } from "./types";
 
 export interface CollapsibleFilterProps {
   title: string;
-  stateKey: StateKey;
+  stateKey: FilterStateKey;
   items: string[];
 }
 
@@ -43,10 +43,9 @@ export function CollapsibleFilter({
 
   const handleToggleItem = (checked: boolean, item: string) => {
     update(stateKey, (currentFilters = []) => {
-      if (checked) {
-        return [...currentFilters, item];
-      }
-      return currentFilters.filter((filter) => filter !== item);
+      return checked
+        ? [...currentFilters, item]
+        : currentFilters.filter((filter) => filter !== item);
     });
   };
 
@@ -60,7 +59,7 @@ export function CollapsibleFilter({
           <CollapsibleTrigger>
             <FilterHeader
               title={title}
-              activeItems={activeItems}
+              activeItemsCount={activeItems.length}
               allSelected={allSelected}
               onToggleAll={handleToggleAll}
               onClear={handleClear}

@@ -17,17 +17,17 @@ const lookupCache = new Map<string, LookupItem[]>();
 
 export async function getLookupValue(
   type: LookupType,
-  value: string,
+  code: string,
 ): Promise<string> {
   let lookup = lookupCache.get(type);
 
   if (!lookup) {
-    lookup = await loadLookupData(type);
+    lookup = (await loadLookupData(type)) || [];
     lookupCache.set(type, lookup);
   }
 
-  const item = lookup.find((item) => item.value === value);
-  return item?.label ?? value;
+  const item = lookup.find((item) => item.code === code);
+  return item?.label ?? code;
 }
 
 export async function getLookupValues(type: LookupType): Promise<LookupItem[]> {

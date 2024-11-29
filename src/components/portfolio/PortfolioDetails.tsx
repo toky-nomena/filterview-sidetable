@@ -35,12 +35,12 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
           <DetailItem label="First Name">{company.firstName}</DetailItem>
           <DetailItem label="Last Name">{company.lastName}</DetailItem>
           <DetailItem label="Language">
-            <Lookup type="language" value={company.language}>
+            <Lookup type="language" code={company.language}>
               {({ label, isLoading }) => (isLoading ? "..." : label)}
             </Lookup>
           </DetailItem>
           <DetailItem label="Province">
-            <Lookup type="province" value={company.province}>
+            <Lookup type="province" code={company.province}>
               {({ label, isLoading }) => (isLoading ? "..." : label)}
             </Lookup>
           </DetailItem>

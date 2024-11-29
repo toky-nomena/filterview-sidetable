@@ -14,12 +14,12 @@ export interface FilterSectionProps {
   onChange: (value: string) => void;
 }
 
-export const FilterSection = ({
+export function FilterSection({
   title,
   items,
   selectedItems,
   onChange,
-}: FilterSectionProps) => {
+}: FilterSectionProps) {
   return (
     <Collapsible defaultOpen className="space-y-2">
       <CollapsibleTrigger className="flex w-full items-center justify-between">
@@ -43,4 +43,4 @@ export const FilterSection = ({
       </CollapsibleContent>
     </Collapsible>
   );
-};
+}

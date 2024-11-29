@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 export interface FilterHeaderProps {
   title: string;
-  activeItems: string[];
+  activeItemsCount: number;
   allSelected: boolean;
   onToggleAll: () => void;
   onClear: () => void;
@@ -11,7 +11,7 @@ export interface FilterHeaderProps {
 
 export function FilterHeader({
   title,
-  activeItems,
+  activeItemsCount,
   allSelected,
   onToggleAll,
   onClear,
@@ -36,10 +36,10 @@ export function FilterHeader({
       </div>
       <span className="flex items-center">
         {title}
-        {activeItems.length > 0 && (
+        {activeItemsCount > 0 && (
           <>
             <span className="ml-2 text-xs text-muted-foreground font-bold">
-              ({activeItems.length})
+              ({activeItemsCount})
             </span>
             <button
               type="button"

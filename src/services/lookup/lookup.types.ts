@@ -6,6 +6,6 @@ export type LookupType =
   | "language";
 
 export interface LookupItem {
-  value: string;
+  code: string;
   label: string;
 }

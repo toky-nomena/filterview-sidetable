@@ -1,18 +1,18 @@
 [
   {
-    "value": "Purchase",
+    "code": "surchase",
     "label": "Purchase"
   },
   {
-    "value": "Sale",
+    "code": "sale",
     "label": "Sale"
   },
   {
-    "value": "Transfer",
+    "code": "transfer",
     "label": "Transfer"
   },
   {
-    "value": "Refund",
+    "code": "refund",
     "label": "Refund"
   }
 ]

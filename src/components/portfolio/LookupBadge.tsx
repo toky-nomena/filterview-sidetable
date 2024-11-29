@@ -43,7 +43,7 @@ interface StatusBadgeProps {
 
 export function LookupBadge({ value, type }: StatusBadgeProps) {
   return (
-    <Lookup type={type} value={value}>
+    <Lookup type={type} code={value}>
       {({ label, isLoading }) =>
         isLoading ? (
           <Skeleton className="h-6 w-16 rounded-full" />

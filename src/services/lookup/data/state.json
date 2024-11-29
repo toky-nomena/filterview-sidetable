@@ -1,18 +1,18 @@
 [
   {
-    "value": "Active",
+    "code": "active",
     "label": "Active"
   },
   {
-    "value": "Inactive",
+    "code": "inactive",
     "label": "Inactive"
   },
   {
-    "value": "Pending",
+    "code": "pending",
     "label": "Pending"
   },
   {
-    "value": "Suspended",
+    "code": "suspended",
     "label": "Suspended"
   }
 ]
