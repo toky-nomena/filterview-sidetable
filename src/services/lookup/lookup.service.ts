@@ -30,9 +30,16 @@ export async function getLookupValue(
   name: string,
   code: string,
 ): Promise<string> {
+  const lookup = await findLookup(name, code);
+  return lookup?.label ?? code;
+}
+
+export async function findLookup(
+  name: string,
+  code: string,
+): Promise<LookupValue | undefined> {
   const lookup = await getLookupValues(name);
-  const item = lookup.find((item) => item.code === code);
-  return item?.label ?? code;
+  return lookup.find((item) => item.code === code);
 }
 
 export async function preloadLookups(): Promise<void> {

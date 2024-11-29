@@ -16,7 +16,7 @@ const CACHE_OPTIONS = {
 
 export function useLookupValue(name: string, code: string) {
   return useQuery({
-    queryKey: ["lookupValue", name, code],
+    queryKey: ["lookup", name, code],
     queryFn: () => getLookupValue(name, code),
     ...CACHE_OPTIONS,
   });
@@ -24,7 +24,7 @@ export function useLookupValue(name: string, code: string) {
 
 export function useLookupValues(name: string, values?: LookupValue[]) {
   return useQuery({
-    queryKey: ["lookupValues", name],
+    queryKey: ["lookup", name],
     queryFn: () => getLookupValues(name),
     initialData: values,
     enabled: !values,
