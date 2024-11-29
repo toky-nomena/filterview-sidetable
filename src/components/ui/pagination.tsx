@@ -69,7 +69,7 @@ export function Pagination({
           variant="ghost"
           size="icon"
           className="h-8 w-8"
-          onClick={() => onPageChange(0)}
+          onClick={() => onPageChange(1)}
           disabled={currentPage === 1}
         >
           <ChevronFirst className="h-4 w-4" />
