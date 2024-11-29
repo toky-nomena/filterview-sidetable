@@ -4,17 +4,17 @@ import { useFilterState } from "@/store/filterStore";
 import { useQuery } from "@tanstack/react-query";
 
 export function Index() {
-	const state = useFilterState();
+  const state = useFilterState();
 
-	// Query companies
-	const { data: companies = [], isLoading } = useQuery({
-		queryKey: ["companies", state],
-		queryFn: () => getCompanies(state),
-	});
+  // Query companies
+  const { data = [], isLoading } = useQuery({
+    queryKey: ["companies", state],
+    queryFn: () => getCompanies(state),
+  });
 
-	if (isLoading) {
-		return <div>Loading...</div>;
-	}
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-	return <PortfolioTable data={companies} />;
+  return <PortfolioTable data={data} />;
 }
