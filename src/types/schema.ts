@@ -32,6 +32,9 @@ export const provinceSchema = z.union([
   z.literal("PE"),
   z.literal("QC"),
   z.literal("SK"),
+  z.literal("NU"),
+  z.literal("NT"),
+  z.literal("YT"),
 ]);
 
 export const filterSchema = z.object({

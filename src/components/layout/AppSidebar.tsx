@@ -17,7 +17,7 @@ import {
 import {
   CollapsibleFilter,
   type CollapsibleFilterProps,
-} from "./CollapsibleFilter";
+} from "./filters/CollapsibleFilter";
 import { EnvSelector } from "./EnvSelector";
 
 interface FilterGroup {

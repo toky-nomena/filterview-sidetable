@@ -38,9 +38,9 @@ export function LookupSelect({
       </SelectTrigger>
       <SelectContent>
         {lookupValues &&
-          Object.entries(lookupValues).map(([key, label]) => (
+          Object.entries(lookupValues).map(([key, value]) => (
             <SelectItem key={key} value={key}>
-              {label}
+              {value.label}
             </SelectItem>
           ))}
       </SelectContent>

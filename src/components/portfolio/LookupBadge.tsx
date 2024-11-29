@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { Lookup } from "@/components/ui/lookup";
+import { Lookup } from "@/components/lookup/lookup";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { RiskState, State, TransactionType } from "@/types/schema";
 

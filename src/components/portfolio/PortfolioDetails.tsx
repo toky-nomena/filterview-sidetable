@@ -1,7 +1,7 @@
 import type { Company } from "@/services/data/data.service";
 import { memo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Lookup } from "@/components/ui/lookup";
+import { Lookup } from "@/components/lookup/lookup";
 
 import { PortfolioDetailsSection } from "./components/PortfolioDetailsSection";
 import { LookupBadge } from "./LookupBadge";
