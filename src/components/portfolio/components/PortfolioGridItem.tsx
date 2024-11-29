@@ -1,6 +1,6 @@
 import { Eye } from "lucide-react";
 
-import type { Company } from "@/services/data.service";
+import type { Company } from "@/services/data/data.service";
 
 import { Button } from "@/components/ui/button";
 import {

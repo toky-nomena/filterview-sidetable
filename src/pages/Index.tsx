@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { useFilterState } from "@/store/filterStore";
-import { getPortfolio } from "@/services/data.service";
+import { getPortfolio } from "@/services/data/data.service";
 import { PortfolioTable } from "@/components/portfolio/PortfolioTable";
 
 export function Index() {

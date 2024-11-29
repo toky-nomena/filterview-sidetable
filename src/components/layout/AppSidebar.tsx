@@ -1,7 +1,7 @@
 import { Hexagon } from "lucide-react";
 import { useState } from "react";
 
-import { data } from "@/services/data";
+import { data } from "@/services/data/data";
 
 import { Button } from "@/components/ui/button";
 import {

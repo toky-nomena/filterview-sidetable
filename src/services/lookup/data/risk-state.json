@@ -1,0 +1,26 @@
+[
+  {
+    "value": "LowRisk",
+    "label": "Low Risk"
+  },
+  {
+    "value": "ModerateRisk",
+    "label": "Moderate Risk"
+  },
+  {
+    "value": "HighRisk",
+    "label": "High Risk"
+  },
+  {
+    "value": "CriticalRisk",
+    "label": "Critical Risk"
+  },
+  {
+    "value": "PendingReview",
+    "label": "Pending Review"
+  },
+  {
+    "value": "UnderInvestigation",
+    "label": "Under Investigation"
+  }
+]

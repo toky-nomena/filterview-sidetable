@@ -1,0 +1,18 @@
+[
+  {
+    "value": "Purchase",
+    "label": "Purchase"
+  },
+  {
+    "value": "Sale",
+    "label": "Sale"
+  },
+  {
+    "value": "Transfer",
+    "label": "Transfer"
+  },
+  {
+    "value": "Refund",
+    "label": "Refund"
+  }
+]

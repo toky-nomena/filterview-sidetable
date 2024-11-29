@@ -1,4 +1,4 @@
-import type { Company } from "@/services/data.service";
+import type { Company } from "@/services/data/data.service";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { SortButton } from "@/components/ui/sort-button";

@@ -1,4 +1,4 @@
-import type { Company } from "@/services/data.service";
+import type { Company } from "@/services/data/data.service";
 import { memo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Lookup } from "@/components/ui/lookup";
@@ -35,10 +35,14 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
           <DetailItem label="First Name">{company.firstName}</DetailItem>
           <DetailItem label="Last Name">{company.lastName}</DetailItem>
           <DetailItem label="Language">
-            <Lookup type="language" value={company.language} />
+            <Lookup type="language" value={company.language}>
+              {({ label, isLoading }) => (isLoading ? "..." : label)}
+            </Lookup>
           </DetailItem>
           <DetailItem label="Province">
-            <Lookup type="province" value={company.province} />
+            <Lookup type="province" value={company.province}>
+              {({ label, isLoading }) => (isLoading ? "..." : label)}
+            </Lookup>
           </DetailItem>
         </PortfolioDetailsSection>
 

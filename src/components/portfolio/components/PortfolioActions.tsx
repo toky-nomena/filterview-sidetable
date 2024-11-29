@@ -5,7 +5,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import type { Company } from "@/services/data.service";
+import type { Company } from "@/services/data/data.service";
 import { PortfolioDetails } from "../PortfolioDetails";
 
 interface PortfolioActionsProps {

@@ -17,24 +17,26 @@ const queryClient = new QueryClient({
   },
 });
 
-const App = () => (
-  <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-    <NuqsAdapter>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <TooltipProvider>
-          <Toaster />
-          <BrowserRouter>
-            <MainLayout>
-              <Routes>
-                <Route path="/" element={<Index />} />
-              </Routes>
-            </MainLayout>
-          </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>{" "}
-    </NuqsAdapter>
-  </ThemeProvider>
-);
+function App() {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <NuqsAdapter>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <TooltipProvider>
+            <Toaster />
+            <BrowserRouter>
+              <MainLayout>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                </Routes>
+              </MainLayout>
+            </BrowserRouter>
+          </TooltipProvider>
+        </QueryClientProvider>{" "}
+      </NuqsAdapter>
+    </ThemeProvider>
+  );
+}
 
 export default App;

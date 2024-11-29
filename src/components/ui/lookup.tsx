@@ -1,4 +1,4 @@
-import { useLookup } from "@/hooks/use-lookup";
+import { useLookupValue } from "@/hooks/use-lookup";
 import type { LookupType } from "@/services/lookup/lookup.service";
 
 interface LookupRenderProps {
@@ -15,7 +15,7 @@ interface LookupProps {
 }
 
 export function Lookup({ type, value, children }: LookupProps) {
-  const { data, isLoading, isError } = useLookup(type, value);
+  const { data, isLoading, isError } = useLookupValue(type, value);
 
   if (children) {
     return <>{children({ value, label: data, isLoading, isError })}</>;

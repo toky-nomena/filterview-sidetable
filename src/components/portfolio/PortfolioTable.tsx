@@ -13,7 +13,7 @@ import { Grid3x3, List, Table as TableIcon } from "lucide-react";
 import { parseAsString, useQueryState } from "nuqs";
 import { useState } from "react";
 
-import type { Company } from "@/services/data.service";
+import type { Company } from "@/services/data/data.service";
 
 import { Button } from "@/components/ui/button";
 import { ColumnToggle } from "@/components/ui/column-toggle";

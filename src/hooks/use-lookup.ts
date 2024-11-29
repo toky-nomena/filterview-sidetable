@@ -14,9 +14,9 @@ const CACHE_OPTIONS = {
   refetchOnReconnect: false,
 } as const;
 
-export function useLookup(type: LookupType, value: string) {
+export function useLookupValue(type: LookupType, value: string) {
   return useQuery({
-    queryKey: ["lookup", type, value],
+    queryKey: ["lookupValue", type, value],
     queryFn: () => getLookupValue(type, value),
     ...CACHE_OPTIONS,
   });
