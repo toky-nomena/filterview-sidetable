@@ -13,25 +13,27 @@ export function PortfolioGridItemSkeleton() {
       <CardHeader>
         <CardTitle className="flex items-center justify-between text-foreground">
           <Skeleton className="h-6 w-32" />
-          <Skeleton className="h-6 w-24" />
+          <Skeleton className="h-5 w-16 rounded-full" />
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
         <div className="flex justify-between">
           <span className="font-medium text-muted-foreground">Language:</span>
-          <Skeleton className="h-5 w-24" />
+          <Skeleton className="h-5 w-16 rounded-full" />
         </div>
         <div className="flex justify-between">
           <span className="font-medium text-muted-foreground">Brand:</span>
-          <Skeleton className="h-5 w-24" />
+          <Skeleton className="h-5 w-16 rounded-full" />
         </div>
         <div className="flex justify-between">
-          <span className="font-medium text-muted-foreground">Product Type:</span>
-          <Skeleton className="h-5 w-24" />
+          <span className="font-medium text-muted-foreground">
+            Product Type:
+          </span>
+          <Skeleton className="h-5 w-16 rounded-full" />
         </div>
         <div className="flex justify-between">
           <span className="font-medium text-muted-foreground">Risk State:</span>
-          <Skeleton className="h-5 w-24" />
+          <Skeleton className="h-5 w-16 rounded-full" />
         </div>
       </CardContent>
       <CardFooter>

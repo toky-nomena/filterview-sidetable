@@ -24,8 +24,8 @@ export function PortfolioGridItem({ portfolio }: GridItemProps) {
     <Card className="hover:shadow-lg transition-shadow bg-background border">
       <CardHeader>
         <CardTitle className="flex items-center justify-between text-foreground">
-          <span>{`${portfolio.firstName} ${portfolio.lastName}`}</span>
-          <LookupBadge lookupName="state" code={portfolio.state} />
+          <span className="truncate">{`${portfolio.firstName} ${portfolio.lastName}`}</span>
+          <LookupBadge lookupName={LookupName.State} code={portfolio.state} />
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">

@@ -11,13 +11,13 @@ export function PortfolioListItemSkeleton() {
             <Skeleton className="h-6 w-24" />
           </div>
           <div className="mt-1 flex items-center gap-4 text-sm">
-            <Skeleton className="h-5 w-24" />
+            <Skeleton className="h-5 w-16 rounded-full" />
             <span className="text-muted-foreground/50">•</span>
-            <Skeleton className="h-5 w-32" />
+            <Skeleton className="h-5 w-16 rounded-full" />
             <span className="text-muted-foreground/50">•</span>
-            <Skeleton className="h-5 w-32" />
+            <Skeleton className="h-5 w-16 rounded-full" />
             <span className="text-muted-foreground/50">•</span>
-            <Skeleton className="h-5 w-32" />
+            <Skeleton className="h-5 w-16 rounded-full" />
           </div>
         </div>
         <Skeleton className="h-9 w-28 ml-4" />
