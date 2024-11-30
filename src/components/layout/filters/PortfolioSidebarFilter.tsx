@@ -89,6 +89,7 @@ export function PortfolioSidebarFilter({
                 title={item.title}
                 stateKey={item.stateKey}
                 values={values}
+                isLoading={isLoading}
               />
             )}
           </LookupList>

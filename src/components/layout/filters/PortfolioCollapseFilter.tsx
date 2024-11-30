@@ -21,6 +21,7 @@ import { SidebarFilterHeader } from "./SidebarFilterHeader";
 import { SidebarFilterItem } from "./SidebarFilterItem";
 import type { FilterStateKey } from "./types";
 import type { LookupValue } from "@/use-cases/lookup/lookup.types";
+import { useState } from "react";
 
 export interface PortfolioCollapseFilterProps {
   title: string;
@@ -36,6 +37,7 @@ export function PortfolioCollapseFilter({
   isLoading,
 }: PortfolioCollapseFilterProps) {
   const state = usePortfolioFilterState();
+  const [isOpen, setIsOpen] = useState(isLoading);
 
   const items = values.map((item) => item.code);
 
@@ -61,7 +63,11 @@ export function PortfolioCollapseFilter({
   };
 
   return (
-    <Collapsible defaultOpen={!isLoading} className="group/collapsible">
+    <Collapsible
+      open={isOpen}
+      onOpenChange={setIsOpen}
+      className="group/collapsible"
+    >
       <SidebarGroup className="p-0">
         <SidebarGroupLabel
           asChild
@@ -74,6 +80,7 @@ export function PortfolioCollapseFilter({
               allSelected={allSelected}
               onToggleAll={handleToggleAll}
               onClear={handleClear}
+              isLoading={isLoading}
             />
             <ChevronRight className="w-4 h-4 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
           </CollapsibleTrigger>

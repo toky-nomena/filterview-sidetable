@@ -1,5 +1,6 @@
-import { Circle, CircleCheck } from "lucide-react";
+import { Circle, CircleCheck, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { FilterStateIcon } from "./FilterStateIcon";
 
 export interface SidebarFilterHeaderProps {
   title: string;
@@ -30,11 +31,7 @@ export function SidebarFilterHeader({
           "flex size-6 items-center justify-center rounded-full transition-colors",
         )}
       >
-        {allSelected ? (
-          <CircleCheck className="size-8 stroke-[2] text-primary" />
-        ) : (
-          <Circle className="size-8 stroke-[2] text-muted-foreground hover:text-foreground" />
-        )}
+        <FilterStateIcon isLoading={isLoading} isSelected={allSelected} />
       </div>
       <span className="flex items-center">
         {title}
