@@ -106,17 +106,7 @@ export function usePortfolioColumns() {
       {
         id: "actions",
         header: () => <span>Actions</span>,
-        cell: ({ row }) => (
-          <PortfolioActions company={row.original}>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="dark:hover:bg-gray-800 p-0 hover:bg-transparent hover:text-muted-foreground"
-            >
-              <Eye className="size-4" />
-            </Button>
-          </PortfolioActions>
-        ),
+        cell: ({ row }) => <PortfolioActions portfolio={row.original} />,
         enableHiding: false,
       },
     ],

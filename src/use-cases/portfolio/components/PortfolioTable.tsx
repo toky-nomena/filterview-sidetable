@@ -32,6 +32,7 @@ import { usePaginationSearchParams } from "../usePaginationSearchParams";
 import { PortfolioGridItem } from "./PortfolioGridItem";
 import { PortfolioListItem } from "./PortfolioListItem";
 import { cn } from "@/lib/utils";
+import { PortfolioViewChanger } from "./PortfolioViewChanger";
 
 interface PortfolioTableProps {
   data: Portfolio[];
@@ -85,42 +86,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
             </div>
             <ColumnToggle table={table} />
           </div>
-
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setViewMode("table")}
-              className={cn(
-                "transition-colors",
-                viewMode === "table" && "bg-accent/50 hover:bg-accent/70",
-              )}
-            >
-              <Table2 className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setViewMode("grid")}
-              className={cn(
-                "transition-colors",
-                viewMode === "grid" && "bg-accent/50 hover:bg-accent/70",
-              )}
-            >
-              <Grid2X2 className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setViewMode("list")}
-              className={cn(
-                "transition-colors",
-                viewMode === "list" && "bg-accent/50 hover:bg-accent/70",
-              )}
-            >
-              <Rows3 className="h-4 w-4" />
-            </Button>
-          </div>
+          <PortfolioViewChanger viewMode={viewMode} setViewMode={setViewMode} />
         </div>
       </div>
 
@@ -168,7 +134,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
                             {row.getVisibleCells().map((cell) => (
                               <TableCell
                                 key={cell.id}
-                                className="whitespace-nowrap px-4 py-1"
+                                className="whitespace-nowrap py-0.5"
                               >
                                 {flexRender(
                                   cell.column.columnDef.cell,
@@ -202,7 +168,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.15 }}
-              className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+              className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3"
             >
               <AnimatePresence>
                 {table.getRowModel().rows.map((row, index) => (

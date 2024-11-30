@@ -1,4 +1,4 @@
-import { Eye } from "lucide-react";
+import { ChevronRight, Eye } from "lucide-react";
 
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
@@ -61,12 +61,7 @@ export function PortfolioListItem({ portfolio }: ListItemProps) {
             </span>
           </div>
         </div>
-        <PortfolioActions company={portfolio}>
-          <Button variant="action" size="sm" className="ml-4">
-            <Eye className="h-4 w-4 mr-2" />
-            View Details
-          </Button>
-        </PortfolioActions>
+        <PortfolioActions portfolio={portfolio} />
       </CardContent>
     </Card>
   );
