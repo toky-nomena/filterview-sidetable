@@ -16,7 +16,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
           <EnvSelector />
         </div>
         <main className="flex-1 overflow-auto">
-          <div className="container py-6">{children}</div>
+          <div className="p-2">{children}</div>
         </main>
       </SidebarInset>
     </SidebarProvider>
