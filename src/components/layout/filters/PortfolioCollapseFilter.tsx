@@ -61,7 +61,7 @@ export function PortfolioCollapseFilter({
   };
 
   return (
-    <Collapsible defaultOpen className="group/collapsible">
+    <Collapsible defaultOpen={!isLoading} className="group/collapsible">
       <SidebarGroup className="p-0">
         <SidebarGroupLabel
           asChild
@@ -75,12 +75,7 @@ export function PortfolioCollapseFilter({
               onToggleAll={handleToggleAll}
               onClear={handleClear}
             />
-            <motion.div
-              animate={{ rotate: open ? 90 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ChevronRight className="w-4 h-4 ml-auto" />
-            </motion.div>
+            <ChevronRight className="w-4 h-4 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
           </CollapsibleTrigger>
         </SidebarGroupLabel>
         <AnimatePresence>

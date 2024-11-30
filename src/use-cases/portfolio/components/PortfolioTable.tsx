@@ -144,44 +144,36 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
                     ))}
                   </TableHeader>
                   <TableBody>
-                    <AnimatePresence>
-                      {table.getRowModel().rows?.length ? (
-                        table.getRowModel().rows.map((row, index) => (
-                          <motion.tr
-                            key={row.id}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{
-                              duration: 0.5,
-                              ease: [0.25, 0.1, 0.25, 1.0],
-                            }}
-                            className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
-                          >
-                            {row.getVisibleCells().map((cell) => (
-                              <TableCell
-                                key={cell.id}
-                                className="whitespace-nowrap px-4 py-1"
-                              >
-                                {flexRender(
-                                  cell.column.columnDef.cell,
-                                  cell.getContext(),
-                                )}
-                              </TableCell>
-                            ))}
-                          </motion.tr>
-                        ))
-                      ) : (
-                        <TableRow>
-                          <TableCell
-                            colSpan={columns.length}
-                            className="h-24 text-center"
-                          >
-                            No results.
-                          </TableCell>
+                    {table.getRowModel().rows?.length ? (
+                      table.getRowModel().rows.map((row, index) => (
+                        <TableRow
+                          key={row.id}
+                          data-state={row.getIsSelected() && "selected"}
+                          className="border-b hover:bg-muted/50 data-[state=selected]:bg-muted"
+                        >
+                          {row.getVisibleCells().map((cell) => (
+                            <TableCell
+                              key={cell.id}
+                              className="whitespace-nowrap px-4 py-1"
+                            >
+                              {flexRender(
+                                cell.column.columnDef.cell,
+                                cell.getContext(),
+                              )}
+                            </TableCell>
+                          ))}
                         </TableRow>
-                      )}
-                    </AnimatePresence>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell
+                          colSpan={columns.length}
+                          className="h-24 text-center"
+                        >
+                          No results.
+                        </TableCell>
+                      </TableRow>
+                    )}
                   </TableBody>
                 </Table>
               </div>
