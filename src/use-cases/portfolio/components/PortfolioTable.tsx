@@ -8,7 +8,7 @@ import {
   type VisibilityState,
 } from "@tanstack/react-table";
 import { useReactTable } from "@tanstack/react-table";
-import { Grid3x3, List, Table as TableIcon } from "lucide-react";
+import { Grid2X2, Rows3, Table2 } from "lucide-react";
 import { parseAsString, useQueryState } from "nuqs";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
@@ -31,6 +31,7 @@ import { usePortfolioColumns } from "../hooks/usePortfolioColumns";
 import { usePaginationSearchParams } from "../usePaginationSearchParams";
 import { PortfolioGridItem } from "./PortfolioGridItem";
 import { PortfolioListItem } from "./PortfolioListItem";
+import { cn } from "@/lib/utils";
 
 interface PortfolioTableProps {
   data: Portfolio[];
@@ -87,25 +88,34 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
               variant="ghost"
               size="icon"
               onClick={() => setViewMode("table")}
-              className={viewMode === "table" ? "bg-accent" : ""}
+              className={cn(
+                "transition-colors",
+                viewMode === "table" && "bg-accent/50 hover:bg-accent/70",
+              )}
             >
-              <TableIcon className="h-4 w-4" />
+              <Table2 className="h-4 w-4" />
             </Button>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setViewMode("grid")}
-              className={viewMode === "grid" ? "bg-accent" : ""}
+              className={cn(
+                "transition-colors",
+                viewMode === "grid" && "bg-accent/50 hover:bg-accent/70",
+              )}
             >
-              <Grid3x3 className="h-4 w-4" />
+              <Grid2X2 className="h-4 w-4" />
             </Button>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setViewMode("list")}
-              className={viewMode === "list" ? "bg-accent" : ""}
+              className={cn(
+                "transition-colors",
+                viewMode === "list" && "bg-accent/50 hover:bg-accent/70",
+              )}
             >
-              <List className="h-4 w-4" />
+              <Rows3 className="h-4 w-4" />
             </Button>
           </div>
         </div>

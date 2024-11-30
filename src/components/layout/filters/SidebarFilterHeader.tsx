@@ -21,23 +21,27 @@ export function SidebarFilterHeader({
 }: SidebarFilterHeaderProps) {
   return (
     <div className="flex items-center gap-2">
-      {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
-      <div
+      <button
+        type="button"
         onClick={(e) => {
           e.stopPropagation();
           onToggleAll();
         }}
+        disabled={isLoading}
         className={cn(
           "flex size-6 items-center justify-center rounded-full transition-colors",
+          "hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          "disabled:opacity-50 disabled:cursor-not-allowed",
         )}
+        aria-label={allSelected ? "Deselect all filters" : "Select all filters"}
       >
         <FilterStateIcon isLoading={isLoading} isSelected={allSelected} />
-      </div>
-      <span className="flex items-center">
-        {title}
+      </button>
+      <span className="flex items-center gap-2">
+        <span className="font-medium">{title}</span>
         {activeItemsCount > 0 && (
-          <>
-            <span className="ml-2 text-xs text-muted-foreground font-bold">
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted-foreground font-semibold">
               ({activeItemsCount})
             </span>
             <button
@@ -46,11 +50,17 @@ export function SidebarFilterHeader({
                 e.stopPropagation();
                 onClear();
               }}
-              className="ml-2 text-xs text-muted-foreground font-normal hover:text-destructive"
+              disabled={isLoading}
+              className={cn(
+                "text-xs text-muted-foreground hover:text-destructive transition-colors",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm px-1",
+                "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-muted-foreground",
+              )}
+              aria-label="Clear selected filters"
             >
               Clear
             </button>
-          </>
+          </div>
         )}
       </span>
     </div>

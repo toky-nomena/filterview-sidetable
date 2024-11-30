@@ -1,37 +1,36 @@
-import { Badge } from "@/components/ui/badge";
+import { Badge, type BadgeVariant } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Lookup } from "@/use-cases/lookup/components/lookup";
-import type { RiskState, State, TransactionType } from "@/types/schema";
 
-const stateVariants: Record<State, "primary" | "outline-primary"> = {
-  Active: "primary",
-  Inactive: "outline-primary",
+const stateVariants: Record<string, "primary" | "outline"> = {
+  active: "primary",
+  inactive: "outline",
 };
 
-const riskVariants: Record<RiskState, "success" | "warning" | "danger"> = {
-  LowRisk: "success",
-  ModerateRisk: "warning",
-  HighRisk: "danger",
-  CriticalRisk: "danger",
-  PendingReview: "warning",
-  UnderInvestigation: "warning",
+const riskVariants: Record<string, "success" | "warning" | "danger"> = {
+  "low-risk": "success",
+  "moderate-risk": "warning",
+  "high-risk": "danger",
+  "critical-risk": "danger",
+  "pending-review": "warning",
+  "under-investigation": "warning",
 };
 
-const transactionVariants: Record<TransactionType, "success" | "danger"> = {
-  Purchase: "success",
-  Refund: "danger",
+const transactionVariants: Record<string, "success" | "danger"> = {
+  purchase: "success",
+  refund: "danger",
 };
 
-function getVariant(type: string, value: string) {
+function getVariant(type: string, code: string): BadgeVariant {
   switch (type) {
     case "state":
-      return stateVariants[value] ?? "outline";
+      return stateVariants[code];
     case "risk-state":
-      return riskVariants[value] ?? "warning";
+      return riskVariants[code];
     case "transaction":
-      return transactionVariants[value] ?? "muted";
+      return transactionVariants[code];
     default:
-      return "default";
+      return "primary";
   }
 }
 
@@ -48,7 +47,9 @@ export function LookupBadge({ lookupName, code }: StatusBadgeProps) {
       fallback={<Skeleton className="h-5 w-16 rounded-full" />}
     >
       {({ label }) => (
-        <Badge variant={getVariant(lookupName, code)}>{label}</Badge>
+        <Badge variant={getVariant(lookupName, code) || "primary"}>
+          {label}
+        </Badge>
       )}
     </Lookup>
   );
