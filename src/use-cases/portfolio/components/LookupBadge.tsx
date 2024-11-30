@@ -2,12 +2,14 @@ import { Badge, type BadgeVariant } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Lookup } from "@/use-cases/lookup/components/lookup";
 
-const stateVariants: Record<string, "primary" | "outline"> = {
+const stateVariants: Record<string, BadgeVariant> = {
   active: "primary",
-  inactive: "outline",
+  inactive: "muted",
+  pending: "warning",
+  suspended: "muted",
 };
 
-const riskVariants: Record<string, "success" | "warning" | "danger"> = {
+const riskVariants: Record<string, BadgeVariant> = {
   "low-risk": "success",
   "moderate-risk": "warning",
   "high-risk": "danger",
@@ -16,7 +18,7 @@ const riskVariants: Record<string, "success" | "warning" | "danger"> = {
   "under-investigation": "warning",
 };
 
-const transactionVariants: Record<string, "success" | "danger"> = {
+const transactionVariants: Record<string, BadgeVariant> = {
   purchase: "success",
   refund: "danger",
 };
@@ -24,11 +26,11 @@ const transactionVariants: Record<string, "success" | "danger"> = {
 function getVariant(type: string, code: string): BadgeVariant {
   switch (type) {
     case "state":
-      return stateVariants[code];
+      return stateVariants[code] || "primary";
     case "risk-state":
-      return riskVariants[code];
+      return riskVariants[code] || "warning";
     case "transaction":
-      return transactionVariants[code];
+      return transactionVariants[code] || "primary";
     default:
       return "primary";
   }
@@ -44,12 +46,10 @@ export function LookupBadge({ lookupName, code }: StatusBadgeProps) {
     <Lookup
       name={lookupName}
       code={code}
-      fallback={<Skeleton className="h-5 w-16 rounded-full" />}
+      fallback={<Skeleton className="h-6 w-16 rounded-lg" />}
     >
       {({ label }) => (
-        <Badge variant={getVariant(lookupName, code) || "primary"}>
-          {label}
-        </Badge>
+        <Badge variant={getVariant(lookupName, code)}>{label}</Badge>
       )}
     </Lookup>
   );

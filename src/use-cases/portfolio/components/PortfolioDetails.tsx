@@ -32,7 +32,7 @@ function DetailItem({ label, children }: DetailItemProps) {
 export function PortfolioDetails({ portfolio }: PortfolioDetailsProps) {
   return (
     <ScrollArea className="h-[calc(100vh-8rem)]">
-      <div className="space-y-8  px-6 pt-4">
+      <div className="space-y-8 px-6 pt-4">
         {/* Personal Information */}
         <PortfolioDetailsSection title="Personal Information">
           <DetailItem label="First Name">{portfolio.firstName}</DetailItem>
@@ -65,7 +65,10 @@ export function PortfolioDetails({ portfolio }: PortfolioDetailsProps) {
             <LookupBadge lookupName="state" code={portfolio.state} />
           </DetailItem>
           <DetailItem label="Risk State">
-            <LookupBadge lookupName="riskState" code={portfolio.riskState} />
+            <LookupBadge
+              lookupName={LookupName.RiskState}
+              code={portfolio.riskState}
+            />
           </DetailItem>
           <DetailItem label="Transaction">
             <LookupBadge
@@ -73,20 +76,6 @@ export function PortfolioDetails({ portfolio }: PortfolioDetailsProps) {
               code={portfolio.transaction}
             />
           </DetailItem>
-        </PortfolioDetailsSection>
-
-        {/* Additional Information */}
-        <PortfolioDetailsSection title="Additional Details">
-          {Object.entries(portfolio).map(([key, value]) => {
-            return (
-              <DetailItem
-                key={key}
-                label={key.replace(/([A-Z])/g, " $1").trim()}
-              >
-                {typeof value === "string" ? value : String(value)}
-              </DetailItem>
-            );
-          })}
         </PortfolioDetailsSection>
       </div>
     </ScrollArea>
