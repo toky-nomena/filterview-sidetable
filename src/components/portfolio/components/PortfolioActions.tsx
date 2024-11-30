@@ -5,11 +5,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import type { Company } from "@/services/data/data.service";
+import type { Portfolio } from "@/services/data/data.service";
 import { PortfolioDetails } from "../PortfolioDetails";
 
 interface PortfolioActionsProps {
-  company: Company;
+  company: Portfolio;
   children?: React.ReactNode;
 }
 

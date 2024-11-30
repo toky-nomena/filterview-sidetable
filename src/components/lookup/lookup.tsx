@@ -6,15 +6,19 @@ interface LookupProps {
   name: string;
   code: string;
   fallback?: ReactNode;
-  children: (props: { label: string; isLoading: boolean }) => ReactNode;
+  children?: (props: { label: string; isLoading: boolean }) => ReactNode;
 }
 
 export function Lookup({ name, code, children, fallback }: LookupProps) {
-  const { data: label, isLoading, ...result } = useLookupValue(name, code);
+  const { data: label, isLoading } = useLookupValue(name, code);
 
   if (isLoading && fallback) {
     return <>{fallback}</>;
   }
 
-  return <>{children({ label: label ?? code, isLoading, ...result })}</>;
+  if (children && (label || isLoading)) {
+    return <>{children({ label, isLoading })}</>;
+  }
+
+  return <>{label || code}</>;
 }

@@ -11,7 +11,7 @@ import type {
 } from "@/types/schema";
 import { data, keys } from "./data";
 
-export interface Company {
+export interface Portfolio {
   id: string;
   firstName: string;
   lastName: string;
@@ -42,22 +42,24 @@ const generateActivityData = () => {
   );
 };
 
-const generateCompany = (): Company => ({
+const generateCompany = (): Portfolio => ({
   id: faker.string.uuid(),
   firstName: faker.person.firstName(),
   lastName: faker.person.lastName(),
   activity: generateActivityData(),
   language: faker.helpers.arrayElement(data.language),
-  brand: faker.helpers.arrayElement(data.brand) as Company["brand"],
-  state: faker.helpers.arrayElement(data.state) as Company["state"],
+  brand: faker.helpers.arrayElement(data.brand) as Portfolio["brand"],
+  state: faker.helpers.arrayElement(data.state) as Portfolio["state"],
   productType: faker.helpers.arrayElement(
     data.productType,
-  ) as Company["productType"],
-  riskState: faker.helpers.arrayElement(data.riskState) as Company["riskState"],
+  ) as Portfolio["productType"],
+  riskState: faker.helpers.arrayElement(
+    data.riskState,
+  ) as Portfolio["riskState"],
   transaction: faker.helpers.arrayElement(
     data.transaction,
-  ) as Company["transaction"],
-  province: faker.helpers.arrayElement(data.province) as Company["province"],
+  ) as Portfolio["transaction"],
+  province: faker.helpers.arrayElement(data.province) as Portfolio["province"],
 });
 
 const validateFilter = <Data, T extends keyof Data>(
@@ -86,7 +88,7 @@ export const getPortfolio = async (filters: FilterState) => {
 
   return portfolio.filter((company) => {
     return keys.every((field) =>
-      validateFilter(filters[field], field as keyof Company, company),
+      validateFilter(filters[field], field as keyof Portfolio, company),
     );
   });
 };

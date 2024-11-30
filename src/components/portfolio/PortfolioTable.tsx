@@ -13,7 +13,7 @@ import { Grid3x3, List, Table as TableIcon } from "lucide-react";
 import { parseAsString, useQueryState } from "nuqs";
 import { useState } from "react";
 
-import type { Company } from "@/services/data/data.service";
+import type { Portfolio } from "@/services/data/data.service";
 
 import { Button } from "@/components/ui/button";
 import { ColumnToggle } from "@/components/ui/column-toggle";
@@ -34,7 +34,7 @@ import { usePortfolioColumns } from "./hooks/usePortfolioColumns";
 import { usePaginationSearchParams } from "./usePaginationSearchParams";
 
 interface PortfolioTableProps {
-  data: Company[];
+  data: Portfolio[];
 }
 
 export function PortfolioTable({ data }: PortfolioTableProps) {
@@ -133,7 +133,10 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
         table
           .getRowModel()
           .rows.map((row) => (
-            <PortfolioGridItem key={row.id} company={row.original as Company} />
+            <PortfolioGridItem
+              key={row.id}
+              portfolio={row.original as Portfolio}
+            />
           ))
       ) : (
         <div className="col-span-full text-center text-muted-foreground">
@@ -149,7 +152,10 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
         table
           .getRowModel()
           .rows.map((row) => (
-            <PortfolioListItem key={row.id} company={row.original as Company} />
+            <PortfolioListItem
+              key={row.id}
+              portfolio={row.original as Portfolio}
+            />
           ))
       ) : (
         <div className="text-center text-muted-foreground">No results.</div>

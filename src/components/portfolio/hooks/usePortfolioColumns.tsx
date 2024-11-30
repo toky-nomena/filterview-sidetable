@@ -1,4 +1,4 @@
-import type { Company } from "@/services/data/data.service";
+import type { Portfolio } from "@/services/data/data.service";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { SortButton } from "@/components/ui/sort-button";
@@ -8,7 +8,7 @@ import { Eye } from "lucide-react";
 import { LookupBadge } from "@/components/portfolio/LookupBadge";
 
 export function usePortfolioColumns() {
-  return useMemo<ColumnDef<Company>[]>(
+  return useMemo<ColumnDef<Portfolio>[]>(
     () => [
       {
         accessorKey: "firstName",

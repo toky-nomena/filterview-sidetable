@@ -1,4 +1,4 @@
-import type { Company } from "@/services/data/data.service";
+import type { Portfolio } from "@/services/data/data.service";
 import { memo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Lookup } from "@/components/lookup/lookup";
@@ -7,7 +7,7 @@ import { PortfolioDetailsSection } from "./components/PortfolioDetailsSection";
 import { LookupBadge } from "./LookupBadge";
 
 interface PortfolioDetailsProps {
-  company: Company;
+  company: Portfolio;
 }
 
 interface DetailItemProps {
@@ -35,14 +35,10 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
           <DetailItem label="First Name">{company.firstName}</DetailItem>
           <DetailItem label="Last Name">{company.lastName}</DetailItem>
           <DetailItem label="Language">
-            <Lookup name="language" code={company.language}>
-              {({ label, isLoading }) => (isLoading ? "..." : label)}
-            </Lookup>
+            <Lookup name="language" code={company.language} fallback="..." />
           </DetailItem>
           <DetailItem label="Province">
-            <Lookup name="province" code={company.province}>
-              {({ label, isLoading }) => (isLoading ? "..." : label)}
-            </Lookup>
+            <Lookup name="province" code={company.province} fallback="..." />
           </DetailItem>
         </PortfolioDetailsSection>
 
