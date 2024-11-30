@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { usePortfolioFilterState } from "@/use-cases/portfolio/store/portfolioFilterStore";
 import { getFilteredPortfolio } from "@/use-cases/portfolio/services/portfolio.service";
 import { PortfolioTable } from "@/use-cases/portfolio/components/PortfolioTable";
-import { PortfolioTableSkeleton } from "@/use-cases/portfolio/components/PortfolioTableSkeleton";
+import { PortfolioTablePlaceholoder } from "@/use-cases/portfolio/components/PortfolioTablePlaceholoder";
 
 export function Index() {
   const state = usePortfolioFilterState();
@@ -15,7 +15,7 @@ export function Index() {
   });
 
   if (isLoading) {
-    return <PortfolioTableSkeleton />;
+    return <PortfolioTablePlaceholoder />;
   }
 
   return <PortfolioTable data={data} />;

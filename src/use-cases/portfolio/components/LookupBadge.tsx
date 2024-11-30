@@ -46,7 +46,7 @@ export function LookupBadge({ name, code }: StatusBadgeProps) {
     <Lookup
       name={name}
       code={code}
-      fallback={<Skeleton className="h-6 w-16 rounded-lg" />}
+      fallback={<Skeleton className="h-6 w-16" />}
     >
       {({ label }) => <Badge variant={getVariant(name, code)}>{label}</Badge>}
     </Lookup>

@@ -1,4 +1,4 @@
-import { Hexagon, Moon, Sun } from "lucide-react";
+import { Database, Hexagon, Layers, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
@@ -72,10 +72,12 @@ export function PortfolioSidebarFilter({
             <SidebarMenuButton size="lg" asChild className="rounded-none">
               <div>
                 <div className="flex aspect-square align-middle justify-center rounded-lg  text-sidebar-primary-foreground">
-                  <Hexagon className="size-7 stroke-[3] text-black dark:text-white" />
+                  <Layers className="size-7 stroke-[2] text-primary " />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-bold text-lg">Portfolio Search</span>
+                  <span className="font-bold text-lg text-primary">
+                    Portfolio Search
+                  </span>
                 </div>
               </div>
             </SidebarMenuButton>
