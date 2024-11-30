@@ -31,6 +31,13 @@ export function usePortfolioColumns() {
       {
         accessorKey: "language",
         header: ({ column }) => <SortButton column={column} label="Language" />,
+        cell: ({ row }) => (
+          <Lookup
+            name={LookupName.Language}
+            code={row.original.language}
+            fallback={<Skeleton className="h-5 w-16 rounded-full" />}
+          />
+        ),
         enableHiding: true,
       },
       {

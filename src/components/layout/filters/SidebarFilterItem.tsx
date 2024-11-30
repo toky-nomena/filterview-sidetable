@@ -2,13 +2,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 
 interface SidebarFilterItemProps {
-  item: string;
+  label: string;
   isActive: boolean;
   onToggle: (checked: boolean) => void;
 }
 
 export function SidebarFilterItem({
-  item,
+  label,
   isActive,
   onToggle,
 }: SidebarFilterItemProps) {
@@ -17,15 +17,15 @@ export function SidebarFilterItem({
       <SidebarMenuButton asChild isActive={isActive}>
         <div>
           <Checkbox
-            id={item}
+            id={label}
             checked={isActive}
             onCheckedChange={(checked) => onToggle(!!checked)}
           />
           <label
-            htmlFor={item}
+            htmlFor={label}
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
-            {item}
+            {label}
           </label>
         </div>
       </SidebarMenuButton>

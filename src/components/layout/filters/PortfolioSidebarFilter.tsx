@@ -16,6 +16,7 @@ import {
   type PortfolioCollapseFilterProps,
 } from "./PortfolioCollapseFilter";
 import { LookupName } from "@/use-cases/lookup/lookup.service";
+import { LookupList } from "@/use-cases/lookup/components/LookupList";
 
 interface FilterGroup {
   title: string;
@@ -82,12 +83,15 @@ export function PortfolioSidebarFilter({
       </SidebarHeader>
       <SidebarContent className="px-2">
         {items.map((item) => (
-          <PortfolioCollapseFilter
-            key={item.title}
-            title={item.title}
-            stateKey={item.stateKey}
-            lookupName={item.lookupName}
-          />
+          <LookupList key={item.lookupName} name={item.lookupName}>
+            {({ values, isLoading }) => (
+              <PortfolioCollapseFilter
+                title={item.title}
+                stateKey={item.stateKey}
+                values={values}
+              />
+            )}
+          </LookupList>
         ))}
       </SidebarContent>
       <SidebarRail />

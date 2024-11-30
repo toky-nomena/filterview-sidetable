@@ -19,23 +19,29 @@ import {
 import { SidebarFilterHeader } from "./SidebarFilterHeader";
 import { SidebarFilterItem } from "./SidebarFilterItem";
 import type { FilterStateKey } from "./types";
-import type { LookupName } from "@/use-cases/lookup/lookup.service";
+import type { LookupValue } from "@/use-cases/lookup/lookup.types";
 
 export interface PortfolioCollapseFilterProps {
   title: string;
   stateKey: FilterStateKey;
-  lookupName: LookupName;
+  values: LookupValue[];
+  isLoading?: boolean;
 }
 
 export function PortfolioCollapseFilter({
   title,
   stateKey,
-  lookupName,
+  values,
+  isLoading,
 }: PortfolioCollapseFilterProps) {
   const state = usePortfolioFilterState();
+
+  const items = values.map((item) => item.code);
+
   const activeFilters = (state[stateKey] || []) as string[];
   const activeItems = activeFilters.filter((filter) => items.includes(filter));
-  const allSelected = activeItems.length === items.length;
+  const allSelected =
+    !isLoading && items.length > 0 && activeItems.length === values.length;
 
   const handleToggleAll = () => {
     update(stateKey, () => (allSelected ? [] : [...items]));
@@ -71,20 +77,22 @@ export function PortfolioCollapseFilter({
             <ChevronRight className="w-4 h-4 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
           </CollapsibleTrigger>
         </SidebarGroupLabel>
-        <CollapsibleContent className="pl-1">
-          <SidebarGroupContent>
-            <SidebarMenuSub>
-              {items.map((item) => (
-                <SidebarFilterItem
-                  key={item}
-                  item={item}
-                  isActive={activeFilters.includes(item)}
-                  onToggle={(checked) => handleToggleItem(checked, item)}
-                />
-              ))}
-            </SidebarMenuSub>
-          </SidebarGroupContent>
-        </CollapsibleContent>
+        {!isLoading && (
+          <CollapsibleContent className="pl-1">
+            <SidebarGroupContent>
+              <SidebarMenuSub>
+                {values.map((item) => (
+                  <SidebarFilterItem
+                    key={item.code}
+                    label={item.label}
+                    isActive={activeFilters.includes(item.code) && !isLoading}
+                    onToggle={(checked) => handleToggleItem(checked, item.code)}
+                  />
+                ))}
+              </SidebarMenuSub>
+            </SidebarGroupContent>
+          </CollapsibleContent>
+        )}
       </SidebarGroup>
     </Collapsible>
   );

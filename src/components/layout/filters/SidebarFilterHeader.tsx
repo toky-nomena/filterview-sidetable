@@ -5,6 +5,7 @@ export interface SidebarFilterHeaderProps {
   title: string;
   activeItemsCount: number;
   allSelected: boolean;
+  isLoading?: boolean;
   onToggleAll: () => void;
   onClear: () => void;
 }
@@ -13,6 +14,7 @@ export function SidebarFilterHeader({
   title,
   activeItemsCount,
   allSelected,
+  isLoading,
   onToggleAll,
   onClear,
 }: SidebarFilterHeaderProps) {

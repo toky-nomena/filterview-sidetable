@@ -27,7 +27,6 @@ export function useLookupValues(name: string, values?: LookupValue[]) {
     queryKey: ["lookup", name],
     queryFn: () => getLookupValues(name),
     initialData: values,
-    enabled: !values,
     ...CACHE_OPTIONS,
   });
 }
