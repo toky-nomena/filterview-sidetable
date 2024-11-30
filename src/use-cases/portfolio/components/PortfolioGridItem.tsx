@@ -13,6 +13,7 @@ import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service
 import { Lookup } from "@/use-cases/lookup/components/lookup";
 import { LookupName } from "@/use-cases/lookup/lookup.service";
 import { LookupBadge } from "./LookupBadge";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface GridItemProps {
   portfolio: Portfolio;
@@ -34,7 +35,7 @@ export function PortfolioGridItem({ portfolio }: GridItemProps) {
             <Lookup
               name={LookupName.Language}
               code={portfolio.language}
-              fallback="..."
+              fallback={<Skeleton className="h-5 w-16 rounded-full" />}
             />
           </span>
         </div>
@@ -44,7 +45,7 @@ export function PortfolioGridItem({ portfolio }: GridItemProps) {
             <Lookup
               name={LookupName.Brand}
               code={portfolio.brand}
-              fallback="..."
+              fallback={<Skeleton className="h-5 w-16 rounded-full" />}
             />
           </span>
         </div>
@@ -56,7 +57,7 @@ export function PortfolioGridItem({ portfolio }: GridItemProps) {
             <Lookup
               name={LookupName.ProductType}
               code={portfolio.productType}
-              fallback="..."
+              fallback={<Skeleton className="h-5 w-16 rounded-full" />}
             />
           </span>
         </div>

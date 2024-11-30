@@ -8,6 +8,7 @@ import { MainLayout } from "./components/layout/MainLayout";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { NuqsAdapter } from "nuqs/adapters/react";
+import { preloadLookups } from "./use-cases/lookup/lookup.service";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,6 +17,8 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+preloadLookups();
 
 function App() {
   return (

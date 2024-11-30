@@ -1,11 +1,15 @@
-import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
-import type { ColumnDef } from "@tanstack/react-table";
-import { useMemo } from "react";
-import { SortButton } from "@/components/ui/sort-button";
-import { PortfolioActions } from "../components/PortfolioActions";
-import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
+import { useMemo } from "react";
+import type { ColumnDef } from "@tanstack/react-table";
+
+import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
+import { SortButton } from "@/components/ui/sort-button";
+import { Button } from "@/components/ui/button";
 import { LookupBadge } from "../components/LookupBadge";
+import { LookupName } from "@/use-cases/lookup/lookup.service";
+import { Lookup } from "@/use-cases/lookup/components/lookup";
+import { PortfolioActions } from "../components/PortfolioActions";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function usePortfolioColumns() {
   return useMemo<ColumnDef<Portfolio>[]>(
@@ -38,6 +42,13 @@ export function usePortfolioColumns() {
       {
         accessorKey: "brand",
         header: ({ column }) => <SortButton column={column} label="Brand" />,
+        cell: ({ row }) => (
+          <Lookup
+            name={LookupName.Brand}
+            code={row.original.brand}
+            fallback={<Skeleton className="h-5 w-16 rounded-full" />}
+          />
+        ),
         enableHiding: true,
       },
       {
@@ -52,6 +63,13 @@ export function usePortfolioColumns() {
         accessorKey: "productType",
         header: ({ column }) => (
           <SortButton column={column} label="Product Type" />
+        ),
+        cell: ({ row }) => (
+          <Lookup
+            name={LookupName.ProductType}
+            code={row.original.productType}
+            fallback={<Skeleton className="h-5 w-16 rounded-full" />}
+          />
         ),
         enableHiding: true,
       },

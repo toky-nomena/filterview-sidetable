@@ -6,6 +6,7 @@ import { Lookup } from "@/use-cases/lookup/components/lookup";
 import { LookupName } from "@/use-cases/lookup/lookup.service";
 import { PortfolioDetailsSection } from "./PortfolioDetailsSection";
 import { LookupBadge } from "./LookupBadge";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface PortfolioDetailsProps {
   company: Portfolio;
@@ -39,14 +40,14 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
             <Lookup
               name={LookupName.Language}
               code={company.language}
-              fallback="..."
+              fallback={<Skeleton className="h-5 w-16 rounded-full" />}
             />
           </DetailItem>
           <DetailItem label="Province">
             <Lookup
               name={LookupName.Province}
               code={company.province}
-              fallback="..."
+              fallback={<Skeleton className="h-5 w-16 rounded-full" />}
             />
           </DetailItem>
         </PortfolioDetailsSection>
