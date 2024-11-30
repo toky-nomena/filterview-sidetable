@@ -1,25 +1,28 @@
-export const data = {
-  riskState: [
-    "LowRisk",
-    "ModerateRisk",
-    "HighRisk",
-    "CriticalRisk",
-    "PendingReview",
-    "UnderInvestigation",
-  ],
-  transaction: ["Purchase", "Refund"],
-  province: ["AB", "BC", "MB", "NB", "NL", "NS", "ON", "PE", "QC", "SK"],
-  language: ["en", "fr"],
-  brand: ["Nike", "Adidas"],
-  state: ["Active", "Inactive"],
-  productType: ["Shoes", "Apparel"],
+import language from "../../lookup/data/language.json";
+import brand from "../../lookup/data/brand.json";
+import productType from "../../lookup/data/product-type.json";
+import province from "../../lookup/data/province.json";
+import riskState from "../../lookup/data/risk-state.json";
+import state from "../../lookup/data/state.json";
+import transaction from "../../lookup/data/transaction.json";
+import { faker } from "@faker-js/faker";
+
+const lookups = {
+  language,
+  brand,
+  productType,
+  province,
+  riskState,
+  state,
+  transaction,
 };
 
-export const keys: (keyof typeof data)[] = [
-  "brand",
-  "state",
-  "productType",
-  "riskState",
-  "transaction",
-  "province",
-];
+export function getLookupCodes(lookupName: keyof typeof lookups): string[] {
+  return lookups[lookupName].map((item) => item.code);
+}
+
+export function getLookupRandomCode(lookupName: keyof typeof lookups): string {
+  return faker.helpers.arrayElement(
+    lookups[lookupName].map((item) => item.code),
+  );
+}

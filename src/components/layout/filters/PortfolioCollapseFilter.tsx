@@ -19,17 +19,18 @@ import {
 import { SidebarFilterHeader } from "./SidebarFilterHeader";
 import { SidebarFilterItem } from "./SidebarFilterItem";
 import type { FilterStateKey } from "./types";
+import type { LookupName } from "@/use-cases/lookup/lookup.service";
 
 export interface PortfolioCollapseFilterProps {
   title: string;
   stateKey: FilterStateKey;
-  items: string[];
+  lookupName: LookupName;
 }
 
 export function PortfolioCollapseFilter({
   title,
   stateKey,
-  items,
+  lookupName,
 }: PortfolioCollapseFilterProps) {
   const state = usePortfolioFilterState();
   const activeFilters = (state[stateKey] || []) as string[];

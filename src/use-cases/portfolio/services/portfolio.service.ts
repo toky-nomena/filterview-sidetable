@@ -1,14 +1,8 @@
 import { faker } from "@faker-js/faker";
 
 import type { FilterState } from "@/use-cases/portfolio/store/portfolioFilterStore";
-import { loadLookupDataImmediate } from "../../lookup/lookup.service";
-import language from "../../lookup/data/language.json";
-import brand from "../../lookup/data/brand.json";
-import productType from "../../lookup/data/product-type.json";
-import province from "../../lookup/data/province.json";
-import riskState from "../../lookup/data/risk-state.json";
-import state from "../../lookup/data/state.json";
-import transaction from "../../lookup/data/transaction.json";
+
+import { getLookupRandomCode } from "./data";
 
 export interface Portfolio {
   id: string;
@@ -41,13 +35,7 @@ const generateActivityData = () => {
   );
 };
 
-async function getLookupRandomValue(type: string) {
-  const values = await loadLookupDataImmediate(type);
-  return faker.helpers.arrayElement(values.map((item) => item.code)) || "";
-}
-
 const keys = [
-  "search",
   "brand",
   "state",
   "productType",
@@ -56,23 +44,19 @@ const keys = [
   "province",
 ] as const;
 
-async function generatePortfolio(): Promise<Portfolio> {
+function generatePortfolio(): Portfolio {
   return {
     id: faker.string.uuid(),
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     activity: generateActivityData(),
-    language: faker.helpers.arrayElement(language.map((item) => item.code)),
-    brand: faker.helpers.arrayElement(brand.map((item) => item.code)),
-    state: faker.helpers.arrayElement(state.map((item) => item.code)),
-    productType: faker.helpers.arrayElement(
-      productType.map((item) => item.code),
-    ),
-    riskState: faker.helpers.arrayElement(riskState.map((item) => item.code)),
-    transaction: faker.helpers.arrayElement(
-      transaction.map((item) => item.code),
-    ),
-    province: faker.helpers.arrayElement(province.map((item) => item.code)),
+    language: getLookupRandomCode("language"),
+    brand: getLookupRandomCode("brand"),
+    state: getLookupRandomCode("state"),
+    productType: getLookupRandomCode("productType"),
+    riskState: getLookupRandomCode("riskState"),
+    transaction: getLookupRandomCode("transaction"),
+    province: getLookupRandomCode("province"),
   };
 }
 
@@ -88,25 +72,17 @@ const validateFilter = <Data, T extends keyof Data>(
   const dataValue = String(data[field]).toLowerCase();
 
   if (typeof value === "string") {
-    return dataValue.includes(value.toLowerCase());
+    return dataValue.toLowerCase().includes(value.toLowerCase());
   }
 
-  return value.some((item) => dataValue.includes(item.toLowerCase()));
+  return value.some((item) =>
+    dataValue.toLowerCase().includes(item.toLowerCase()),
+  );
 };
 
-export const getPortfolio = async (filters: FilterState) => {
-  const portfolio = [];
+const portfolio = Array.from({ length: 100 }, generatePortfolio);
 
-  for (let i = 0; i < 100; i++) {
-    const current = await generatePortfolio();
-
-    console.log("getPortfolio add current", current);
-
-    portfolio.push(current);
-  }
-
-  console.log("getPortfolio data generated", portfolio);
-
+export const getFilteredPortfolio = async (filters: FilterState) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   return portfolio.filter((company) => {

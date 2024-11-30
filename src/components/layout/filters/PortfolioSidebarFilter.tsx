@@ -1,5 +1,4 @@
 import { Hexagon } from "lucide-react";
-import { data } from "@/use-cases/portfolio/services/data";
 
 import {
   Sidebar,
@@ -16,49 +15,50 @@ import {
   PortfolioCollapseFilter,
   type PortfolioCollapseFilterProps,
 } from "./PortfolioCollapseFilter";
+import { LookupName } from "@/use-cases/lookup/lookup.service";
 
 interface FilterGroup {
   title: string;
   stateKey: PortfolioCollapseFilterProps["stateKey"];
-  items: string[];
+  lookupName: LookupName;
 }
+
+const items: FilterGroup[] = [
+  {
+    title: "Risk State",
+    stateKey: "riskState",
+    lookupName: LookupName.RiskState,
+  },
+  {
+    title: "Transaction",
+    stateKey: "transaction",
+    lookupName: LookupName.Transaction,
+  },
+  {
+    title: "Province",
+    stateKey: "province",
+    lookupName: LookupName.Province,
+  },
+  {
+    title: "Brand",
+    stateKey: "brand",
+    lookupName: LookupName.Brand,
+  },
+  {
+    title: "State",
+    stateKey: "state",
+    lookupName: LookupName.State,
+  },
+  {
+    title: "Product Type",
+    stateKey: "productType",
+    lookupName: LookupName.ProductType,
+  },
+];
 
 export function PortfolioSidebarFilter({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
-  const items: FilterGroup[] = [
-    {
-      title: "Risk State",
-      stateKey: "riskState",
-      items: data.riskState,
-    },
-    {
-      title: "Transaction",
-      stateKey: "transaction",
-      items: data.transaction,
-    },
-    {
-      title: "Province",
-      stateKey: "province",
-      items: data.province,
-    },
-    {
-      title: "Brand",
-      stateKey: "brand",
-      items: data.brand,
-    },
-    {
-      title: "State",
-      stateKey: "state",
-      items: data.state,
-    },
-    {
-      title: "Product Type",
-      stateKey: "productType",
-      items: data.productType,
-    },
-  ];
-
   return (
     <Sidebar {...props}>
       <SidebarHeader>
@@ -85,8 +85,8 @@ export function PortfolioSidebarFilter({
           <PortfolioCollapseFilter
             key={item.title}
             title={item.title}
-            items={item.items}
             stateKey={item.stateKey}
+            lookupName={item.lookupName}
           />
         ))}
       </SidebarContent>
