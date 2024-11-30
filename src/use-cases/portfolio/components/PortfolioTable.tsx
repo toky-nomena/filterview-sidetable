@@ -1,5 +1,4 @@
 import {
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -13,22 +12,45 @@ import { useState } from "react";
 
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
-import { ColumnToggle } from "@/components/ui/column-toggle";
-import { Pagination } from "@/components/ui/pagination";
-import { SearchInput } from "@/components/ui/search-input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { usePortfolioColumns } from "../hooks/usePortfolioColumns";
 import { usePaginationSearchParams } from "../usePaginationSearchParams";
-import { PortfolioGridItem } from "./PortfolioGridItem";
-import { PortfolioListItem } from "./PortfolioListItem";
 import { PortfolioViewChanger } from "./PortfolioViewChanger";
+import loadable from "@loadable/component";
+import { Suspense } from "react";
+import { PortfolioTablePlaceholoder } from "./PortfolioTablePlaceholoder";
+import { SearchInput } from "@/components/ui/search-input";
+import { ColumnToggle } from "@/components/ui/column-toggle";
+import { Pagination } from "@/components/ui/pagination";
+
+const PortfolioTableView = loadable(
+  () =>
+    import("./views/PortfolioTableView").then((mod) => ({
+      default: mod.PortfolioTableView,
+    })),
+  {
+    fallback: <PortfolioTablePlaceholoder />,
+  },
+);
+
+const PortfolioGridView = loadable(
+  () =>
+    import("./views/PortfolioGridView").then((mod) => ({
+      default: mod.PortfolioGridView,
+    })),
+  {
+    fallback: <PortfolioTablePlaceholoder />,
+  },
+);
+
+const PortfolioListView = loadable(
+  () =>
+    import("./views/PortfolioListView").then((mod) => ({
+      default: mod.PortfolioListView,
+    })),
+  {
+    fallback: <PortfolioTablePlaceholoder />,
+  },
+);
 
 interface PortfolioTableProps {
   data: Portfolio[];
@@ -39,7 +61,6 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
   const [columnVisibility, onColumnVisibilityChange] =
     useState<VisibilityState>({});
   const [globalFilter, onGlobalFilterChange] = useState("");
-
   const [viewMode, setViewMode] = useQueryState(
     "view",
     parseAsString.withDefault("table"),
@@ -86,61 +107,11 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
       </div>
 
       <div className="flex-1 overflow-x-scroll px-4">
-        {viewMode === "table" && (
-          <div className="flex w-full flex-col relative border rounded-lg">
-            <Table>
-              <TableHeader>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <TableHead key={header.id}>
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                      </TableHead>
-                    ))}
-                  </TableRow>
-                ))}
-              </TableHeader>
-              <TableBody>
-                {table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id}>
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell
-                        key={cell.id}
-                        className="whitespace-nowrap py-1"
-                      >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        )}
-
-        {viewMode === "grid" && (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {table.getRowModel().rows.map((row) => (
-              <PortfolioGridItem key={row.id} portfolio={row.original} />
-            ))}
-          </div>
-        )}
-
-        {viewMode === "list" && (
-          <div className="flex flex-col gap-3">
-            {table.getRowModel().rows.map((row) => (
-              <PortfolioListItem key={row.id} portfolio={row.original} />
-            ))}
-          </div>
-        )}
+        <Suspense fallback={<PortfolioTablePlaceholoder />}>
+          {viewMode === "table" && <PortfolioTableView table={table} />}
+          {viewMode === "grid" && <PortfolioGridView data={data} />}
+          {viewMode === "list" && <PortfolioListView data={data} />}
+        </Suspense>
       </div>
 
       <div className="sticky bottom-0 z-10 w-full bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
