@@ -14,7 +14,6 @@ import { motion, AnimatePresence } from "motion/react";
 
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
-import { Button } from "@/components/ui/button";
 import { ColumnToggle } from "@/components/ui/column-toggle";
 import { Pagination } from "@/components/ui/pagination";
 import { SearchInput } from "@/components/ui/search-input";
@@ -48,7 +47,6 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
   );
 
   const columns = usePortfolioColumns();
-
   const [pagination, onPaginationChange] = usePaginationSearchParams();
 
   const table = useReactTable({

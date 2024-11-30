@@ -1,9 +1,8 @@
-import { Eye } from "lucide-react";
 import { useMemo } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
-import { Button } from "@/components/ui/button";
+
 import { Lookup } from "@/use-cases/lookup/components/lookup";
 import { LookupName } from "@/use-cases/lookup/lookup.service";
 import { PortfolioActions } from "../components/PortfolioActions";
@@ -17,6 +16,7 @@ export function usePortfolioColumns() {
       {
         id: "brand",
         header: ({ column }) => <SortButton column={column} label="Brand" />,
+        accessorKey: "brand",
         cell: ({ row }) => (
           <Lookup
             name={LookupName.Brand}
@@ -29,6 +29,7 @@ export function usePortfolioColumns() {
       {
         id: "province",
         header: ({ column }) => <SortButton column={column} label="Province" />,
+        accessorKey: "province",
         cell: ({ row }) => (
           <Lookup
             name={LookupName.Province}
@@ -43,6 +44,7 @@ export function usePortfolioColumns() {
         header: ({ column }) => (
           <SortButton column={column} label="Customer Number" />
         ),
+        accessorKey: "customerNumber",
         cell: ({ row }) => <span>{row.original.customerNumber}</span>,
         enableHiding: true,
       },
@@ -51,12 +53,14 @@ export function usePortfolioColumns() {
         header: ({ column }) => (
           <SortButton column={column} label="Business Key" />
         ),
+        accessorKey: "businessKey",
         cell: ({ row }) => <span>{row.original.businessKey}</span>,
         enableHiding: true,
       },
       {
         id: "language",
         header: ({ column }) => <SortButton column={column} label="Language" />,
+        accessorKey: "language",
         cell: ({ row }) => (
           <Lookup
             name={LookupName.Language}
@@ -71,6 +75,7 @@ export function usePortfolioColumns() {
         header: ({ column }) => (
           <SortButton column={column} label="Product Type" />
         ),
+        accessorKey: "productType",
         cell: ({ row }) => (
           <Lookup
             name={LookupName.ProductType}
@@ -85,6 +90,7 @@ export function usePortfolioColumns() {
         header: ({ column }) => (
           <SortButton column={column} label="Risk State" />
         ),
+        accessorKey: "riskState",
         cell: ({ row }) => (
           <LookupBadge
             name={LookupName.RiskState}
@@ -98,6 +104,7 @@ export function usePortfolioColumns() {
         header: ({ column }) => (
           <SortButton column={column} label="Creation Date" />
         ),
+        accessorKey: "creationDate",
         cell: ({ row }) => <span>{row.original.creationDate}</span>,
         enableHiding: true,
       },
@@ -106,6 +113,7 @@ export function usePortfolioColumns() {
         header: () => <span>Actions</span>,
         cell: ({ row }) => <PortfolioActions portfolio={row.original} />,
         enableHiding: false,
+        enableSorting: false,
       },
     ],
     [],

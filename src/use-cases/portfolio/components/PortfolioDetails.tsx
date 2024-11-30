@@ -1,13 +1,12 @@
-import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
-import { memo } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Ellipsis } from "lucide-react";
 
+import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Lookup } from "@/use-cases/lookup/components/lookup";
 import { LookupName } from "@/use-cases/lookup/lookup.service";
+
 import { PortfolioDetailsSection } from "./PortfolioDetailsSection";
 import { LookupBadge } from "./LookupBadge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Ellipsis } from "lucide-react";
 
 interface PortfolioDetailsProps {
   portfolio: Portfolio;

@@ -1,4 +1,4 @@
-import { useLookupValues } from "@/use-cases/lookup/use-lookup";
+import { useLookupValues } from "@/use-cases/lookup/useLookup";
 import type { LookupValue } from "@/use-cases/lookup/lookup.types";
 
 interface LookupListProps {

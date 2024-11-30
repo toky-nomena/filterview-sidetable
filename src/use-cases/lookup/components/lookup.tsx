@@ -1,4 +1,4 @@
-import { useLookupValue } from "@/use-cases/lookup/use-lookup";
+import { useLookupValue } from "@/use-cases/lookup/useLookup";
 import type { UseQueryResult } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 
