@@ -11,11 +11,11 @@ export const PortfolioTable = loadable(() =>
 );
 
 export const PortfolioTablePlaceholoder = loadable(() =>
-  import("@/use-cases/portfolio/components/PortfolioTablePlaceholoder").then(
-    (mod) => ({
-      default: mod.PortfolioTablePlaceholoder,
-    }),
-  ),
+  import(
+    "@/use-cases/portfolio/components/placeholders/PortfolioTablePlaceholder"
+  ).then((mod) => ({
+    default: mod.PortfolioTablePlaceholder,
+  })),
 );
 
 export function Index() {

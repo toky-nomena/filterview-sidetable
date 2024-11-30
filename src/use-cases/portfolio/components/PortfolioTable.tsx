@@ -17,40 +17,15 @@ import { usePaginationSearchParams } from "../usePaginationSearchParams";
 import { PortfolioViewChanger } from "./PortfolioViewChanger";
 import loadable from "@loadable/component";
 import { Suspense } from "react";
-import { PortfolioTablePlaceholoder } from "./PortfolioTablePlaceholoder";
 import { SearchInput } from "@/components/ui/search-input";
 import { ColumnToggle } from "@/components/ui/column-toggle";
 import { Pagination } from "@/components/ui/pagination";
-
-const PortfolioTableView = loadable(
-  () =>
-    import("./views/PortfolioTableView").then((mod) => ({
-      default: mod.PortfolioTableView,
-    })),
-  {
-    fallback: <PortfolioTablePlaceholoder />,
-  },
-);
-
-const PortfolioGridView = loadable(
-  () =>
-    import("./views/PortfolioGridView").then((mod) => ({
-      default: mod.PortfolioGridView,
-    })),
-  {
-    fallback: <PortfolioTablePlaceholoder />,
-  },
-);
-
-const PortfolioListView = loadable(
-  () =>
-    import("./views/PortfolioListView").then((mod) => ({
-      default: mod.PortfolioListView,
-    })),
-  {
-    fallback: <PortfolioTablePlaceholoder />,
-  },
-);
+import {
+  PortfolioGridView,
+  PortfolioListView,
+  PortfolioTableView,
+} from "./views/PortfolioViewsLazy";
+import { PortfolioTablePlaceholder } from "./placeholders/PortfolioTablePlaceholder";
 
 interface PortfolioTableProps {
   data: Portfolio[];
@@ -105,15 +80,13 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
           <PortfolioViewChanger viewMode={viewMode} setViewMode={setViewMode} />
         </div>
       </div>
-
       <div className="flex-1 overflow-x-scroll px-4">
-        <Suspense fallback={<PortfolioTablePlaceholoder />}>
+        <Suspense fallback={<PortfolioTablePlaceholder />}>
           {viewMode === "table" && <PortfolioTableView table={table} />}
           {viewMode === "grid" && <PortfolioGridView data={data} />}
           {viewMode === "list" && <PortfolioListView data={data} />}
         </Suspense>
       </div>
-
       <div className="sticky bottom-0 z-10 w-full bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <Pagination
           currentPage={pagination.pageIndex + 1}
