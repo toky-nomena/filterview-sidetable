@@ -18,7 +18,7 @@ export function PortfolioListItem({ company }: ListItemProps) {
         <div className="flex-1">
           <div className="flex items-center gap-2">
             <span className="font-bold text-foreground">{`${company.firstName} ${company.lastName}`}</span>
-            <LookupBadge type="state" value={company.state} />
+            <LookupBadge lookupName="state" code={company.state} />
           </div>
           <div className="mt-1 flex items-center gap-4 text-sm">
             <span className="text-foreground">{company.brand}</span>

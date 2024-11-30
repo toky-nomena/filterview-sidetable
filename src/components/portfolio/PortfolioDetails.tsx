@@ -35,12 +35,12 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
           <DetailItem label="First Name">{company.firstName}</DetailItem>
           <DetailItem label="Last Name">{company.lastName}</DetailItem>
           <DetailItem label="Language">
-            <Lookup type="language" code={company.language}>
+            <Lookup name="language" code={company.language}>
               {({ label, isLoading }) => (isLoading ? "..." : label)}
             </Lookup>
           </DetailItem>
           <DetailItem label="Province">
-            <Lookup type="province" code={company.province}>
+            <Lookup name="province" code={company.province}>
               {({ label, isLoading }) => (isLoading ? "..." : label)}
             </Lookup>
           </DetailItem>
@@ -55,13 +55,13 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
         {/* Status Information */}
         <PortfolioDetailsSection title="Status Information">
           <DetailItem label="State">
-            <LookupBadge type="state" value={company.state} />
+            <LookupBadge lookupName="state" code={company.state} />
           </DetailItem>
           <DetailItem label="Risk State">
-            <LookupBadge type="riskState" value={company.riskState} />
+            <LookupBadge lookupName="riskState" code={company.riskState} />
           </DetailItem>
           <DetailItem label="Transaction">
-            <LookupBadge type="transaction" value={company.transaction} />
+            <LookupBadge lookupName="transaction" code={company.transaction} />
           </DetailItem>
         </PortfolioDetailsSection>
 

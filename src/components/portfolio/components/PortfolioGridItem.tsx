@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { LookupBadge } from "@/components/portfolio/LookupBadge";
 import { PortfolioActions } from "./PortfolioActions";
+import { Lookup } from "@/components/lookup/lookup";
 
 interface GridItemProps {
   company: Company;
@@ -23,17 +24,25 @@ export function PortfolioGridItem({ company }: GridItemProps) {
       <CardHeader>
         <CardTitle className="flex items-center justify-between text-foreground">
           <span>{`${company.firstName} ${company.lastName}`}</span>
-          <LookupBadge type="state" value={company.state} />
+          <LookupBadge lookupName="state" code={company.state} />
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
         <div className="flex justify-between">
           <span className="font-medium text-muted-foreground">Language:</span>
-          <span className="text-foreground">{company.language}</span>
+          <span className="text-foreground">
+            <Lookup name="language" code={company.language}>
+              {({ label, isLoading }) => (isLoading ? "..." : label)}
+            </Lookup>
+          </span>
         </div>
         <div className="flex justify-between">
           <span className="font-medium text-muted-foreground">Brand:</span>
-          <span className="text-foreground">{company.brand}</span>
+          <span className="text-foreground">
+            <Lookup name="brand" code={company.brand}>
+              {({ label, isLoading }) => (isLoading ? "..." : label)}
+            </Lookup>
+          </span>
         </div>
         <div className="flex justify-between">
           <span className="font-medium text-muted-foreground">
@@ -43,7 +52,9 @@ export function PortfolioGridItem({ company }: GridItemProps) {
         </div>
         <div className="flex justify-between">
           <span className="font-medium text-muted-foreground">Risk State:</span>
-          <span className="text-foreground">{company.riskState}</span>
+          <span className="text-foreground">
+            <LookupBadge code={company.riskState} lookupName="riskState" />
+          </span>
         </div>
       </CardContent>
       <CardFooter>

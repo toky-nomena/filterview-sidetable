@@ -1,13 +1,8 @@
-import { useState, useEffect } from "react";
-
 import { useTheme } from "next-themes";
-import { cn } from "@/lib/utils";
 
-import { Sidebar } from "./SidebarFilter";
 import { PortfolioSidebarFilter } from "./filters/PortfolioSidebarFilter";
-import { EnvSelector } from "./EnvSelector";
 import { Button } from "@/components/ui/button";
-import { Moon, Sun, ChevronRight, ChevronLeft } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import {
   SidebarInset,
   SidebarProvider,
@@ -19,7 +14,7 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <SidebarProvider className="flex h-screen overflow-hidden bg-background">
-      <PortfolioSidebarFilter />
+      <PortfolioSidebarFilter className="bg-white bg-background" />
       <SidebarInset className="flex flex-col flex-1">
         <div className="flex items-center justify-between p-4 border-b">
           <SidebarTrigger className="-ml-1" />

@@ -8,17 +8,13 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-background text-foreground hover:bg-muted/80",
-        primary: "bg-primary/10 text-primary hover:bg-primary/20",
-        warning:
-          "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 hover:bg-yellow-500/20",
-        danger:
-          "bg-red-500/10 text-red-600 dark:text-red-400 hover:bg-red-500/20",
-        success:
-          "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20",
-        muted:
-          "bg-zinc-100 text-zinc-900 hover:bg-zinc-200/80 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-800/80",
-        outline: "border-border bg-background hover:bg-muted",
+        default: "bg-background text-foreground",
+        primary: "bg-primary/10 text-primary",
+        warning: "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400",
+        danger: "bg-red-500/10 text-red-600 dark:text-red-400",
+        success: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+        muted: "bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-400",
+        outline: "border-border bg-background",
       },
     },
     defaultVariants: {
@@ -50,7 +46,7 @@ function Badge({
             e.stopPropagation();
             onRemove();
           }}
-          className="ml-1 rounded-full p-0.5 hover:bg-background/20"
+          className="ml-1 rounded-full p-0.5"
         >
           <X className="h-3 w-3" />
           <span className="sr-only">Remove</span>

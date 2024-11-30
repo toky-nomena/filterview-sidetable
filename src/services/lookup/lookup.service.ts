@@ -2,7 +2,7 @@ import type { LookupValue } from "./lookup.types";
 
 async function loadLookupData(type: string): Promise<LookupValue[]> {
   if (process.env.NODE_ENV === "development") {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
   }
 
   try {

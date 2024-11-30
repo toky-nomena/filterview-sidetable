@@ -43,7 +43,7 @@ export function Pagination({
     <div
       className={cn("flex items-center justify-between px-2 gap-3", className)}
     >
-      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+      <div className="flex items-center gap-3 text-xs text-muted-foreground">
         <span>
           {startItem} - {endItem} of {totalItems}
         </span>
@@ -51,7 +51,7 @@ export function Pagination({
           value={pageSize.toString()}
           onValueChange={(value) => onPageSizeChange(Number(value))}
         >
-          <SelectTrigger className="h-8 w-[80px]">
+          <SelectTrigger className="h-8 w-[110px]">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>

@@ -1,12 +1,20 @@
 import { useLookupValue } from "@/hooks/use-lookup";
+import type { UseQueryResult } from "@tanstack/react-query";
+import type { ReactNode } from "react";
 
 interface LookupProps {
-  type: string;
+  name: string;
   code: string;
-  children: (props: { label: string; isLoading: boolean }) => React.ReactNode;
+  fallback?: ReactNode;
+  children: (props: { label: string; isLoading: boolean }) => ReactNode;
 }
 
-export function Lookup({ type, code, children }: LookupProps) {
-  const { data: label, isLoading } = useLookupValue(type, code);
-  return <>{children({ label: label ?? code, isLoading })}</>;
+export function Lookup({ name, code, children, fallback }: LookupProps) {
+  const { data: label, isLoading, ...result } = useLookupValue(name, code);
+
+  if (isLoading && fallback) {
+    return <>{fallback}</>;
+  }
+
+  return <>{children({ label: label ?? code, isLoading, ...result })}</>;
 }

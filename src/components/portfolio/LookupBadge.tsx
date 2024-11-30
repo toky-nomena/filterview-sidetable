@@ -22,35 +22,34 @@ const transactionVariants: Record<TransactionType, "success" | "danger"> = {
   Refund: "danger",
 };
 
-type BadgeType = "state" | "riskState" | "transaction";
-type BadgeValue = State | RiskState | TransactionType;
-
-function getVariant(type: BadgeType, value: BadgeValue) {
+function getVariant(type: string, value: string) {
   switch (type) {
     case "state":
-      return stateVariants[value as State];
+      return stateVariants[value];
     case "riskState":
-      return riskVariants[value as RiskState];
+      return riskVariants[value];
     case "transaction":
-      return transactionVariants[value as TransactionType];
+      return transactionVariants[value];
+    default:
+      return "default";
   }
 }
 
 interface StatusBadgeProps {
-  value: BadgeValue;
-  type: BadgeType;
+  code: string;
+  lookupName: string;
 }
 
-export function LookupBadge({ value, type }: StatusBadgeProps) {
+export function LookupBadge({ lookupName, code }: StatusBadgeProps) {
   return (
-    <Lookup type={type} code={value}>
-      {({ label, isLoading }) =>
-        isLoading ? (
-          <Skeleton className="h-6 w-16 rounded-full" />
-        ) : (
-          <Badge variant={getVariant(type, value)}>{label}</Badge>
-        )
-      }
+    <Lookup
+      name={lookupName}
+      code={code}
+      fallback={<Skeleton className="h-5 w-16 rounded-full" />}
+    >
+      {({ label }) => (
+        <Badge variant={getVariant(lookupName, code)}>{label}</Badge>
+      )}
     </Lookup>
   );
 }

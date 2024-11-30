@@ -44,7 +44,7 @@ export function usePortfolioColumns() {
         accessorKey: "state",
         header: ({ column }) => <SortButton column={column} label="State" />,
         cell: ({ row }) => (
-          <LookupBadge value={row.original.state} type="state" />
+          <LookupBadge code={row.original.state} lookupName="state" />
         ),
         enableHiding: true,
       },
@@ -61,7 +61,7 @@ export function usePortfolioColumns() {
           <SortButton column={column} label="Risk State" />
         ),
         cell: ({ row }) => (
-          <LookupBadge value={row.original.riskState} type="riskState" />
+          <LookupBadge code={row.original.riskState} lookupName="riskState" />
         ),
         enableHiding: true,
       },
@@ -71,7 +71,10 @@ export function usePortfolioColumns() {
           <SortButton column={column} label="Transaction" />
         ),
         cell: ({ row }) => (
-          <LookupBadge value={row.original.transaction} type="transaction" />
+          <LookupBadge
+            code={row.original.transaction}
+            lookupName="transaction"
+          />
         ),
         enableHiding: true,
       },
