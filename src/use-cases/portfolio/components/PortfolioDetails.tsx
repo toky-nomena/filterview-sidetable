@@ -7,9 +7,10 @@ import { LookupName } from "@/use-cases/lookup/lookup.service";
 import { PortfolioDetailsSection } from "./PortfolioDetailsSection";
 import { LookupBadge } from "./LookupBadge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Ellipsis } from "lucide-react";
 
 interface PortfolioDetailsProps {
-  company: Portfolio;
+  portfolio: Portfolio;
 }
 
 interface DetailItemProps {
@@ -28,52 +29,55 @@ function DetailItem({ label, children }: DetailItemProps) {
   );
 }
 
-function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
+export function PortfolioDetails({ portfolio }: PortfolioDetailsProps) {
   return (
-    <ScrollArea className="h-[calc(100vh-8rem)] pr-4 mt-4">
-      <div className="space-y-8">
+    <ScrollArea className="h-[calc(100vh-8rem)]">
+      <div className="space-y-8  px-6 pt-4">
         {/* Personal Information */}
         <PortfolioDetailsSection title="Personal Information">
-          <DetailItem label="First Name">{company.firstName}</DetailItem>
-          <DetailItem label="Last Name">{company.lastName}</DetailItem>
+          <DetailItem label="First Name">{portfolio.firstName}</DetailItem>
+          <DetailItem label="Last Name">{portfolio.lastName}</DetailItem>
           <DetailItem label="Language">
             <Lookup
               name={LookupName.Language}
-              code={company.language}
-              fallback={<Skeleton className="h-5 w-16 rounded-full" />}
+              code={portfolio.language}
+              fallback={<Ellipsis className="w-4 h-4 text-muted-foreground" />}
             />
           </DetailItem>
           <DetailItem label="Province">
             <Lookup
               name={LookupName.Province}
-              code={company.province}
-              fallback={<Skeleton className="h-5 w-16 rounded-full" />}
+              code={portfolio.province}
+              fallback={<Ellipsis className="w-4 h-4 text-muted-foreground" />}
             />
           </DetailItem>
         </PortfolioDetailsSection>
 
         {/* Business Information */}
         <PortfolioDetailsSection title="Business Information">
-          <DetailItem label="Brand">{company.brand}</DetailItem>
-          <DetailItem label="Product Type">{company.productType}</DetailItem>
+          <DetailItem label="Brand">{portfolio.brand}</DetailItem>
+          <DetailItem label="Product Type">{portfolio.productType}</DetailItem>
         </PortfolioDetailsSection>
 
         {/* Status Information */}
         <PortfolioDetailsSection title="Status Information">
           <DetailItem label="State">
-            <LookupBadge lookupName="state" code={company.state} />
+            <LookupBadge lookupName="state" code={portfolio.state} />
           </DetailItem>
           <DetailItem label="Risk State">
-            <LookupBadge lookupName="riskState" code={company.riskState} />
+            <LookupBadge lookupName="riskState" code={portfolio.riskState} />
           </DetailItem>
           <DetailItem label="Transaction">
-            <LookupBadge lookupName="transaction" code={company.transaction} />
+            <LookupBadge
+              lookupName="transaction"
+              code={portfolio.transaction}
+            />
           </DetailItem>
         </PortfolioDetailsSection>
 
         {/* Additional Information */}
         <PortfolioDetailsSection title="Additional Details">
-          {Object.entries(company).map(([key, value]) => {
+          {Object.entries(portfolio).map(([key, value]) => {
             return (
               <DetailItem
                 key={key}
@@ -88,5 +92,3 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
     </ScrollArea>
   );
 }
-
-export const PortfolioDetails = memo(PortfolioDetailsComponent);

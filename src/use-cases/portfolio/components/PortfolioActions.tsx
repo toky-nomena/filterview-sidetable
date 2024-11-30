@@ -17,11 +17,11 @@ export function PortfolioActions({ company, children }: PortfolioActionsProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>{children}</SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
+      <SheetContent className="p-0 m-0">
+        <SheetHeader className="py-4 pl-4 border-b align-middle flex justify-between">
           <SheetTitle>Portfolio Details</SheetTitle>
         </SheetHeader>
-        <PortfolioDetails company={company} />
+        <PortfolioDetails portfolio={company} />
       </SheetContent>
     </Sheet>
   );

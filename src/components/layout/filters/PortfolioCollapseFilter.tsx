@@ -1,4 +1,4 @@
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Ellipsis } from "lucide-react";
 import {
   usePortfolioFilterState,
   update,
@@ -82,7 +82,11 @@ export function PortfolioCollapseFilter({
               onClear={handleClear}
               isLoading={isLoading}
             />
-            <ChevronRight className="w-4 h-4 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+            {isLoading ? (
+              <Ellipsis className="w-4 h-4 ml-auto text-muted-foreground" />
+            ) : (
+              <ChevronRight className="w-4 h-4 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+            )}
           </CollapsibleTrigger>
         </SidebarGroupLabel>
         <AnimatePresence>

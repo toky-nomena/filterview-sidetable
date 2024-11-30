@@ -3,6 +3,7 @@ import { Hexagon } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -71,13 +72,10 @@ export function PortfolioSidebarFilter({
                   <Hexagon className="size-7 stroke-[3]" />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-bold text-lg">Search</span>
+                  <span className="font-bold text-lg">Portfolio Search</span>
                 </div>
               </div>
             </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <EnvSelector />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -96,6 +94,9 @@ export function PortfolioSidebarFilter({
         ))}
       </SidebarContent>
       <SidebarRail />
+      <SidebarFooter className="p-4 border-t">
+        <EnvSelector />
+      </SidebarFooter>
     </Sidebar>
   );
 }
