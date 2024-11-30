@@ -3,13 +3,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Lookup } from "@/use-cases/lookup/components/lookup";
 import type { RiskState, State, TransactionType } from "@/types/schema";
 
-const stateVariants: Record<State, "default" | "outline"> = {
-  Active: "default",
-  Inactive: "outline",
+const stateVariants: Record<State, "primary" | "outline-primary"> = {
+  Active: "primary",
+  Inactive: "outline-primary",
 };
 
-const riskVariants: Record<RiskState, "default" | "warning" | "danger"> = {
-  LowRisk: "default",
+const riskVariants: Record<RiskState, "success" | "warning" | "danger"> = {
+  LowRisk: "success",
   ModerateRisk: "warning",
   HighRisk: "danger",
   CriticalRisk: "danger",
@@ -25,11 +25,11 @@ const transactionVariants: Record<TransactionType, "success" | "danger"> = {
 function getVariant(type: string, value: string) {
   switch (type) {
     case "state":
-      return stateVariants[value];
-    case "riskState":
-      return riskVariants[value];
+      return stateVariants[value] ?? "outline";
+    case "risk-state":
+      return riskVariants[value] ?? "warning";
     case "transaction":
-      return transactionVariants[value];
+      return transactionVariants[value] ?? "muted";
     default:
       return "default";
   }

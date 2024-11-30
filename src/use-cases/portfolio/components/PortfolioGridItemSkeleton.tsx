@@ -11,28 +11,26 @@ export function PortfolioGridItemSkeleton() {
   return (
     <Card className="hover:shadow-lg transition-shadow bg-background border">
       <CardHeader>
-        <CardTitle className="flex items-center justify-between text-foreground">
+        <CardTitle className="flex items-center justify-between">
           <Skeleton className="h-6 w-32" />
           <Skeleton className="h-5 w-16 rounded-full" />
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2">
-        <div className="flex justify-between">
-          <span className="font-medium text-muted-foreground">Language:</span>
+      <CardContent className="space-y-3">
+        <div className="flex justify-between items-center">
+          <span className="text-sm font-medium text-muted-foreground">Language:</span>
           <Skeleton className="h-5 w-16 rounded-full" />
         </div>
-        <div className="flex justify-between">
-          <span className="font-medium text-muted-foreground">Brand:</span>
+        <div className="flex justify-between items-center">
+          <span className="text-sm font-medium text-muted-foreground">Brand:</span>
           <Skeleton className="h-5 w-16 rounded-full" />
         </div>
-        <div className="flex justify-between">
-          <span className="font-medium text-muted-foreground">
-            Product Type:
-          </span>
+        <div className="flex justify-between items-center">
+          <span className="text-sm font-medium text-muted-foreground">Product Type:</span>
           <Skeleton className="h-5 w-16 rounded-full" />
         </div>
-        <div className="flex justify-between">
-          <span className="font-medium text-muted-foreground">Risk State:</span>
+        <div className="flex justify-between items-center">
+          <span className="text-sm font-medium text-muted-foreground">Risk State:</span>
           <Skeleton className="h-5 w-16 rounded-full" />
         </div>
       </CardContent>

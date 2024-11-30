@@ -8,9 +8,9 @@ export function PortfolioListItemSkeleton() {
         <div className="flex-1">
           <div className="flex items-center gap-2">
             <Skeleton className="h-6 w-32" />
-            <Skeleton className="h-6 w-24" />
+            <Skeleton className="h-5 w-16 rounded-full" />
           </div>
-          <div className="mt-1 flex items-center gap-4 text-sm">
+          <div className="mt-2 flex items-center gap-4 text-sm">
             <Skeleton className="h-5 w-16 rounded-full" />
             <span className="text-muted-foreground/50">•</span>
             <Skeleton className="h-5 w-16 rounded-full" />

@@ -20,10 +20,10 @@ export function PortfolioListItem({ portfolio }: ListItemProps) {
       <CardContent className="flex items-center justify-between p-4">
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-foreground">{`${portfolio.firstName} ${portfolio.lastName}`}</span>
+            <span className="text-base font-semibold text-foreground truncate">{`${portfolio.firstName} ${portfolio.lastName}`}</span>
             <LookupBadge lookupName={LookupName.State} code={portfolio.state} />
           </div>
-          <div className="mt-1 flex items-center gap-4 text-sm">
+          <div className="mt-2 flex items-center gap-4 text-sm">
             <Lookup
               name={LookupName.Brand}
               code={portfolio.brand}
