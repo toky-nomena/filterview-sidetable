@@ -1,10 +1,7 @@
-import { ChevronRight, Eye, Link2 } from "lucide-react";
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 import { LookupName } from "@/use-cases/lookup/lookup.service";
 import { LookupBadge } from "./LookupBadge";
-import { PortfolioActions } from "./PortfolioActions";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { PortfolioActionsLazy } from "./actions/PortfolioActionsLazy";
 
 interface PortfolioGridItemProps {
   portfolio: Portfolio;
@@ -18,7 +15,7 @@ export function PortfolioGridItem({ portfolio }: PortfolioGridItemProps) {
           <span className="text-base font-medium">
             {portfolio.customerNumber} • {portfolio.businessKey}
           </span>
-          <PortfolioActions portfolio={portfolio} />
+          <PortfolioActionsLazy portfolio={portfolio} />
         </div>
 
         <div className="flex flex-wrap items-center gap-2">

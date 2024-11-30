@@ -5,10 +5,10 @@ import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service
 
 import { Lookup } from "@/use-cases/lookup/components/lookup";
 import { LookupName } from "@/use-cases/lookup/lookup.service";
-import { PortfolioActions } from "../components/PortfolioActions";
 import { LookupBadge } from "../components/LookupBadge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SortButton } from "@/components/ui/sort-button";
+import { PortfolioActionsLazy } from "../components/actions/PortfolioActionsLazy";
 
 export function usePortfolioColumns() {
   return useMemo<ColumnDef<Portfolio>[]>(
@@ -111,7 +111,7 @@ export function usePortfolioColumns() {
       {
         id: "actions",
         header: () => <span>Actions</span>,
-        cell: ({ row }) => <PortfolioActions portfolio={row.original} />,
+        cell: ({ row }) => <PortfolioActionsLazy portfolio={row.original} />,
         enableHiding: false,
         enableSorting: false,
       },

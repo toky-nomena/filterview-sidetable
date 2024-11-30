@@ -6,7 +6,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
-import { PortfolioDetails } from "./PortfolioDetails";
+import { PortfolioDetails } from "../PortfolioDetails";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 

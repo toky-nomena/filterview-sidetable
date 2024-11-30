@@ -1,18 +1,9 @@
-import { ChevronRight, Eye } from "lucide-react";
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { LookupBadge } from "./LookupBadge";
 import { LookupName } from "@/use-cases/lookup/lookup.service";
-import { PortfolioActions } from "./PortfolioActions";
 import { Lookup } from "@/use-cases/lookup/components/lookup";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PortfolioActionsLazy } from "./actions/PortfolioActionsLazy";
 
 interface PortfolioListItemProps {
   portfolio: Portfolio;
@@ -50,7 +41,7 @@ export function PortfolioListItem({ portfolio }: PortfolioListItemProps) {
         <div className="flex items-center gap-2 text-sm">
           <Lookup name={LookupName.Language} code={portfolio.language} />
           <span> • {portfolio.creationDate}</span>
-          <PortfolioActions portfolio={portfolio} />
+          <PortfolioActionsLazy portfolio={portfolio} />
         </div>
       </div>
     </div>
