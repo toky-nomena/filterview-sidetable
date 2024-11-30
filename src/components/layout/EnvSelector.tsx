@@ -87,7 +87,7 @@ export function EnvSelector() {
         <Button
           variant="outline"
           aria-expanded={open}
-          className="w-full justify-between"
+          className="w-[320px] justify-between"
         >
           {selectedFramework ? (
             <EnvironmentItem

@@ -1,5 +1,7 @@
-import { Hexagon } from "lucide-react";
+import { Hexagon, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -11,7 +13,6 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-import { EnvSelector } from "../../../components/layout/EnvSelector";
 import {
   PortfolioCollapseFilter,
   type PortfolioCollapseFilterProps,
@@ -61,15 +62,17 @@ const items: FilterGroup[] = [
 export function PortfolioSidebarFilter({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const { theme, setTheme } = useTheme();
+
   return (
     <Sidebar {...props}>
-      <SidebarHeader>
+      <SidebarHeader className="border-b h-[70px] flex justify-center items-center align-middle">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild className="rounded-none">
-              <div className="">
-                <div className="flex aspect-square items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <Hexagon className="size-7 stroke-[3]" />
+              <div>
+                <div className="flex aspect-square align-middle justify-center rounded-lg  text-sidebar-primary-foreground">
+                  <Hexagon className="size-7 stroke-[3] text-black dark:text-white" />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-bold text-lg">Portfolio Search</span>
@@ -79,7 +82,7 @@ export function PortfolioSidebarFilter({
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent className="px-2">
+      <SidebarContent className="pt-4 px-2">
         {items.map((item) => (
           <LookupList key={item.lookupName} name={item.lookupName}>
             {({ values, isLoading }) => (
@@ -95,7 +98,18 @@ export function PortfolioSidebarFilter({
       </SidebarContent>
       <SidebarRail />
       <SidebarFooter className="p-4 border-t">
-        <EnvSelector />
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-medium">Theme</span>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+          >
+            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+        </div>
       </SidebarFooter>
     </Sidebar>
   );
