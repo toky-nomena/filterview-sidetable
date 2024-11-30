@@ -1,5 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { motion } from "motion/react";
 
 interface SidebarFilterItemProps {
   label: string;
@@ -15,7 +16,11 @@ export function SidebarFilterItem({
   return (
     <SidebarMenuItem>
       <SidebarMenuButton asChild isActive={isActive}>
-        <div>
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        >
           <Checkbox
             id={label}
             checked={isActive}
@@ -27,7 +32,7 @@ export function SidebarFilterItem({
           >
             {label}
           </label>
-        </div>
+        </motion.div>
       </SidebarMenuButton>
     </SidebarMenuItem>
   );

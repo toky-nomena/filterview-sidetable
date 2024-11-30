@@ -3,6 +3,7 @@ import {
   usePortfolioFilterState,
   update,
 } from "@/use-cases/portfolio/store/portfolioFilterStore";
+import { motion, AnimatePresence } from "motion/react";
 
 import {
   Collapsible,
@@ -74,25 +75,49 @@ export function PortfolioCollapseFilter({
               onToggleAll={handleToggleAll}
               onClear={handleClear}
             />
-            <ChevronRight className="w-4 h-4 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+            <motion.div
+              animate={{ rotate: open ? 90 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <ChevronRight className="w-4 h-4 ml-auto" />
+            </motion.div>
           </CollapsibleTrigger>
         </SidebarGroupLabel>
-        {!isLoading && (
-          <CollapsibleContent className="pl-1">
-            <SidebarGroupContent>
-              <SidebarMenuSub>
-                {values.map((item) => (
-                  <SidebarFilterItem
-                    key={item.code}
-                    label={item.label}
-                    isActive={activeFilters.includes(item.code) && !isLoading}
-                    onToggle={(checked) => handleToggleItem(checked, item.code)}
-                  />
-                ))}
-              </SidebarMenuSub>
-            </SidebarGroupContent>
-          </CollapsibleContent>
-        )}
+        <AnimatePresence>
+          {!isLoading && (
+            <CollapsibleContent className="pl-1">
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <SidebarGroupContent>
+                  <SidebarMenuSub>
+                    {values.map((item, index) => (
+                      <motion.div
+                        key={item.code}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <SidebarFilterItem
+                          label={item.label}
+                          isActive={
+                            activeFilters.includes(item.code) && !isLoading
+                          }
+                          onToggle={(checked) =>
+                            handleToggleItem(checked, item.code)
+                          }
+                        />
+                      </motion.div>
+                    ))}
+                  </SidebarMenuSub>
+                </SidebarGroupContent>
+              </motion.div>
+            </CollapsibleContent>
+          )}
+        </AnimatePresence>
       </SidebarGroup>
     </Collapsible>
   );
