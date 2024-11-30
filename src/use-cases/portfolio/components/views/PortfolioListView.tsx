@@ -7,7 +7,7 @@ interface PortfolioListViewProps {
 
 export function PortfolioListView({ data }: PortfolioListViewProps) {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-4">
       {data.map((portfolio) => (
         <PortfolioListItem key={portfolio.id} portfolio={portfolio} />
       ))}

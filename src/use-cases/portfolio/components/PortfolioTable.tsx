@@ -15,7 +15,6 @@ import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service
 import { usePortfolioColumns } from "../hooks/usePortfolioColumns";
 import { usePaginationSearchParams } from "../usePaginationSearchParams";
 import { PortfolioViewChanger } from "./PortfolioViewChanger";
-import loadable from "@loadable/component";
 import { Suspense } from "react";
 import { SearchInput } from "@/components/ui/search-input";
 import { ColumnToggle } from "@/components/ui/column-toggle";
@@ -83,8 +82,16 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
       <div className="flex-1 overflow-x-scroll px-4">
         <Suspense fallback={<PortfolioTablePlaceholder />}>
           {viewMode === "table" && <PortfolioTableView table={table} />}
-          {viewMode === "grid" && <PortfolioGridView data={data} />}
-          {viewMode === "list" && <PortfolioListView data={data} />}
+          {viewMode === "grid" && (
+            <PortfolioGridView
+              data={table.getRowModel().rows.map((row) => row.original)}
+            />
+          )}
+          {viewMode === "list" && (
+            <PortfolioListView
+              data={table.getRowModel().rows.map((row) => row.original)}
+            />
+          )}
         </Suspense>
       </div>
       <div className="sticky bottom-0 z-10 w-full bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
