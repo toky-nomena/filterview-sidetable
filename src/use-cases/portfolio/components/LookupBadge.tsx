@@ -38,19 +38,17 @@ function getVariant(type: string, code: string): BadgeVariant {
 
 interface StatusBadgeProps {
   code: string;
-  lookupName: string;
+  name: string;
 }
 
-export function LookupBadge({ lookupName, code }: StatusBadgeProps) {
+export function LookupBadge({ name, code }: StatusBadgeProps) {
   return (
     <Lookup
-      name={lookupName}
+      name={name}
       code={code}
       fallback={<Skeleton className="h-6 w-16 rounded-lg" />}
     >
-      {({ label }) => (
-        <Badge variant={getVariant(lookupName, code)}>{label}</Badge>
-      )}
+      {({ label }) => <Badge variant={getVariant(name, code)}>{label}</Badge>}
     </Lookup>
   );
 }

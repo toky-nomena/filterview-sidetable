@@ -1,68 +1,58 @@
 import { ChevronRight, Eye } from "lucide-react";
-
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
-
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { PortfolioActions } from "./PortfolioActions";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { LookupBadge } from "./LookupBadge";
-import { Lookup } from "@/use-cases/lookup/components/lookup";
 import { LookupName } from "@/use-cases/lookup/lookup.service";
+import { PortfolioActions } from "./PortfolioActions";
+import { Lookup } from "@/use-cases/lookup/components/lookup";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface ListItemProps {
+interface PortfolioListItemProps {
   portfolio: Portfolio;
 }
 
-export function PortfolioListItem({ portfolio }: ListItemProps) {
+export function PortfolioListItem({ portfolio }: PortfolioListItemProps) {
   return (
-    <Card className="hover:shadow-lg transition-shadow bg-background border">
-      <CardContent className="flex items-center justify-between p-4">
-        <div className="flex-1">
+    <div className="hover:shadow-lg transition-shadow bg-background border text-foreground rounded-lg">
+      <div className="flex items-center justify-between px-4 py-2">
+        <div className="flex items-center gap-4">
+          <Lookup
+            name={LookupName.Brand}
+            code={portfolio.brand}
+            fallback={<Skeleton className="h-8 w-8 rounded-full" />}
+          >
+            {({ label }) => (
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
+                <span className="text-sm font-medium text-primary-foreground">
+                  {label.charAt(0).toUpperCase()}
+                </span>
+              </div>
+            )}
+          </Lookup>
           <div className="flex items-center gap-2">
-            <span className="text-base font-semibold text-foreground truncate">{`${portfolio.firstName} ${portfolio.lastName}`}</span>
-            <LookupBadge lookupName={LookupName.State} code={portfolio.state} />
-          </div>
-          <div className="mt-2 flex items-center gap-4 text-sm">
-            <Lookup
-              name={LookupName.Brand}
-              code={portfolio.brand}
-              fallback={<Skeleton className="h-5 w-16 rounded-full" />}
+            <div className="font-medium">
+              {portfolio.customerNumber} • {portfolio.businessKey}
+            </div>
+            <LookupBadge
+              name={LookupName.RiskState}
+              code={portfolio.riskState}
             />
-            <span className="text-muted-foreground/50">•</span>
-            <span className="text-muted-foreground">
-              <Lookup
-                name={LookupName.Language}
-                code={portfolio.language}
-                fallback={<Skeleton className="h-5 w-16 rounded-full" />}
-              >
-                {({ label }) => <>Language: {label}</>}
-              </Lookup>
-            </span>
-            <span className="text-muted-foreground/50">•</span>
-            <span className="text-muted-foreground">
-              <Lookup
-                name={LookupName.ProductType}
-                code={portfolio.productType}
-                fallback={<Skeleton className="h-5 w-16 rounded-full" />}
-              >
-                {({ label }) => <>Product: {label}</>}
-              </Lookup>
-            </span>
-            <span className="text-muted-foreground/50">•</span>
-            <span className="text-muted-foreground">
-              <Lookup
-                name={LookupName.RiskState}
-                code={portfolio.riskState}
-                fallback={<Skeleton className="h-5 w-16 rounded-full" />}
-              >
-                {({ label }) => <>Risk: {label}</>}
-              </Lookup>
-            </span>
           </div>
         </div>
-        <PortfolioActions portfolio={portfolio} />
-      </CardContent>
-    </Card>
+
+        <div className="flex items-center gap-2 text-sm">
+          <Lookup name={LookupName.Language} code={portfolio.language} />
+          <span> • {portfolio.creationDate}</span>
+          <PortfolioActions portfolio={portfolio} />
+        </div>
+      </div>
+    </div>
   );
 }

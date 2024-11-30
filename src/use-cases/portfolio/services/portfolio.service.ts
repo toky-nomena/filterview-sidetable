@@ -6,16 +6,15 @@ import { getLookupRandomCode } from "./data";
 
 export interface Portfolio {
   id: string;
-  firstName: string;
-  lastName: string;
-  language: string;
+  customerNumber: string;
+  businessKey: string;
   brand: string;
-  state: string;
+  language: string;
+  province: string;
   productType: string;
   riskState: string;
-  transaction: string;
-  province: string;
-  activity: number[];
+  creationDate: string;
+  links?: string[];
 }
 
 export interface FilterParams {
@@ -29,34 +28,24 @@ export interface FilterParams {
   page?: number;
 }
 
-const generateActivityData = () => {
-  return Array.from({ length: 7 }, () =>
-    faker.number.int({ min: 0, max: 100 }),
-  );
-};
-
-const keys = [
-  "brand",
-  "state",
-  "productType",
-  "riskState",
-  "transaction",
-  "province",
-] as const;
+const keys = Object.entries(generatePortfolio())
+  .filter(([, value]) => Array.isArray(value))
+  .map(([key]) => key as keyof Portfolio);
 
 function generatePortfolio(): Portfolio {
   return {
     id: faker.string.uuid(),
-    firstName: faker.person.firstName(),
-    lastName: faker.person.lastName(),
-    activity: generateActivityData(),
-    language: getLookupRandomCode("language"),
+    customerNumber: `${faker.number.int({
+      min: 100000000000,
+      max: 999999999999,
+    })}`,
+    businessKey: faker.string.alphanumeric(8).toUpperCase(),
     brand: getLookupRandomCode("brand"),
-    state: getLookupRandomCode("state"),
+    language: getLookupRandomCode("language"),
+    province: getLookupRandomCode("province"),
     productType: getLookupRandomCode("productType"),
     riskState: getLookupRandomCode("riskState"),
-    transaction: getLookupRandomCode("transaction"),
-    province: getLookupRandomCode("province"),
+    creationDate: faker.date.recent().toISOString().split("T")[0],
   };
 }
 

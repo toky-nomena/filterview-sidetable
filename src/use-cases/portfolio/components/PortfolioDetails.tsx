@@ -35,8 +35,10 @@ export function PortfolioDetails({ portfolio }: PortfolioDetailsProps) {
       <div className="space-y-8 px-6 pt-4">
         {/* Personal Information */}
         <PortfolioDetailsSection title="Personal Information">
-          <DetailItem label="First Name">{portfolio.firstName}</DetailItem>
-          <DetailItem label="Last Name">{portfolio.lastName}</DetailItem>
+          <DetailItem label="Customer Number">
+            {portfolio.customerNumber}
+          </DetailItem>
+          <DetailItem label="Business Key">{portfolio.businessKey}</DetailItem>
           <DetailItem label="Language">
             <Lookup
               name={LookupName.Language}
@@ -62,18 +64,15 @@ export function PortfolioDetails({ portfolio }: PortfolioDetailsProps) {
         {/* Status Information */}
         <PortfolioDetailsSection title="Status Information">
           <DetailItem label="State">
-            <LookupBadge lookupName="state" code={portfolio.state} />
-          </DetailItem>
-          <DetailItem label="Risk State">
             <LookupBadge
-              lookupName={LookupName.RiskState}
+              name={LookupName.RiskState}
               code={portfolio.riskState}
             />
           </DetailItem>
-          <DetailItem label="Transaction">
+          <DetailItem label="Risk State">
             <LookupBadge
-              lookupName="transaction"
-              code={portfolio.transaction}
+              name={LookupName.RiskState}
+              code={portfolio.riskState}
             />
           </DetailItem>
         </PortfolioDetailsSection>

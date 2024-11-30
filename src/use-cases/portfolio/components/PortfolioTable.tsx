@@ -8,7 +8,6 @@ import {
   type VisibilityState,
 } from "@tanstack/react-table";
 import { useReactTable } from "@tanstack/react-table";
-import { Grid2X2, Rows3, Table2 } from "lucide-react";
 import { parseAsString, useQueryState } from "nuqs";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
@@ -31,7 +30,6 @@ import { usePortfolioColumns } from "../hooks/usePortfolioColumns";
 import { usePaginationSearchParams } from "../usePaginationSearchParams";
 import { PortfolioGridItem } from "./PortfolioGridItem";
 import { PortfolioListItem } from "./PortfolioListItem";
-import { cn } from "@/lib/utils";
 import { PortfolioViewChanger } from "./PortfolioViewChanger";
 
 interface PortfolioTableProps {
@@ -134,7 +132,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
                             {row.getVisibleCells().map((cell) => (
                               <TableCell
                                 key={cell.id}
-                                className="whitespace-nowrap py-0.5"
+                                className="whitespace-nowrap py-1"
                               >
                                 {flexRender(
                                   cell.column.columnDef.cell,
@@ -196,7 +194,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.15 }}
-              className="flex flex-col gap-4"
+              className="flex flex-col gap-3"
             >
               <AnimatePresence>
                 {table.getRowModel().rows.map((row, index) => (

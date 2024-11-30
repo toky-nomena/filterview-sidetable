@@ -1,10 +1,10 @@
+import { Grid2X2, Rows3, Table2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Grid2X2, Rows3, Table2 } from "lucide-react";
 
 interface PortfolioViewChangerProps {
   viewMode: string;
-  setViewMode: (mode: string) => void;
+  setViewMode: (mode: "table" | "grid" | "list") => void;
 }
 
 export function PortfolioViewChanger({
