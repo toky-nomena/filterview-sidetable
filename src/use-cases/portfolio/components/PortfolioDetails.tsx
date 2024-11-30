@@ -1,9 +1,10 @@
-import type { Portfolio } from "@/services/data/data.service";
+import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 import { memo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Lookup } from "@/components/lookup/lookup";
 
-import { PortfolioDetailsSection } from "./components/PortfolioDetailsSection";
+import { Lookup } from "@/use-cases/lookup/components/lookup";
+import { LookupName } from "@/use-cases/lookup/lookup.service";
+import { PortfolioDetailsSection } from "./PortfolioDetailsSection";
 import { LookupBadge } from "./LookupBadge";
 
 interface PortfolioDetailsProps {
@@ -35,10 +36,18 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
           <DetailItem label="First Name">{company.firstName}</DetailItem>
           <DetailItem label="Last Name">{company.lastName}</DetailItem>
           <DetailItem label="Language">
-            <Lookup name="language" code={company.language} fallback="..." />
+            <Lookup
+              name={LookupName.Language}
+              code={company.language}
+              fallback="..."
+            />
           </DetailItem>
           <DetailItem label="Province">
-            <Lookup name="province" code={company.province} fallback="..." />
+            <Lookup
+              name={LookupName.Province}
+              code={company.province}
+              fallback="..."
+            />
           </DetailItem>
         </PortfolioDetailsSection>
 
@@ -64,22 +73,6 @@ function PortfolioDetailsComponent({ company }: PortfolioDetailsProps) {
         {/* Additional Information */}
         <PortfolioDetailsSection title="Additional Details">
           {Object.entries(company).map(([key, value]) => {
-            // Skip already displayed fields
-            if (
-              [
-                "firstName",
-                "lastName",
-                "language",
-                "province",
-                "brand",
-                "productType",
-                "state",
-                "riskState",
-                "transaction",
-              ].includes(key)
-            ) {
-              return null;
-            }
             return (
               <DetailItem
                 key={key}

@@ -1,11 +1,11 @@
-import type { Portfolio } from "@/services/data/data.service";
+import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { SortButton } from "@/components/ui/sort-button";
 import { PortfolioActions } from "../components/PortfolioActions";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
-import { LookupBadge } from "@/components/portfolio/LookupBadge";
+import { LookupBadge } from "../components/LookupBadge";
 
 export function usePortfolioColumns() {
   return useMemo<ColumnDef<Portfolio>[]>(
@@ -61,7 +61,7 @@ export function usePortfolioColumns() {
           <SortButton column={column} label="Risk State" />
         ),
         cell: ({ row }) => (
-          <LookupBadge code={row.original.riskState} lookupName="riskState" />
+          <LookupBadge code={row.original.riskState} lookupName="risk-state" />
         ),
         enableHiding: true,
       },

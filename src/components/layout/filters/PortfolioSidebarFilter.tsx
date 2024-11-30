@@ -1,5 +1,5 @@
 import { Hexagon } from "lucide-react";
-import { data } from "@/services/data/data";
+import { data } from "@/use-cases/portfolio/services/data";
 
 import {
   Sidebar,
@@ -11,7 +11,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-import { EnvSelector } from "../EnvSelector";
+import { EnvSelector } from "../../../components/layout/EnvSelector";
 import {
   PortfolioCollapseFilter,
   type PortfolioCollapseFilterProps,

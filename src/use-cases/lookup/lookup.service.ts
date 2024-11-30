@@ -1,16 +1,32 @@
 import type { LookupValue } from "./lookup.types";
 
-async function loadLookupData(type: string): Promise<LookupValue[]> {
-  if (process.env.NODE_ENV === "development") {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-  }
+export enum LookupName {
+  Province = "province",
+  Brand = "brand",
+  RiskState = "risk-state",
+  State = "state",
+  Transaction = "transaction",
+  Language = "language",
+  ProductType = "product-type",
+}
 
+export async function loadLookupDataImmediate(
+  type: string,
+): Promise<LookupValue[]> {
   try {
     const module = await import(`./data/${type}.json`);
     return module.default;
   } catch (error) {
     return [];
   }
+}
+
+export async function loadLookupData(type: string): Promise<LookupValue[]> {
+  if (process.env.NODE_ENV === "development") {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+  }
+
+  return await loadLookupDataImmediate(type);
 }
 
 const lookupCache = new Map<string, LookupValue[]>();
@@ -43,12 +59,6 @@ export async function findLookup(
 }
 
 export async function preloadLookups(): Promise<void> {
-  const lookupTypes = Object.values([
-    "province",
-    "riskState",
-    "state",
-    "transaction",
-    "language",
-  ]);
+  const lookupTypes = Object.values(LookupName);
   await Promise.all(lookupTypes.map(loadLookupData));
 }

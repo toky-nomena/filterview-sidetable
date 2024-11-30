@@ -1,7 +1,5 @@
 import { Eye } from "lucide-react";
 
-import type { Portfolio } from "@/services/data/data.service";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,9 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LookupBadge } from "@/components/portfolio/LookupBadge";
 import { PortfolioActions } from "./PortfolioActions";
-import { Lookup } from "@/components/lookup/lookup";
+import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
+import { Lookup } from "@/use-cases/lookup/components/lookup";
+import { LookupName } from "@/use-cases/lookup/lookup.service";
+import { LookupBadge } from "./LookupBadge";
 
 interface GridItemProps {
   portfolio: Portfolio;
@@ -31,13 +31,21 @@ export function PortfolioGridItem({ portfolio }: GridItemProps) {
         <div className="flex justify-between">
           <span className="font-medium text-muted-foreground">Language:</span>
           <span className="text-foreground">
-            <Lookup name="language" code={portfolio.language} fallback="..." />
+            <Lookup
+              name={LookupName.Language}
+              code={portfolio.language}
+              fallback="..."
+            />
           </span>
         </div>
         <div className="flex justify-between">
           <span className="font-medium text-muted-foreground">Brand:</span>
           <span className="text-foreground">
-            <Lookup name="brand" code={portfolio.brand} fallback="..." />
+            <Lookup
+              name={LookupName.Brand}
+              code={portfolio.brand}
+              fallback="..."
+            />
           </span>
         </div>
         <div className="flex justify-between">
@@ -46,7 +54,7 @@ export function PortfolioGridItem({ portfolio }: GridItemProps) {
           </span>
           <span className="text-foreground">
             <Lookup
-              name="productType"
+              name={LookupName.ProductType}
               code={portfolio.productType}
               fallback="..."
             />
@@ -55,7 +63,7 @@ export function PortfolioGridItem({ portfolio }: GridItemProps) {
         <div className="flex justify-between">
           <span className="font-medium text-muted-foreground">Risk State:</span>
           <span className="text-foreground">
-            <LookupBadge code={portfolio.riskState} lookupName="riskState" />
+            <LookupBadge code={portfolio.riskState} lookupName="risk-state" />
           </span>
         </div>
       </CardContent>

@@ -1,26 +1,26 @@
 [
   {
-    "code": "LowRisk",
+    "code": "low-risk",
     "label": "Low Risk"
   },
   {
-    "code": "ModerateRisk",
+    "code": "moderate-risk",
     "label": "Moderate Risk"
   },
   {
-    "code": "HighRisk",
+    "code": "high-risk",
     "label": "High Risk"
   },
   {
-    "code": "CriticalRisk",
+    "code": "critical-risk",
     "label": "Critical Risk"
   },
   {
-    "code": "PendingReview",
+    "code": "pending-review",
     "label": "Pending Review"
   },
   {
-    "code": "UnderInvestigation",
+    "code": "under-investigation",
     "label": "Under Investigation"
   }
 ]

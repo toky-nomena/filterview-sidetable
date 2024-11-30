@@ -4,7 +4,6 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  type PaginationState,
   type SortingState,
   type VisibilityState,
 } from "@tanstack/react-table";
@@ -13,7 +12,7 @@ import { Grid3x3, List, Table as TableIcon } from "lucide-react";
 import { parseAsString, useQueryState } from "nuqs";
 import { useState } from "react";
 
-import type { Portfolio } from "@/services/data/data.service";
+import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
 import { Button } from "@/components/ui/button";
 import { ColumnToggle } from "@/components/ui/column-toggle";
@@ -27,11 +26,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-import { PortfolioGridItem } from "./components/PortfolioGridItem";
-import { PortfolioListItem } from "./components/PortfolioListItem";
-import { usePortfolioColumns } from "./hooks/usePortfolioColumns";
-import { usePaginationSearchParams } from "./usePaginationSearchParams";
+import { usePortfolioColumns } from "../hooks/usePortfolioColumns";
+import { usePaginationSearchParams } from "../usePaginationSearchParams";
+import { PortfolioGridItem } from "./PortfolioGridItem";
+import { PortfolioListItem } from "./PortfolioListItem";
 
 interface PortfolioTableProps {
   data: Portfolio[];

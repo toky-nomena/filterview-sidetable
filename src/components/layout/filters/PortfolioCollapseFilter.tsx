@@ -1,5 +1,8 @@
 import { ChevronRight } from "lucide-react";
-import { useFilterState, update } from "@/store/filterStore";
+import {
+  usePortfolioFilterState,
+  update,
+} from "@/use-cases/portfolio/store/portfolioFilterStore";
 
 import {
   Collapsible,
@@ -28,7 +31,7 @@ export function PortfolioCollapseFilter({
   stateKey,
   items,
 }: PortfolioCollapseFilterProps) {
-  const state = useFilterState();
+  const state = usePortfolioFilterState();
   const activeFilters = (state[stateKey] || []) as string[];
   const activeItems = activeFilters.filter((filter) => items.includes(filter));
   const allSelected = activeItems.length === items.length;

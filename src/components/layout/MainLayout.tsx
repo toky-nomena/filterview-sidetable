@@ -1,6 +1,5 @@
 import { useTheme } from "next-themes";
 
-import { PortfolioSidebarFilter } from "./filters/PortfolioSidebarFilter";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
 import {
@@ -8,6 +7,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { PortfolioSidebarFilter } from "./filters/PortfolioSidebarFilter";
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { theme, setTheme } = useTheme();

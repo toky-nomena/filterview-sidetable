@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
-import { Lookup } from "@/components/lookup/lookup";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Lookup } from "@/use-cases/lookup/components/lookup";
 import type { RiskState, State, TransactionType } from "@/types/schema";
 
 const stateVariants: Record<State, "default" | "outline"> = {

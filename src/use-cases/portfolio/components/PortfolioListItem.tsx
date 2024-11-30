@@ -1,11 +1,11 @@
 import { Eye } from "lucide-react";
 
-import type { Portfolio } from "@/services/data/data.service";
+import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { LookupBadge } from "@/components/portfolio/LookupBadge";
 import { PortfolioActions } from "./PortfolioActions";
+import { LookupBadge } from "./LookupBadge";
 
 interface ListItemProps {
   portfolio: Portfolio;

@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { useFilterState } from "@/store/filterStore";
-import { getPortfolio } from "@/services/data/data.service";
-import { PortfolioTable } from "@/components/portfolio/PortfolioTable";
+import { usePortfolioFilterState } from "@/use-cases/portfolio/store/portfolioFilterStore";
+import { getPortfolio } from "@/use-cases/portfolio/services/portfolio.service";
+import { PortfolioTable } from "@/use-cases/portfolio/components/PortfolioTable";
 
 export function Index() {
-  const state = useFilterState();
+  const state = usePortfolioFilterState();
 
   // Query portfolio
   const { data = [], isLoading } = useQuery({
