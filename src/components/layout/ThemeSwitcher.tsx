@@ -71,7 +71,7 @@ export function ThemeSwitcher() {
                   setActiveTheme(theme);
                   setTheme(theme.value);
                 }}
-                className="gap-2 p-2"
+                className={`gap-2 p-2 ${theme.value === activeTheme.value ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""}`}
               >
                 <div className="flex size-6 items-center justify-center rounded-sm border">
                   <theme.icon className="size-4 shrink-0" />

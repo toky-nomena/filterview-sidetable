@@ -3,13 +3,11 @@ import { Circle, CircleCheck, Loader2 } from "lucide-react";
 export interface FilterStateIconProps {
   isLoading?: boolean;
   isSelected?: boolean;
-  className?: string;
 }
 
 export function FilterStateIcon({
   isLoading,
   isSelected,
-  className,
 }: FilterStateIconProps) {
   if (isLoading) {
     return (
