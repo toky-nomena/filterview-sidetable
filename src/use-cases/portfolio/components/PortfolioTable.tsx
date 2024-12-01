@@ -17,7 +17,7 @@ import { usePaginationSearchParams } from "../usePaginationSearchParams";
 import { PortfolioViewChanger } from "./PortfolioViewChanger";
 import { Suspense } from "react";
 import { SearchInput } from "@/components/ui/search-input";
-import { ColumnToggle } from "@/use-cases/portfolio/components/ColumnsToggle";
+import { PortfolioColumnToggle } from "@/use-cases/portfolio/components/PortfolioColumnToggle";
 import { Pagination } from "@/components/ui/pagination";
 import {
   PortfolioGridView,
@@ -74,7 +74,10 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
                 placeholder="Search all columns..."
               />
             </div>
-            <ColumnToggle table={table} disabled={false} />
+            <PortfolioColumnToggle
+              table={table}
+              disabled={viewMode !== "table"}
+            />
           </div>
           <PortfolioViewChanger viewMode={viewMode} setViewMode={setViewMode} />
         </div>

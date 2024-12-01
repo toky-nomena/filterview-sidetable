@@ -10,15 +10,15 @@ import {
 import type { Table } from "@tanstack/react-table";
 import { Grid2x2Check } from "lucide-react";
 
-interface ColumnToggleProps<TData> {
+interface PortfolioColumnToggleProps<TData> {
   table: Table<TData>;
   disabled?: boolean;
 }
 
-export function ColumnToggle<TData>({
+export function PortfolioColumnToggle<TData>({
   table,
   disabled,
-}: ColumnToggleProps<TData>) {
+}: PortfolioColumnToggleProps<TData>) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

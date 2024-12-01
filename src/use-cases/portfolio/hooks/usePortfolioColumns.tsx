@@ -27,14 +27,6 @@ export function usePortfolioColumns() {
             fallback={<Skeleton className="h-5 w-16 rounded-full" />}
           />
         ),
-        enableHiding: true,
-      },
-      {
-        id: "province",
-        header: ({ column }) => <SortButton column={column} label="Province" />,
-        accessorKey: "province",
-        cell: ({ row }) => <span>{row.original.province}</span>,
-        enableHiding: true,
       },
       {
         id: "customerNumber",
@@ -45,7 +37,6 @@ export function usePortfolioColumns() {
         cell: ({ row }) => (
           <CustomerNumberLink>{row.original.customerNumber}</CustomerNumberLink>
         ),
-        enableHiding: true,
       },
       {
         id: "businessKey",
@@ -56,6 +47,12 @@ export function usePortfolioColumns() {
         cell: ({ row }) => (
           <BusinessKeyLink>{row.original.businessKey}</BusinessKeyLink>
         ),
+      },
+      {
+        id: "province",
+        header: ({ column }) => <SortButton column={column} label="Province" />,
+        accessorKey: "province",
+        cell: ({ row }) => <span>{row.original.province}</span>,
         enableHiding: true,
       },
       {
