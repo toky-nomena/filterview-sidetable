@@ -6,7 +6,7 @@ import { Lookup } from "@/use-cases/lookup/components/lookup";
 import { LookupName } from "@/use-cases/lookup/lookup.service";
 
 import { PortfolioDetailsSection } from "./PortfolioDetailsSection";
-import { LookupBadge } from "./LookupBadge";
+import { PortfolioLookupBadge } from "./PortfolioLookupBadge";
 
 interface PortfolioDetailsProps {
   portfolio: Portfolio;
@@ -62,14 +62,14 @@ export function PortfolioDetails({ portfolio }: PortfolioDetailsProps) {
 
         {/* Status Information */}
         <PortfolioDetailsSection title="Status Information">
-          <DetailItem label="State">
-            <LookupBadge
+          <DetailItem label="Risk State">
+            <PortfolioLookupBadge
               name={LookupName.RiskState}
               code={portfolio.riskState}
             />
           </DetailItem>
           <DetailItem label="Risk State">
-            <LookupBadge
+            <PortfolioLookupBadge
               name={LookupName.RiskState}
               code={portfolio.riskState}
             />

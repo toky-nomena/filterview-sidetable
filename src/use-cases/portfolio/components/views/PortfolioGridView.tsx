@@ -1,16 +1,20 @@
 import type { Portfolio } from "../../services/portfolio.service";
-import { PortfolioGridItem } from "../PortfolioGridItem";
-import type { PaginationState } from "@tanstack/react-table";
+import { PortfolioGridItem } from "./PortfolioGridItem";
+import type { Table } from "@tanstack/react-table";
 
 interface PortfolioGridViewProps {
-  data: Portfolio[];
+  table: Table<Portfolio>;
 }
 
-export function PortfolioGridView({ data }: PortfolioGridViewProps) {
+export function PortfolioGridView({ table }: PortfolioGridViewProps) {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {data.map((portfolio) => (
-        <PortfolioGridItem key={portfolio.id} portfolio={portfolio} />
+      {table.getRowModel().rows.map((row) => (
+        <PortfolioGridItem
+          key={row.id}
+          portfolio={row.original}
+          cells={row.getVisibleCells()}
+        />
       ))}
     </div>
   );

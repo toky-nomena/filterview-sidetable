@@ -41,7 +41,7 @@ interface StatusBadgeProps {
   name: string;
 }
 
-export function LookupBadge({ name, code }: StatusBadgeProps) {
+export function PortfolioLookupBadge({ name, code }: StatusBadgeProps) {
   return (
     <Lookup
       name={name}

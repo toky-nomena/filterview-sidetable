@@ -74,7 +74,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
                 placeholder="Search all columns..."
               />
             </div>
-            <ColumnToggle table={table} disabled={viewMode !== "table"} />
+            <ColumnToggle table={table} disabled={false} />
           </div>
           <PortfolioViewChanger viewMode={viewMode} setViewMode={setViewMode} />
         </div>
@@ -82,16 +82,8 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
       <div className="flex-1 overflow-x-scroll px-4">
         <Suspense fallback={<PortfolioTablePlaceholder />}>
           {viewMode === "table" && <PortfolioTableView table={table} />}
-          {viewMode === "grid" && (
-            <PortfolioGridView
-              data={table.getRowModel().rows.map((row) => row.original)}
-            />
-          )}
-          {viewMode === "list" && (
-            <PortfolioListView
-              data={table.getRowModel().rows.map((row) => row.original)}
-            />
-          )}
+          {viewMode === "grid" && <PortfolioGridView table={table} />}
+          {viewMode === "list" && <PortfolioListView table={table} />}
         </Suspense>
       </div>
       <Pagination
