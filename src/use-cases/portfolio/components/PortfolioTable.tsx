@@ -17,7 +17,7 @@ import { usePaginationSearchParams } from "../usePaginationSearchParams";
 import { PortfolioViewChanger } from "./PortfolioViewChanger";
 import { Suspense } from "react";
 import { SearchInput } from "@/components/ui/search-input";
-import { ColumnToggle } from "@/components/ui/column-toggle";
+import { ColumnToggle } from "@/use-cases/portfolio/components/ColumnsToggle";
 import { Pagination } from "@/components/ui/pagination";
 import {
   PortfolioGridView,
@@ -74,7 +74,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
                 placeholder="Search all columns..."
               />
             </div>
-            <ColumnToggle table={table} />
+            <ColumnToggle table={table} disabled={viewMode !== "table"} />
           </div>
           <PortfolioViewChanger viewMode={viewMode} setViewMode={setViewMode} />
         </div>
@@ -94,19 +94,18 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
           )}
         </Suspense>
       </div>
-      <div className="sticky bottom-0 z-10 w-full bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <Pagination
-          currentPage={pagination.pageIndex + 1}
-          pageSize={pagination.pageSize}
-          totalItems={table.getFilteredRowModel().rows.length}
-          onPageChange={(page) =>
-            onPaginationChange({ ...pagination, pageIndex: page - 1 })
-          }
-          onPageSizeChange={(size) =>
-            onPaginationChange({ ...pagination, pageSize: size, pageIndex: 0 })
-          }
-        />
-      </div>
+      <Pagination
+        className="sticky bottom-0 z-10 w-full bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+        currentPage={pagination.pageIndex + 1}
+        pageSize={pagination.pageSize}
+        totalItems={table.getFilteredRowModel().rows.length}
+        onPageChange={(page) =>
+          onPaginationChange({ ...pagination, pageIndex: page - 1 })
+        }
+        onPageSizeChange={(size) =>
+          onPaginationChange({ ...pagination, pageSize: size, pageIndex: 0 })
+        }
+      />
     </div>
   );
 }

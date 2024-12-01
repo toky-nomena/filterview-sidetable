@@ -4,6 +4,7 @@ import { LookupName } from "@/use-cases/lookup/lookup.service";
 import { Lookup } from "@/use-cases/lookup/components/lookup";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PortfolioActionsLazy } from "./actions/PortfolioActionsLazy";
+import { GridListLinks } from "./actions/GridListLinks";
 
 interface PortfolioListItemProps {
   portfolio: Portfolio;
@@ -11,16 +12,16 @@ interface PortfolioListItemProps {
 
 export function PortfolioListItem({ portfolio }: PortfolioListItemProps) {
   return (
-    <div className="hover:shadow-lg transition-shadow bg-background border text-foreground rounded-lg">
-      <div className="flex items-center justify-between px-4 py-2">
-        <div className="flex items-center gap-4">
+    <div className="transition-shadow bg-background border text-foreground rounded-lg">
+      <div className="flex items-center justify-between px-4 py-1">
+        <div className="flex items-center gap-2">
           <Lookup
             name={LookupName.Brand}
             code={portfolio.brand}
-            fallback={<Skeleton className="h-8 w-8 rounded-full" />}
+            fallback={<Skeleton className="h-6 w-6 rounded-full" />}
           >
             {({ label }) => (
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary">
                 <span className="text-sm font-medium text-primary-foreground">
                   {label.charAt(0).toUpperCase()}
                 </span>
@@ -28,9 +29,7 @@ export function PortfolioListItem({ portfolio }: PortfolioListItemProps) {
             )}
           </Lookup>
           <div className="flex items-center gap-2">
-            <div className="font-medium">
-              {portfolio.customerNumber} • {portfolio.businessKey}
-            </div>
+            <GridListLinks portfolio={portfolio} />
             <LookupBadge
               name={LookupName.RiskState}
               code={portfolio.riskState}

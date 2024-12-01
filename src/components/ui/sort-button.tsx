@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import type { Column } from "@tanstack/react-table";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
+import type { ReactNode } from "react";
 
 interface SortButtonProps<TData> {
   column: Column<TData>;
-  label: string;
+  label: ReactNode;
 }
 
 export function SortButton<TData>({ column, label }: SortButtonProps<TData>) {

@@ -18,8 +18,8 @@ export function PortfolioActions({ portfolio }: PortfolioActionsProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost">
-          <ChevronRight className="h-8 w-8 text-lg" size={64} />
+        <Button variant="ghost" className="rounded-full" size="icon">
+          <ChevronRight className="size-10" />
         </Button>
       </SheetTrigger>
       <SheetContent className="p-0 m-0">

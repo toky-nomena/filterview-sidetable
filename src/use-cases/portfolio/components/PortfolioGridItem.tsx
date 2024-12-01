@@ -2,6 +2,7 @@ import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service
 import { LookupName } from "@/use-cases/lookup/lookup.service";
 import { LookupBadge } from "./LookupBadge";
 import { PortfolioActionsLazy } from "./actions/PortfolioActionsLazy";
+import { GridListLinks } from "./actions/GridListLinks";
 
 interface PortfolioGridItemProps {
   portfolio: Portfolio;
@@ -9,14 +10,9 @@ interface PortfolioGridItemProps {
 
 export function PortfolioGridItem({ portfolio }: PortfolioGridItemProps) {
   return (
-    <div className="group relative rounded-lg border bg-background p-4 transition-colors hover:shadow-lg">
+    <div className="group flex flex-row justify-between items-center relative rounded-lg border bg-background p-4 transition-colors">
       <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
-          <span className="text-base font-medium">
-            {portfolio.customerNumber} • {portfolio.businessKey}
-          </span>
-          <PortfolioActionsLazy portfolio={portfolio} />
-        </div>
+        <GridListLinks portfolio={portfolio} />
 
         <div className="flex flex-wrap items-center gap-2">
           <LookupBadge name={LookupName.RiskState} code={portfolio.riskState} />
@@ -24,6 +20,7 @@ export function PortfolioGridItem({ portfolio }: PortfolioGridItemProps) {
           <LookupBadge name={LookupName.Brand} code={portfolio.brand} />
         </div>
       </div>
+      <PortfolioActionsLazy portfolio={portfolio} />
     </div>
   );
 }

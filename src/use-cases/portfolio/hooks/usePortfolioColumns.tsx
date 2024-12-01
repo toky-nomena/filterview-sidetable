@@ -9,6 +9,9 @@ import { LookupBadge } from "../components/LookupBadge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SortButton } from "@/components/ui/sort-button";
 import { PortfolioActionsLazy } from "../components/actions/PortfolioActionsLazy";
+import { Bus } from "lucide-react";
+import { BusinessKeyLink } from "../components/actions/BusinessKeyLink";
+import { CustomerNumberLink } from "../components/actions/CustomerNumberLink";
 
 export function usePortfolioColumns() {
   return useMemo<ColumnDef<Portfolio>[]>(
@@ -30,13 +33,7 @@ export function usePortfolioColumns() {
         id: "province",
         header: ({ column }) => <SortButton column={column} label="Province" />,
         accessorKey: "province",
-        cell: ({ row }) => (
-          <Lookup
-            name={LookupName.Province}
-            code={row.original.province}
-            fallback={<Skeleton className="h-5 w-16 rounded-full" />}
-          />
-        ),
+        cell: ({ row }) => <span>{row.original.province}</span>,
         enableHiding: true,
       },
       {
@@ -45,7 +42,9 @@ export function usePortfolioColumns() {
           <SortButton column={column} label="Customer Number" />
         ),
         accessorKey: "customerNumber",
-        cell: ({ row }) => <span>{row.original.customerNumber}</span>,
+        cell: ({ row }) => (
+          <CustomerNumberLink>{row.original.customerNumber}</CustomerNumberLink>
+        ),
         enableHiding: true,
       },
       {
@@ -54,7 +53,9 @@ export function usePortfolioColumns() {
           <SortButton column={column} label="Business Key" />
         ),
         accessorKey: "businessKey",
-        cell: ({ row }) => <span>{row.original.businessKey}</span>,
+        cell: ({ row }) => (
+          <BusinessKeyLink>{row.original.businessKey}</BusinessKeyLink>
+        ),
         enableHiding: true,
       },
       {
