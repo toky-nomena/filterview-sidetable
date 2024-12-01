@@ -3,6 +3,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -19,6 +20,9 @@ export function PortfolioColumnToggle<TData>({
   table,
   disabled,
 }: PortfolioColumnToggleProps<TData>) {
+  const allColumns = table.getAllColumns();
+  const visibleColumns = allColumns.filter((column) => column.getCanHide());
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -35,19 +39,23 @@ export function PortfolioColumnToggle<TData>({
       <DropdownMenuContent align="end" className="w-[180px]">
         <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {table
-          .getAllColumns()
-          .filter((column) => column.accessorFn && column.getCanHide())
-          .map((column) => (
-            <DropdownMenuCheckboxItem
-              key={column.id}
-              className="capitalize"
-              checked={column.getIsVisible()}
-              onCheckedChange={(value) => column.toggleVisibility(!!value)}
-            >
-              {column.id}
-            </DropdownMenuCheckboxItem>
-          ))}
+        {visibleColumns.map((column) => (
+          <DropdownMenuCheckboxItem
+            key={column.id}
+            className="capitalize"
+            checked={column.getIsVisible()}
+            onCheckedChange={(value) => column.toggleVisibility(!!value)}
+          >
+            {column.id}
+          </DropdownMenuCheckboxItem>
+        ))}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          className="capitalize"
+          onClick={() => table.toggleAllColumnsVisible(true)}
+        >
+          View all
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

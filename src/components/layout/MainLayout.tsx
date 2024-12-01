@@ -3,8 +3,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { PortfolioSidebarFilter } from "./filters/PortfolioSidebarFilter";
 import { EnvSelector } from "./EnvSelector";
+import { PortfolioSidebarFilter } from "@/use-cases/portfolio/components/PortfolioSidebarLazy";
 
 export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
