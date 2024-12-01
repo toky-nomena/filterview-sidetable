@@ -5,12 +5,13 @@ import { Lookup } from "@/use-cases/lookup/components/lookup";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PortfolioActionsLazy } from "./actions/PortfolioActionsLazy";
 import { GridListLinks } from "./actions/GridListLinks";
+import { memo } from "react";
 
 interface PortfolioListItemProps {
   portfolio: Portfolio;
 }
 
-export function PortfolioListItem({ portfolio }: PortfolioListItemProps) {
+export function PortfolioListItemView({ portfolio }: PortfolioListItemProps) {
   return (
     <div className="transition-shadow bg-background border text-foreground rounded-lg">
       <div className="flex items-center justify-between px-4 py-1">
@@ -46,3 +47,5 @@ export function PortfolioListItem({ portfolio }: PortfolioListItemProps) {
     </div>
   );
 }
+
+export const PortfolioListItem = memo(PortfolioListItemView);
