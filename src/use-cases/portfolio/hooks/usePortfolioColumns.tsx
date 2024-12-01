@@ -9,7 +9,6 @@ import { PortfolioLookupBadge } from "../components/PortfolioLookupBadge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SortButton } from "@/components/ui/sort-button";
 import { PortfolioActionsLazy } from "../components/actions/PortfolioActionsLazy";
-import { Bus } from "lucide-react";
 import { BusinessKeyLink } from "../components/actions/BusinessKeyLink";
 import { CustomerNumberLink } from "../components/actions/CustomerNumberLink";
 
@@ -27,6 +26,7 @@ export function usePortfolioColumns() {
             fallback={<Skeleton className="h-5 w-16 rounded-full" />}
           />
         ),
+        enableHiding: false,
       },
       {
         id: "customerNumber",
@@ -37,6 +37,7 @@ export function usePortfolioColumns() {
         cell: ({ row }) => (
           <CustomerNumberLink>{row.original.customerNumber}</CustomerNumberLink>
         ),
+        enableHiding: false,
       },
       {
         id: "businessKey",
@@ -47,6 +48,7 @@ export function usePortfolioColumns() {
         cell: ({ row }) => (
           <BusinessKeyLink>{row.original.businessKey}</BusinessKeyLink>
         ),
+        enableHiding: false,
       },
       {
         id: "province",

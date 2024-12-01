@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table";
 import { useReactTable } from "@tanstack/react-table";
 import { parseAsString, useQueryState } from "nuqs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
@@ -42,6 +42,12 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
 
   const columns = usePortfolioColumns();
   const [pagination, onPaginationChange] = usePaginationSearchParams();
+
+  useEffect(() => {
+    PortfolioGridView.preload();
+    PortfolioListView.preload();
+    PortfolioTableView.preload();
+  }, []);
 
   const table = useReactTable({
     data,
