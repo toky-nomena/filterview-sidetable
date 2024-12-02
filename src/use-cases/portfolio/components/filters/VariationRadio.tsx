@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import type { LucideIcon } from "lucide-react";
 
 interface VariationItem {
   id: string;

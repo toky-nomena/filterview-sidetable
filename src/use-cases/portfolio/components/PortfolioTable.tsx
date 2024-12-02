@@ -8,7 +8,7 @@ import {
 } from "@tanstack/react-table";
 import { useReactTable } from "@tanstack/react-table";
 import { parseAsString, useQueryState } from "nuqs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
@@ -31,6 +31,7 @@ interface PortfolioTableProps {
 }
 
 export function PortfolioTable({ data }: PortfolioTableProps) {
+  const [, startTransition] = useTransition();
   const [sorting, onSortingChange] = useState<SortingState>([]);
   const [columnVisibility, onColumnVisibilityChange] =
     useState<VisibilityState>({});
@@ -56,16 +57,32 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onSortingChange,
-    onColumnVisibilityChange,
-    onPaginationChange,
+    onSortingChange: (s) => {
+      startTransition(() => {
+        onSortingChange(s);
+      });
+    },
+    onColumnVisibilityChange: (c) => {
+      startTransition(() => {
+        onColumnVisibilityChange(c);
+      });
+    },
+    onPaginationChange: (p) => {
+      startTransition(() => {
+        onPaginationChange(p);
+      });
+    },
+    onGlobalFilterChange: (f) => {
+      startTransition(() => {
+        onGlobalFilterChange(f);
+      });
+    },
     state: {
       sorting,
       pagination,
       columnVisibility,
       globalFilter,
     },
-    onGlobalFilterChange,
   });
 
   return (
