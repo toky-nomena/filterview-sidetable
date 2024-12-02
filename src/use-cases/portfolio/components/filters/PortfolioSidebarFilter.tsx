@@ -17,11 +17,37 @@ import {
 import { LookupName } from "@/use-cases/lookup/lookup.service";
 import { LookupList } from "@/use-cases/lookup/components/LookupList";
 import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { useCallback, useState } from "react";
 
 interface FilterGroup {
   title: string;
   stateKey: PortfolioCollapseFilterProps["stateKey"];
   lookupName: LookupName;
+}
+
+function useToggleArray(length: number, defaultValue = false) {
+  const [state, update] = useState<boolean[]>(Array(length).fill(defaultValue));
+
+  // Reset all values to false
+  const reset = useCallback(
+    (value: boolean) => update((items) => Array(items.length).fill(value)),
+    [],
+  );
+
+  // Reset all values to false
+  const toggle = useCallback(
+    (value: boolean, index: number) =>
+      update((prev) => {
+        const newValues = [...prev];
+        newValues[index] = value;
+        return newValues;
+      }),
+    [],
+  );
+
+  return [state, { reset, toggle }] as const;
 }
 
 const items: FilterGroup[] = [
@@ -60,6 +86,8 @@ const items: FilterGroup[] = [
 export function PortfolioSidebarFilter({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const [state, { reset, toggle }] = useToggleArray(items.length, true);
+
   return (
     <Sidebar {...props}>
       <SidebarHeader className="border-b h-[70px] flex justify-center items-center align-middle">
@@ -78,19 +106,34 @@ export function PortfolioSidebarFilter({
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent className="pt-4 px-2">
-        {items.map((item) => (
-          <LookupList key={item.lookupName} name={item.lookupName}>
-            {({ values, isLoading }) => (
-              <PortfolioCollapseFilter
-                title={item.title}
-                stateKey={item.stateKey}
-                values={values}
-                isLoading={isLoading}
-              />
-            )}
-          </LookupList>
-        ))}
+      <SidebarMenuItem className="flex w-full items-center justify-between p-4 border-b">
+        <div className="text-base font-medium text-foreground">Filters</div>
+        <Label className="flex items-center gap-2 text-sm">
+          <span>Show all</span>
+          <Switch
+            className="shadow-none"
+            checked={state.every(Boolean)}
+            onCheckedChange={reset}
+          />
+        </Label>
+      </SidebarMenuItem>
+      <SidebarContent>
+        <SidebarMenuItem className="flex flex-col gap-2 p-2">
+          {items.map((item, index) => (
+            <LookupList key={item.lookupName} name={item.lookupName}>
+              {({ values, isLoading }) => (
+                <PortfolioCollapseFilter
+                  isOpen={state[index]}
+                  title={item.title}
+                  stateKey={item.stateKey}
+                  values={values}
+                  isLoading={isLoading}
+                  setIsOpen={(isOpen) => toggle(isOpen, index)}
+                />
+              )}
+            </LookupList>
+          ))}
+        </SidebarMenuItem>
       </SidebarContent>
       <SidebarRail />
       <SidebarFooter className="p-4 border-t">

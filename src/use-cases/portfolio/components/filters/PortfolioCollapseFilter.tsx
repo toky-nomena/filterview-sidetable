@@ -22,13 +22,14 @@ import { SidebarFilterHeader } from "./SidebarFilterHeader";
 import { SidebarFilterItem } from "./SidebarFilterItem";
 import type { FilterStateKey } from "./types";
 import type { LookupValue } from "@/use-cases/lookup/lookup.types";
-import { useState } from "react";
 
 export interface PortfolioCollapseFilterProps {
   title: string;
   stateKey: FilterStateKey;
   values: LookupValue[];
   isLoading?: boolean;
+  isOpen: boolean;
+  setIsOpen?: (isOpen: boolean) => void;
 }
 
 export function PortfolioCollapseFilter({
@@ -36,9 +37,10 @@ export function PortfolioCollapseFilter({
   stateKey,
   values,
   isLoading,
+  isOpen,
+  setIsOpen,
 }: PortfolioCollapseFilterProps) {
   const state = usePortfolioFilterState();
-  const [isOpen, setIsOpen] = useState(true);
 
   const items = values.map((item) => item.code);
 
@@ -64,71 +66,70 @@ export function PortfolioCollapseFilter({
   };
 
   return (
-    <SidebarMenu>
-      <Collapsible
-        open={isOpen}
-        onOpenChange={setIsOpen}
-        className="group/collapsible"
-        disabled={isLoading}
-      >
-        <SidebarGroup className="p-0">
-          <SidebarGroupLabel
-            asChild
-            className="group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-          >
-            <CollapsibleTrigger disabled={isLoading}>
-              <SidebarFilterHeader
-                title={title}
-                activeItemsCount={activeItems.length}
-                allSelected={allSelected}
-                onToggleAll={handleToggleAll}
-                onClear={handleClear}
-                isLoading={isLoading}
-              />
-              {isLoading ? (
-                <Ellipsis className="w-4 h-4 ml-auto text-muted-foreground" />
-              ) : (
-                <ChevronRight className="w-4 h-4 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
-              )}
-            </CollapsibleTrigger>
-          </SidebarGroupLabel>
-          <AnimatePresence>
-            {!isLoading && (
-              <CollapsibleContent className="pl-1">
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <SidebarGroupContent>
-                    <SidebarMenuSub>
-                      {values.map((item, index) => (
-                        <motion.div
-                          key={item.code}
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.05 }}
-                        >
-                          <SidebarFilterItem
-                            label={item.label}
-                            isActive={
-                              activeFilters.includes(item.code) && !isLoading
-                            }
-                            onToggle={(checked) =>
-                              handleToggleItem(checked, item.code)
-                            }
-                          />
-                        </motion.div>
-                      ))}
-                    </SidebarMenuSub>
-                  </SidebarGroupContent>
-                </motion.div>
-              </CollapsibleContent>
+    <Collapsible
+      open={isOpen}
+      defaultOpen={isOpen}
+      onOpenChange={setIsOpen}
+      className="group/collapsible"
+      disabled={isLoading}
+    >
+      <SidebarGroup className="p-0">
+        <SidebarGroupLabel
+          asChild
+          className="group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+        >
+          <CollapsibleTrigger disabled={isLoading}>
+            <SidebarFilterHeader
+              title={title}
+              activeItemsCount={activeItems.length}
+              allSelected={allSelected}
+              onToggleAll={handleToggleAll}
+              onClear={handleClear}
+              isLoading={isLoading}
+            />
+            {isLoading ? (
+              <Ellipsis className="w-4 h-4 ml-auto text-muted-foreground" />
+            ) : (
+              <ChevronRight className="w-4 h-4 ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
             )}
-          </AnimatePresence>
-        </SidebarGroup>
-      </Collapsible>
-    </SidebarMenu>
+          </CollapsibleTrigger>
+        </SidebarGroupLabel>
+        <AnimatePresence>
+          {!isLoading && (
+            <CollapsibleContent className="pl-1">
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <SidebarGroupContent>
+                  <SidebarMenuSub>
+                    {values.map((item, index) => (
+                      <motion.div
+                        key={item.code}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <SidebarFilterItem
+                          label={item.label}
+                          isActive={
+                            activeFilters.includes(item.code) && !isLoading
+                          }
+                          onToggle={(checked) =>
+                            handleToggleItem(checked, item.code)
+                          }
+                        />
+                      </motion.div>
+                    ))}
+                  </SidebarMenuSub>
+                </SidebarGroupContent>
+              </motion.div>
+            </CollapsibleContent>
+          )}
+        </AnimatePresence>
+      </SidebarGroup>
+    </Collapsible>
   );
 }
