@@ -70,16 +70,14 @@ export function PortfolioSidebarFilter({
       <SidebarHeader className="border-b h-[70px] flex justify-center items-center align-middle">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild className="rounded-none">
-              <div>
-                <div className="flex aspect-square align-middle justify-center rounded-lg  text-sidebar-primary-foreground">
-                  <Layers className="size-7 stroke-[2] text-primary " />
-                </div>
-                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-bold text-lg text-primary">
-                    Portfolio Search
-                  </span>
-                </div>
+            <SidebarMenuButton size="lg">
+              <div className="flex aspect-square align-middle justify-center rounded-lg bg-primary p-2">
+                <Layers className="size-5 stroke-[2] text-white" />
+              </div>
+              <div className="flex flex-col gap-0.5 leading-none">
+                <span className="font-bold text-lg text-primary">
+                  Portfolio Search
+                </span>
               </div>
             </SidebarMenuButton>
           </SidebarMenuItem>

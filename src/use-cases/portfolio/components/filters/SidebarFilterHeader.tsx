@@ -52,9 +52,7 @@ export function SidebarFilterHeader({
               }}
               disabled={isLoading}
               className={cn(
-                "text-xs text-muted-foreground hover:text-destructive transition-colors",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm px-1",
-                "disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-muted-foreground",
+                "text-xs text-muted-foreground hover:text-red-500 transition-colors",
               )}
               aria-label="Clear selected filters"
             >
