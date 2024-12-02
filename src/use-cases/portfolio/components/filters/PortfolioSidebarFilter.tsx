@@ -1,7 +1,4 @@
-import { Database, Hexagon, Layers, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-
-import { Button } from "@/components/ui/button";
+import { Layers } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -63,8 +60,6 @@ const items: FilterGroup[] = [
 export function PortfolioSidebarFilter({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
-  const { theme, setTheme } = useTheme();
-
   return (
     <Sidebar {...props}>
       <SidebarHeader className="border-b h-[70px] flex justify-center items-center align-middle">
