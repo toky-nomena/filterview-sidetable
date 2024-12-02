@@ -31,7 +31,7 @@ interface PortfolioTableProps {
 }
 
 export function PortfolioTable({ data }: PortfolioTableProps) {
-  const [, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
   const [sorting, onSortingChange] = useState<SortingState>([]);
   const [columnVisibility, onColumnVisibilityChange] =
     useState<VisibilityState>({});
@@ -102,7 +102,15 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
               disabled={viewMode !== "table"}
             />
           </div>
-          <PortfolioViewChanger viewMode={viewMode} setViewMode={setViewMode} />
+          <PortfolioViewChanger
+            viewMode={viewMode}
+            setViewMode={(mode) => {
+              startTransition(() => {
+                setViewMode(mode);
+              });
+            }}
+            disabled={isPending}
+          />
         </div>
       </div>
       <div className="flex-1 overflow-x-scroll p-4">

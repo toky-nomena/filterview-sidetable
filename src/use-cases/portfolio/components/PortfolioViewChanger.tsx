@@ -5,11 +5,13 @@ import { cn } from "@/lib/utils";
 interface PortfolioViewChangerProps {
   viewMode: string;
   setViewMode: (mode: "table" | "grid" | "list") => void;
+  disabled?: boolean;
 }
 
 export function PortfolioViewChanger({
   viewMode,
   setViewMode,
+  disabled = false,
 }: PortfolioViewChangerProps) {
   return (
     <div className="flex items-center gap-2">
@@ -17,6 +19,7 @@ export function PortfolioViewChanger({
         variant="ghost"
         size="icon"
         onClick={() => setViewMode("table")}
+        disabled={disabled}
         className={cn(
           "transition-colors",
           viewMode === "table" && "bg-accent/50 hover:bg-accent/70",
@@ -28,6 +31,7 @@ export function PortfolioViewChanger({
         variant="ghost"
         size="icon"
         onClick={() => setViewMode("grid")}
+        disabled={disabled}
         className={cn(
           "transition-colors",
           viewMode === "grid" && "bg-accent/50 hover:bg-accent/70",
@@ -39,6 +43,7 @@ export function PortfolioViewChanger({
         variant="ghost"
         size="icon"
         onClick={() => setViewMode("list")}
+        disabled={disabled}
         className={cn(
           "transition-colors",
           viewMode === "list" && "bg-accent/50 hover:bg-accent/70",
