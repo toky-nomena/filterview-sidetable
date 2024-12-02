@@ -17,10 +17,10 @@ import {
   SidebarGroupLabel,
   SidebarMenuSub,
 } from "@/components/ui/sidebar";
+import type { LookupValue } from "@/use-cases/lookup/lookup.types";
 
 import { SidebarFilterHeader } from "./SidebarFilterHeader";
 import { SidebarFilterItem } from "./SidebarFilterItem";
-import type { LookupValue } from "@/use-cases/lookup/lookup.types";
 
 export interface PortfolioCollapseFilterProps {
   title: string;

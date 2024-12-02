@@ -1,4 +1,4 @@
-import { Layers } from "lucide-react";
+import { Layers, ChevronDown } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -19,6 +19,14 @@ import { LookupList } from "@/use-cases/lookup/components/LookupList";
 import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 import { useCallback, useState } from "react";
 
 interface FilterGroup {
@@ -106,20 +114,67 @@ export function PortfolioSidebarFilter({
         <SidebarMenuItem className="flex w-full items-center justify-between p-3 border z-10 sticky top-0 bg-background">
           <span className="text-base font-medium text-foreground">Filters</span>
         </SidebarMenuItem>
-        <SidebarMenuItem className="flex flex-col gap-2 p-2">
-          <LookupList name={LookupName.Language}>
-            {({ values, isLoading }) => (
-              <PortfolioCollapseFilter
-                title={"Language"}
-                stateKey={"language"}
-                values={values}
-                isLoading={isLoading}
-                isOpen={true}
-              />
-            )}
-          </LookupList>
+        <SidebarMenuItem className="flex flex-col gap-4 px-4 py-2">
+          <div className="flex flex-col items-start gap-2">
+            <Label htmlFor="firstName">Product type</Label>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="w-full justify-between">
+                  <span>Minimum</span>
+                  <ChevronDown className="h-4 w-4 opacity-50" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="start"
+                className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+              >
+                <DropdownMenuItem>Minimum</DropdownMenuItem>
+                <DropdownMenuItem>Maximum</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="firstName">First name</Label>
+            <Input
+              type="text"
+              id="firstName"
+              placeholder="Enter first name"
+              className="w-full"
+            />
+          </div>
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="lastName">Last name</Label>
+            <Input
+              type="text"
+              id="lastName"
+              placeholder="Enter last name"
+              className="w-full"
+            />
+          </div>
+          <div className="flex flex-col items-start gap-2">
+            <Label htmlFor="firstName">Product type</Label>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="w-full justify-between">
+                  <span>Minimum</span>
+                  <ChevronDown className="h-4 w-4 opacity-50" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="start"
+                className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+              >
+                <LookupList name={LookupName.Language}>
+                  {({ values }) =>
+                    values.map(({ code, label }) => (
+                      <DropdownMenuItem key={code}>{label}</DropdownMenuItem>
+                    ))
+                  }
+                </LookupList>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </SidebarMenuItem>
-
         <SidebarMenuItem className="flex w-full items-center justify-between p-3 border z-20 sticky top-0 bg-background">
           <div className="text-base font-medium text-foreground">
             Additionnal filters
