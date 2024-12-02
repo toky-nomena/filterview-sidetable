@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { NuqsAdapter } from "nuqs/adapters/react";
 import { preloadLookups } from "./use-cases/lookup/lookup.service";
-import { ThemeProvider } from "./components/themes";
+import { ThemeProvider } from "./lib/themes";
 
 const queryClient = new QueryClient({
   defaultOptions: {

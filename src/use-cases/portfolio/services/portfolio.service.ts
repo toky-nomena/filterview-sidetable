@@ -28,9 +28,7 @@ export interface FilterParams {
   page?: number;
 }
 
-const keys = Object.entries(generatePortfolio())
-  .filter(([, value]) => Array.isArray(value))
-  .map(([key]) => key as keyof Portfolio);
+const keys = Object.keys(generatePortfolio()) as (keyof Portfolio)[];
 
 function generatePortfolio(): Portfolio {
   return {
@@ -74,9 +72,9 @@ const portfolio = Array.from({ length: 140 }, generatePortfolio);
 export const getFilteredPortfolio = async (filters: FilterState) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  return portfolio.filter((company) => {
+  return portfolio.filter((portfolio) => {
     return keys.every((field) =>
-      validateFilter(filters[field], field, company),
+      validateFilter(filters[field], field, portfolio),
     );
   });
 };

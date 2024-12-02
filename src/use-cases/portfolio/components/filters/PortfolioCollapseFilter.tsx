@@ -40,7 +40,7 @@ export function PortfolioCollapseFilter({
   defaultOpen,
 }: PortfolioCollapseFilterProps) {
   const state = usePortfolioFilterState();
-  const [isOpen, setIsOpen] = useState(!isLoading && defaultOpen);
+  const [isOpen, setIsOpen] = useState(isLoading || defaultOpen);
 
   const items = values.map((item) => item.code);
 

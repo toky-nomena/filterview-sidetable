@@ -13,7 +13,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useState } from "react";
-import { useTheme } from "../themes";
+import { useTheme } from "../../lib/themes";
 
 const themes = [
   {
