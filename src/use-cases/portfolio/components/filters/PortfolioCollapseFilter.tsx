@@ -29,6 +29,7 @@ export interface PortfolioCollapseFilterProps {
   stateKey: FilterStateKey;
   values: LookupValue[];
   isLoading?: boolean;
+  defaultOpen?: boolean;
 }
 
 export function PortfolioCollapseFilter({
@@ -36,9 +37,10 @@ export function PortfolioCollapseFilter({
   stateKey,
   values,
   isLoading,
+  defaultOpen,
 }: PortfolioCollapseFilterProps) {
   const state = usePortfolioFilterState();
-  const [isOpen, setIsOpen] = useState(isLoading);
+  const [isOpen, setIsOpen] = useState(!isLoading && defaultOpen);
 
   const items = values.map((item) => item.code);
 
