@@ -70,7 +70,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="sticky top-0 z-10 w-full bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="sticky top-0 z-10 w-full bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
         <div className="flex items-center justify-between gap-4">
           <div className="flex flex-1 items-center gap-4">
             <div className="flex-1">
@@ -88,7 +88,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
           <PortfolioViewChanger viewMode={viewMode} setViewMode={setViewMode} />
         </div>
       </div>
-      <div className="flex-1 overflow-x-scroll px-4">
+      <div className="flex-1 overflow-x-scroll p-4">
         <Suspense fallback={<PortfolioTablePlaceholder />}>
           {viewMode === "table" && <PortfolioTableView table={table} />}
           {viewMode === "grid" && <PortfolioGridView table={table} />}
@@ -96,7 +96,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
         </Suspense>
       </div>
       <Pagination
-        className="sticky bottom-0 z-10 w-full bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+        className="sticky bottom-0 z-10 w-full bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t"
         currentPage={pagination.pageIndex + 1}
         pageSize={pagination.pageSize}
         totalItems={table.getFilteredRowModel().rows.length}

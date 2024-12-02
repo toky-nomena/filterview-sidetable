@@ -14,21 +14,5 @@
   {
     "code": "microsoft",
     "label": "Microsoft"
-  },
-  {
-    "code": "amazon",
-    "label": "Amazon"
-  },
-  {
-    "code": "meta",
-    "label": "Meta"
-  },
-  {
-    "code": "tesla",
-    "label": "Tesla"
-  },
-  {
-    "code": "nvidia",
-    "label": "NVIDIA"
   }
 ]

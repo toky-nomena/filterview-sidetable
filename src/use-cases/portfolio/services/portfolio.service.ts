@@ -69,7 +69,7 @@ const validateFilter = <Data, T extends keyof Data>(
   );
 };
 
-const portfolio = Array.from({ length: 100 }, generatePortfolio);
+const portfolio = Array.from({ length: 140 }, generatePortfolio);
 
 export const getFilteredPortfolio = async (filters: FilterState) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));

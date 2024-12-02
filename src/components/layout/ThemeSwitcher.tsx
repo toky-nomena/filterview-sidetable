@@ -40,7 +40,7 @@ export function ThemeSwitcher() {
   );
 
   return (
-    <SidebarMenu>
+    <SidebarMenu className="border rounded-lg">
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

@@ -3,6 +3,7 @@ interface ValueObject {
 }
 
 type DataAttribute = `data-${string}`;
+export type ThemeValue = "dark" | "light" | undefined;
 
 interface ScriptProps
   extends React.DetailedHTMLProps<
@@ -24,7 +25,7 @@ export interface UseThemeProps {
   /** If `enableSystem` is true and the active theme is "system", this returns whether the system preference resolved to "dark" or "light". Otherwise, identical to `theme` */
   resolvedTheme?: string | undefined;
   /** If enableSystem is true, returns the System theme preference ("dark" or "light"), regardless what the active theme is */
-  systemTheme?: "dark" | "light" | undefined;
+  systemTheme?: ThemeValue;
 }
 
 export type Attribute = DataAttribute | "class";

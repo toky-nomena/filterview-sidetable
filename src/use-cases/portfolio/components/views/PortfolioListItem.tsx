@@ -7,11 +7,19 @@ import { PortfolioActionsLazy } from "../actions/PortfolioActionsLazy";
 import { GridListLinks } from "../actions/GridListLinks";
 import { memo } from "react";
 import type { Cell } from "@tanstack/react-table";
+import { cn } from "@/lib/utils";
 
 interface PortfolioListItemProps {
   portfolio: Portfolio;
   cells: Cell<Portfolio, unknown>[];
 }
+
+const colors = {
+  apple: "bg-primary",
+  samsung: "bg-emerald-500",
+  google: "bg-yellow-500",
+  microsoft: "bg-red-500",
+};
 
 export function PortfolioListItemView({ portfolio }: PortfolioListItemProps) {
   return (
@@ -24,8 +32,13 @@ export function PortfolioListItemView({ portfolio }: PortfolioListItemProps) {
             fallback={<Skeleton className="h-6 w-6 rounded-full" />}
           >
             {({ label }) => (
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary">
-                <span className="text-sm font-medium text-primary-foreground">
+              <div
+                className={cn(
+                  "flex items-center justify-center h-6 w-6 rounded-full",
+                  colors[portfolio.brand],
+                )}
+              >
+                <span className="text-sm font-medium text-white">
                   {label.charAt(0).toUpperCase()}
                 </span>
               </div>

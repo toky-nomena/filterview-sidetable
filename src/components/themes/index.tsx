@@ -1,5 +1,3 @@
-import { script } from "./script";
-import type { Attribute, ThemeProviderProps, UseThemeProps } from "./types";
 import {
   createContext,
   memo,
@@ -10,9 +8,17 @@ import {
   useState,
 } from "react";
 
+import { script } from "./script";
+import type {
+  Attribute,
+  ThemeProviderProps,
+  ThemeValue,
+  UseThemeProps,
+} from "./types";
+
 const colorSchemes = ["light", "dark"];
 const MEDIA = "(prefers-color-scheme: dark)";
-const isServer = typeof window === "undefined";
+
 const ThemeContext = createContext<UseThemeProps | undefined>(undefined);
 const defaultContext: UseThemeProps = { setTheme: (_) => {}, themes: [] };
 
@@ -20,9 +26,10 @@ export const useTheme = () => useContext(ThemeContext) ?? defaultContext;
 
 export const ThemeProvider = (props: ThemeProviderProps) => {
   const context = useContext(ThemeContext);
-
   // Ignore nested context providers, just passthrough children
-  if (context) return <>{props.children}</>;
+  if (context) {
+    return <>{props.children}</>;
+  }
   return <Theme {...props} />;
 };
 
@@ -54,7 +61,9 @@ const Theme = ({
   const applyTheme = useCallback(
     (theme: string) => {
       let resolved = theme;
-      if (!resolved) return;
+      if (!theme) {
+        return;
+      }
 
       // If theme is system, resolve it before setting theme
       if (theme === "system" && enableSystem) {
@@ -78,8 +87,11 @@ const Theme = ({
         }
       };
 
-      if (Array.isArray(attribute)) attribute.forEach(handleAttribute);
-      else handleAttribute(attribute);
+      if (Array.isArray(attribute)) {
+        attribute.forEach(handleAttribute);
+      } else {
+        handleAttribute(attribute);
+      }
 
       if (enableColorScheme) {
         const fallback = colorSchemes.includes(defaultTheme)
@@ -88,7 +100,6 @@ const Theme = ({
         const colorScheme = colorSchemes.includes(resolved)
           ? resolved
           : fallback;
-        // @ts-ignore
         d.style.colorScheme = colorScheme;
       }
 
@@ -107,7 +118,7 @@ const Theme = ({
   );
 
   const setTheme = useCallback(
-    (value) => {
+    (value: string | ((theme: string) => string)) => {
       const newTheme = typeof value === "function" ? value(theme) : value;
       setThemeState(newTheme);
 
@@ -161,9 +172,10 @@ const Theme = ({
   }, [setTheme, defaultTheme, storageKey]);
 
   // Whenever theme or forcedTheme changes, apply it
-  useEffect(() => {
-    applyTheme(forcedTheme ?? theme);
-  }, [forcedTheme, theme, applyTheme]);
+  useEffect(
+    () => applyTheme(forcedTheme ?? theme),
+    [forcedTheme, theme, applyTheme],
+  );
 
   const providerValue = useMemo(
     () => ({
@@ -172,10 +184,7 @@ const Theme = ({
       forcedTheme,
       resolvedTheme: theme === "system" ? resolvedTheme : theme,
       themes: enableSystem ? [...themes, "system"] : themes,
-      systemTheme: (enableSystem ? resolvedTheme : undefined) as
-        | "light"
-        | "dark"
-        | undefined,
+      systemTheme: (enableSystem ? resolvedTheme : undefined) as ThemeValue,
     }),
     [theme, setTheme, forcedTheme, resolvedTheme, enableSystem, themes],
   );
@@ -196,7 +205,6 @@ const Theme = ({
           scriptProps,
         }}
       />
-
       {children}
     </ThemeContext.Provider>
   );
@@ -242,14 +250,11 @@ const ThemeScript = memo(
 
 // Helpers
 const getTheme = (key: string, fallback?: string) => {
-  if (isServer) return undefined;
-  let theme: string | undefined;
   try {
-    theme = localStorage.getItem(key) || undefined;
+    return localStorage.getItem(key) || undefined;
   } catch (e) {
-    // Unsupported
+    return fallback;
   }
-  return theme || fallback;
 };
 
 const disableAnimation = (nonce?: string) => {
@@ -265,11 +270,8 @@ const disableAnimation = (nonce?: string) => {
   return () => {
     // Force restyle
     (() => window.getComputedStyle(document.body))();
-
     // Wait for next tick before removing
-    setTimeout(() => {
-      document.head.removeChild(css);
-    }, 1);
+    setTimeout(() => document.head.removeChild(css), 1);
   };
 };
 
