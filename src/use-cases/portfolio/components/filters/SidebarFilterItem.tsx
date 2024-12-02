@@ -1,6 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 interface SidebarFilterItemProps {
   label: string;

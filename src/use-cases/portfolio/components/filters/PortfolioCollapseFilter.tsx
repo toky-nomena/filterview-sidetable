@@ -4,7 +4,7 @@ import {
   update,
   type FilterState,
 } from "@/use-cases/portfolio/store/portfolioFilterStore";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import {
   Collapsible,
