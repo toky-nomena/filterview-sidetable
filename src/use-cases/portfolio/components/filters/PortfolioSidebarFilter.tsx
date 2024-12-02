@@ -80,9 +80,9 @@ const items: FilterGroup[] = [
     lookupName: LookupName.State,
   },
   {
-    title: "Product Type",
-    stateKey: "productType",
-    lookupName: LookupName.ProductType,
+    title: "Language",
+    stateKey: "language",
+    lookupName: LookupName.Language,
   },
 ];
 
@@ -112,7 +112,9 @@ export function PortfolioSidebarFilter({
 
       <SidebarContent>
         <SidebarMenuItem className="flex w-full items-center justify-between p-3 border z-10 sticky top-0 bg-background">
-          <span className="text-base font-medium text-foreground">Filters</span>
+          <span className="text-base font-medium text-foreground">
+            Global filters
+          </span>
         </SidebarMenuItem>
         <SidebarMenuItem className="flex flex-col gap-4 px-4 py-2">
           <div className="flex flex-col items-start gap-2">
@@ -133,51 +135,10 @@ export function PortfolioSidebarFilter({
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="firstName">First name</Label>
-            <Input
-              type="text"
-              id="firstName"
-              placeholder="Enter first name"
-              className="w-full"
-            />
-          </div>
-          <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="lastName">Last name</Label>
-            <Input
-              type="text"
-              id="lastName"
-              placeholder="Enter last name"
-              className="w-full"
-            />
-          </div>
-          <div className="flex flex-col items-start gap-2">
-            <Label htmlFor="firstName">Product type</Label>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="w-full justify-between">
-                  <span>Minimum</span>
-                  <ChevronDown className="h-4 w-4 opacity-50" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="start"
-                className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-              >
-                <LookupList name={LookupName.Language}>
-                  {({ values }) =>
-                    values.map(({ code, label }) => (
-                      <DropdownMenuItem key={code}>{label}</DropdownMenuItem>
-                    ))
-                  }
-                </LookupList>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
         </SidebarMenuItem>
         <SidebarMenuItem className="flex w-full items-center justify-between p-3 border z-20 sticky top-0 bg-background">
           <div className="text-base font-medium text-foreground">
-            Additionnal filters
+            Policy filters
           </div>
           <Label className="flex items-center gap-2 text-sm">
             <span>Show all</span>
@@ -203,6 +164,31 @@ export function PortfolioSidebarFilter({
               )}
             </LookupList>
           ))}
+        </SidebarMenuItem>
+        <SidebarMenuItem className="flex w-full items-center justify-between p-3 border z-10 sticky top-0 bg-background">
+          <span className="text-base font-medium text-foreground">
+            Custom filters
+          </span>
+        </SidebarMenuItem>
+        <SidebarMenuItem className="flex flex-col gap-4 px-4 py-2">
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="firstName">First name</Label>
+            <Input
+              type="text"
+              id="firstName"
+              placeholder="Enter first name"
+              className="w-full"
+            />
+          </div>
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="lastName">Last name</Label>
+            <Input
+              type="text"
+              id="lastName"
+              placeholder="Enter last name"
+              className="w-full"
+            />
+          </div>
         </SidebarMenuItem>
       </SidebarContent>
       <SidebarRail />
