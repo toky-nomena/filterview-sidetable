@@ -8,7 +8,13 @@ import {
 } from "@tanstack/react-table";
 import { useReactTable } from "@tanstack/react-table";
 import { parseAsString, useQueryState } from "nuqs";
-import { useEffect, useState, useTransition } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
 
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
@@ -32,24 +38,65 @@ interface PortfolioTableProps {
 
 export function PortfolioTable({ data }: PortfolioTableProps) {
   const [isPending, startTransition] = useTransition();
-  const [sorting, onSortingChange] = useState<SortingState>([]);
-  const [columnVisibility, onColumnVisibilityChange] =
-    useState<VisibilityState>({});
-  const [globalFilter, onGlobalFilterChange] = useState("");
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const [globalFilter, setGlobalFilter] = useState("");
   const [viewMode, setViewMode] = useQueryState(
     "view",
     parseAsString.withDefault("table"),
   );
 
   const columns = usePortfolioColumns();
-  const [pagination, onPaginationChange] = usePaginationSearchParams();
+  const [pagination, setPagination] = usePaginationSearchParams();
 
+  // Preload views
   useEffect(() => {
     PortfolioGridView.preload();
     PortfolioListView.preload();
     PortfolioTableView.preload();
   }, []);
 
+  // Memoized handlers to prevent unnecessary re-renders
+  const handleSortingChange = useCallback((newSorting: SortingState) => {
+    startTransition(() => {
+      setSorting(newSorting);
+    });
+  }, []);
+
+  const handleColumnVisibilityChange = useCallback(
+    (newVisibility: VisibilityState) => {
+      startTransition(() => {
+        setColumnVisibility(newVisibility);
+      });
+    },
+    [],
+  );
+
+  const handleGlobalFilterChange = useCallback((value: string) => {
+    startTransition(() => {
+      setGlobalFilter(value);
+    });
+  }, []);
+
+  const handlePaginationChange = useCallback(
+    (newPagination: typeof pagination) => {
+      startTransition(() => {
+        setPagination(newPagination);
+      });
+    },
+    [setPagination],
+  );
+
+  const handleViewModeChange = useCallback(
+    (mode: "table" | "grid" | "list") => {
+      startTransition(() => {
+        setViewMode(mode);
+      });
+    },
+    [setViewMode],
+  );
+
+  // Memoize table instance to prevent unnecessary re-renders
   const table = useReactTable({
     data,
     columns,
@@ -57,26 +104,10 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onSortingChange: (s) => {
-      startTransition(() => {
-        onSortingChange(s);
-      });
-    },
-    onColumnVisibilityChange: (c) => {
-      startTransition(() => {
-        onColumnVisibilityChange(c);
-      });
-    },
-    onPaginationChange: (p) => {
-      startTransition(() => {
-        onPaginationChange(p);
-      });
-    },
-    onGlobalFilterChange: (f) => {
-      startTransition(() => {
-        onGlobalFilterChange(f);
-      });
-    },
+    onSortingChange: handleSortingChange,
+    onColumnVisibilityChange: handleColumnVisibilityChange,
+    onPaginationChange: handlePaginationChange,
+    onGlobalFilterChange: handleGlobalFilterChange,
     state: {
       sorting,
       pagination,
@@ -84,6 +115,17 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
       globalFilter,
     },
   });
+
+  // Memoize view content to prevent flashing during transitions
+  const viewContent = useMemo(() => {
+    if (viewMode === "table") {
+      return <PortfolioTableView table={table} />;
+    }
+    if (viewMode === "grid") {
+      return <PortfolioGridView table={table} />;
+    }
+    return <PortfolioListView table={table} />;
+  }, [viewMode, table]);
 
   return (
     <div className="flex h-full flex-col">
@@ -93,7 +135,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
             <div className="flex-1">
               <SearchInput
                 value={globalFilter}
-                onChange={onGlobalFilterChange}
+                onChange={handleGlobalFilterChange}
                 placeholder="Search all columns..."
               />
             </div>
@@ -104,20 +146,14 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
           </div>
           <PortfolioViewChanger
             viewMode={viewMode}
-            setViewMode={(mode) => {
-              startTransition(() => {
-                setViewMode(mode);
-              });
-            }}
+            setViewMode={handleViewModeChange}
             disabled={isPending}
           />
         </div>
       </div>
       <div className="flex-1 overflow-x-scroll p-4">
         <Suspense fallback={<PortfolioTablePlaceholder />}>
-          {viewMode === "table" && <PortfolioTableView table={table} />}
-          {viewMode === "grid" && <PortfolioGridView table={table} />}
-          {viewMode === "list" && <PortfolioListView table={table} />}
+          {viewContent}
         </Suspense>
       </div>
       <Pagination
@@ -126,10 +162,14 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
         pageSize={pagination.pageSize}
         totalItems={table.getFilteredRowModel().rows.length}
         onPageChange={(page) =>
-          onPaginationChange({ ...pagination, pageIndex: page - 1 })
+          handlePaginationChange({ ...pagination, pageIndex: page - 1 })
         }
         onPageSizeChange={(size) =>
-          onPaginationChange({ ...pagination, pageSize: size, pageIndex: 0 })
+          handlePaginationChange({
+            ...pagination,
+            pageSize: size,
+            pageIndex: 0,
+          })
         }
       />
     </div>
