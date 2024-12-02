@@ -185,7 +185,7 @@ devDependencies:
     specifier: ^5.13.9
     version: 5.13.9
   '@types/node':
-    specifier: ^22.5.5
+    specifier: ^22.10.0
     version: 22.10.0
   '@types/react':
     specifier: ^18.3.3

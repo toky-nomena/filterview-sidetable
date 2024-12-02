@@ -12,8 +12,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useTheme } from "next-themes";
 import { useState } from "react";
+import { useTheme } from "../themes";
 
 const themes = [
   {
