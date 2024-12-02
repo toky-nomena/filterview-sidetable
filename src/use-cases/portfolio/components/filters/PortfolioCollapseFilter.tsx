@@ -29,7 +29,6 @@ export interface PortfolioCollapseFilterProps {
   stateKey: FilterStateKey;
   values: LookupValue[];
   isLoading?: boolean;
-  defaultOpen?: boolean;
 }
 
 export function PortfolioCollapseFilter({
@@ -37,10 +36,9 @@ export function PortfolioCollapseFilter({
   stateKey,
   values,
   isLoading,
-  defaultOpen,
 }: PortfolioCollapseFilterProps) {
   const state = usePortfolioFilterState();
-  const [isOpen, setIsOpen] = useState(isLoading || defaultOpen);
+  const [isOpen, setIsOpen] = useState(true);
 
   const items = values.map((item) => item.code);
 
@@ -71,13 +69,14 @@ export function PortfolioCollapseFilter({
         open={isOpen}
         onOpenChange={setIsOpen}
         className="group/collapsible"
+        disabled={isLoading}
       >
         <SidebarGroup className="p-0">
           <SidebarGroupLabel
             asChild
             className="group/label text-sm text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
           >
-            <CollapsibleTrigger>
+            <CollapsibleTrigger disabled={isLoading}>
               <SidebarFilterHeader
                 title={title}
                 activeItemsCount={activeItems.length}
