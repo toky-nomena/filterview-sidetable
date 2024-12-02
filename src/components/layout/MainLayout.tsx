@@ -10,7 +10,7 @@ import { PortfolioSidebarFilter } from "@/use-cases/portfolio/components/Portfol
 export const MainLayout = ({ children }: PropsWithChildren) => {
   return (
     <SidebarProvider className="flex h-screen overflow-hidden bg-background">
-      <PortfolioSidebarFilter className="bg-white bg-background" />
+      <PortfolioSidebarFilter className="bg-white bg-background z-20" />
       <SidebarInset className="flex flex-col flex-1 bg-background">
         <div className="flex items-center justify-between p-4 border-b h-[70px]">
           <SidebarTrigger className="-ml-1" />

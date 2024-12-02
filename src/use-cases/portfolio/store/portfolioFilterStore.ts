@@ -8,6 +8,7 @@ export interface FilterState {
   riskState: string[];
   transaction: string[];
   province: string[];
+  language: string[];
 }
 
 const initialState: FilterState = {
@@ -17,6 +18,7 @@ const initialState: FilterState = {
   riskState: [],
   transaction: [],
   province: [],
+  language: [],
 };
 
 // State-only store

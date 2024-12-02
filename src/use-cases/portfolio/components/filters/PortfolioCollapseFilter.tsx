@@ -2,6 +2,7 @@ import { ChevronRight, Ellipsis } from "lucide-react";
 import {
   usePortfolioFilterState,
   update,
+  type FilterState,
 } from "@/use-cases/portfolio/store/portfolioFilterStore";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -14,21 +15,19 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarMenu,
   SidebarMenuSub,
 } from "@/components/ui/sidebar";
 
 import { SidebarFilterHeader } from "./SidebarFilterHeader";
 import { SidebarFilterItem } from "./SidebarFilterItem";
-import type { FilterStateKey } from "./types";
 import type { LookupValue } from "@/use-cases/lookup/lookup.types";
 
 export interface PortfolioCollapseFilterProps {
   title: string;
-  stateKey: FilterStateKey;
+  stateKey: keyof FilterState;
   values: LookupValue[];
   isLoading?: boolean;
-  isOpen: boolean;
+  isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
 }
 

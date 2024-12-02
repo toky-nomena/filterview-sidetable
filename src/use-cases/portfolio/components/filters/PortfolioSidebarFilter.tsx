@@ -52,14 +52,9 @@ function useToggleArray(length: number, defaultValue = false) {
 
 const items: FilterGroup[] = [
   {
-    title: "Risk State",
-    stateKey: "riskState",
-    lookupName: LookupName.RiskState,
-  },
-  {
-    title: "Transaction",
-    stateKey: "transaction",
-    lookupName: LookupName.Transaction,
+    title: "Brand",
+    stateKey: "brand",
+    lookupName: LookupName.Brand,
   },
   {
     title: "Province",
@@ -67,9 +62,9 @@ const items: FilterGroup[] = [
     lookupName: LookupName.Province,
   },
   {
-    title: "Brand",
-    stateKey: "brand",
-    lookupName: LookupName.Brand,
+    title: "Transaction",
+    stateKey: "transaction",
+    lookupName: LookupName.Transaction,
   },
   {
     title: "State",
@@ -106,18 +101,38 @@ export function PortfolioSidebarFilter({
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarMenuItem className="flex w-full items-center justify-between p-4 border-b">
-        <div className="text-base font-medium text-foreground">Filters</div>
-        <Label className="flex items-center gap-2 text-sm">
-          <span>Show all</span>
-          <Switch
-            className="shadow-none"
-            checked={state.every(Boolean)}
-            onCheckedChange={reset}
-          />
-        </Label>
-      </SidebarMenuItem>
+
       <SidebarContent>
+        <SidebarMenuItem className="flex w-full items-center justify-between p-3 border z-10 sticky top-0 bg-background">
+          <span className="text-base font-medium text-foreground">Filters</span>
+        </SidebarMenuItem>
+        <SidebarMenuItem className="flex flex-col gap-2 p-2">
+          <LookupList name={LookupName.Language}>
+            {({ values, isLoading }) => (
+              <PortfolioCollapseFilter
+                title={"Language"}
+                stateKey={"language"}
+                values={values}
+                isLoading={isLoading}
+                isOpen={true}
+              />
+            )}
+          </LookupList>
+        </SidebarMenuItem>
+
+        <SidebarMenuItem className="flex w-full items-center justify-between p-3 border z-20 sticky top-0 bg-background">
+          <div className="text-base font-medium text-foreground">
+            Additionnal filters
+          </div>
+          <Label className="flex items-center gap-2 text-sm">
+            <span>Show all</span>
+            <Switch
+              className="shadow-none"
+              checked={state.every(Boolean)}
+              onCheckedChange={reset}
+            />
+          </Label>
+        </SidebarMenuItem>
         <SidebarMenuItem className="flex flex-col gap-2 p-2">
           {items.map((item, index) => (
             <LookupList key={item.lookupName} name={item.lookupName}>
