@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import { useCallback, useState } from "react";
 import { VariationRadio } from "./VariationRadio";
 import { parseAsStringEnum, useQueryState } from "nuqs";
+import { PortfolioCustomFilter } from "./PortfolioCustomFilter";
 
 interface FilterGroup {
   title: string;
@@ -169,26 +170,7 @@ export function PortfolioSidebarFilter({
             Custom filters
           </span>
         </SidebarMenuItem>
-        <SidebarMenuItem className="flex flex-col gap-4 px-4 py-2">
-          <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="firstName">First name</Label>
-            <Input
-              type="text"
-              id="firstName"
-              placeholder="Enter first name"
-              className="w-full"
-            />
-          </div>
-          <div className="grid w-full items-center gap-1.5">
-            <Label htmlFor="lastName">Last name</Label>
-            <Input
-              type="text"
-              id="lastName"
-              placeholder="Enter last name"
-              className="w-full"
-            />
-          </div>
-        </SidebarMenuItem>
+        <PortfolioCustomFilter />
       </SidebarContent>
       <SidebarRail />
       <SidebarFooter className="p-4 border-t">

@@ -36,7 +36,7 @@ export function PortfolioCollapseFilter({
   isOpen,
   setIsOpen,
 }: PortfolioCollapseFilterProps) {
-  const [state, update] = usePortfolioQueryState();
+  const [state, setState] = usePortfolioQueryState();
 
   const items = values.map((item) => item.code);
 
@@ -46,18 +46,19 @@ export function PortfolioCollapseFilter({
     !isLoading && items.length > 0 && activeItems.length === values.length;
 
   const handleToggleAll = () => {
-    update(stateKey, () => (allSelected ? [] : [...items]));
+    setState({ [stateKey]: allSelected ? [] : [...items] });
   };
 
-  const handleClear = () => {
-    update(stateKey, () => []);
-  };
+  const handleClear = () => setState({ [stateKey]: [] });
 
   const handleToggleItem = (checked: boolean, item: string) => {
-    update(stateKey, (currentFilters = []) => {
-      return checked
-        ? [...currentFilters, item]
-        : currentFilters.filter((filter) => filter !== item);
+    setState((prevState) => {
+      const currentFilters: string[] = prevState[stateKey] || [];
+      return {
+        [stateKey]: checked
+          ? currentFilters.concat(item)
+          : currentFilters.filter((filter) => filter !== item),
+      };
     });
   };
 
