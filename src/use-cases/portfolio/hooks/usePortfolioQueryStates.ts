@@ -1,7 +1,16 @@
-import { useQueryStates, type UseQueryStatesKeysMap } from "nuqs";
+import { type Parser, useQueryStates } from "nuqs";
 
-export function usePortfolioQueryStates(keyMap: UseQueryStatesKeysMap) {
-  return useQueryStates(keyMap, {
-    urlKeys: Object.fromEntries(Object.keys(keyMap).map((key) => [key, key])),
-  });
+type ParserRecord<T> = Record<string, Parser<T>>;
+
+export function usePortfolioQueryStates<T, K extends ParserRecord<T>>(
+  keyMap: K,
+) {
+  // Create URL keys that match the filter names
+  const urlKeys = Object.fromEntries(
+    Object.keys(keyMap).map((key) => [key, key]),
+  ) as Partial<Record<keyof K, string>>;
+
+  const [state, setState] = useQueryStates(keyMap, { urlKeys });
+
+  return [state, setState] as const;
 }
