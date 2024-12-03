@@ -22,15 +22,19 @@ export const PortfolioTablePlaceholoder = loadable(() =>
   })),
 );
 
-function getPortfolioQueryKey(state: FilterState) {
-  const searchParams = new URLSearchParams(window.location.search);
-  return ["portfolio", state, searchParams.get("policyType") || "minimum"];
+function getPortfolioQueryKey(state: FilterState, variation: string) {
+  return ["portfolio", state, variation];
 }
 
 function usePortfolioQuery() {
   const state = usePortfolioFilterState();
+  const [searchParams] = useSearchParams();
+
   return useQuery({
-    queryKey: getPortfolioQueryKey(state),
+    queryKey: getPortfolioQueryKey(
+      state,
+      searchParams.get("variation") || "minimum",
+    ),
     queryFn: () => getFilteredPortfolio(state),
   });
 }

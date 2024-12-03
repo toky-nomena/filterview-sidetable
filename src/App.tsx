@@ -5,7 +5,7 @@ import { Index } from "./pages/Index";
 import { MainLayout } from "./components/layout/MainLayout";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { NuqsAdapter } from "nuqs/adapters/react";
+import { NuqsAdapter } from "nuqs/adapters/react-router";
 import { preloadLookups } from "./use-cases/lookup/lookup.service";
 import { ThemeProvider } from "./lib/themes";
 

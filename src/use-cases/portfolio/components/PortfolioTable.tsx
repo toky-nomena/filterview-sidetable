@@ -38,7 +38,9 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
   const [globalFilter, onGlobalFilterChange] = useState("");
   const [viewMode, setViewMode] = useQueryState(
     "view",
-    parseAsStringEnum(["table", "grid", "list"]).withDefault("table"),
+    parseAsStringEnum(["table", "grid", "list"])
+      .withDefault("table")
+      .withOptions({ clearOnDefault: false }),
   );
 
   const columns = usePortfolioColumns();

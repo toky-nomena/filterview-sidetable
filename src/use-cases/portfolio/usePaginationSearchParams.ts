@@ -14,8 +14,12 @@ const pageIndexParser = createParser({
 });
 
 const paginationParsers = {
-  pageIndex: pageIndexParser.withDefault(0),
-  pageSize: parseAsInteger.withDefault(10),
+  pageIndex: pageIndexParser
+    .withDefault(0)
+    .withOptions({ clearOnDefault: false }),
+  pageSize: parseAsInteger
+    .withDefault(10)
+    .withOptions({ clearOnDefault: false }),
 };
 
 const paginationUrlKeys = {

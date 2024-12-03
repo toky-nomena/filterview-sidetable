@@ -7,7 +7,10 @@ import { HeaderPlaceholder } from "./list/HeaderPlaceholder";
 import { FooterPlaceholder } from "./list/FooterPlaceholder";
 
 export function PortfolioTablePlaceholder() {
-  const [viewMode] = useQueryState("view", parseAsString.withDefault("table"));
+  const [viewMode] = useQueryState(
+    "view",
+    parseAsString.withDefault("table").withOptions({ clearOnDefault: false }),
+  );
 
   return (
     <div className="flex h-full flex-col">
