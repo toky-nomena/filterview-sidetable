@@ -1,34 +1,33 @@
-import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getFilteredPortfolio } from "../services/portfolio.service";
+import {
+  parseAsArrayOf,
+  parseAsString,
+  useQueryState,
+  useQueryStates,
+} from "nuqs";
 
-function parseParamsAsString(params: URLSearchParams, key: string) {
-  return params.get(key) || "";
-}
+// Create a type-safe array parser with default options
+const parser = parseAsArrayOf(parseAsString).withDefault([]);
 
-function parseParamsAsArray(params: URLSearchParams, key: string) {
-  return parseParamsAsString(params, key)
-    .split(",")
-    .map((value) => value.trim())
-    .filter((value) => value !== "");
-}
+// Define parsers for each filter type
+const keyMap = {
+  brand: parser,
+  state: parser,
+  productType: parser,
+  riskState: parser,
+  transaction: parser,
+  province: parser,
+  language: parser,
+} as const;
 
-function getFilterStateFromParams(params: URLSearchParams) {
-  return {
-    brand: parseParamsAsArray(params, "brand"),
-    state: parseParamsAsArray(params, "state"),
-    productType: parseParamsAsArray(params, "productType"),
-    riskState: parseParamsAsArray(params, "riskState"),
-    transaction: parseParamsAsArray(params, "transaction"),
-    province: parseParamsAsArray(params, "province"),
-    language: parseParamsAsArray(params, "language"),
-  } as const;
+export function usePortfolioQueryState() {
+  return useQueryStates(keyMap);
 }
 
 export function usePortfolioQuery() {
-  const [searchParams] = useSearchParams();
-  const state = getFilterStateFromParams(searchParams);
-  const variation = parseParamsAsString(searchParams, "variation");
+  const [variation] = useQueryState("variation");
+  const [state] = usePortfolioQueryState();
 
   return useQuery({
     queryKey: ["portfolio", variation, state],

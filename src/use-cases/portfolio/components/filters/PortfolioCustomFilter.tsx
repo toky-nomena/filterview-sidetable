@@ -1,13 +1,12 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SidebarMenuItem } from "@/components/ui/sidebar";
-import { parseAsString } from "nuqs";
-import { usePortfolioQueryStates } from "../../hooks/usePortfolioQueryStates";
+import { parseAsString, useQueryStates } from "nuqs";
 
 const parser = parseAsString.withDefault("");
 
 export function PortfolioCustomFilter() {
-  const [{ firstName, lastName }, setState] = usePortfolioQueryStates({
+  const [{ firstName, lastName }, setState] = useQueryStates({
     firstName: parser,
     lastName: parser,
   });

@@ -1,6 +1,5 @@
 import { ChevronRight, Ellipsis } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { parseAsArrayOf, parseAsString } from "nuqs";
 
 import {
   Collapsible,
@@ -17,25 +16,12 @@ import type { LookupValue } from "@/use-cases/lookup/lookup.types";
 
 import { SidebarFilterHeader } from "./SidebarFilterHeader";
 import { SidebarFilterItem } from "./SidebarFilterItem";
-import { usePortfolioQueryStates } from "../../hooks/usePortfolioQueryStates";
-
-// Create a type-safe array parser with default options
-const parser = parseAsArrayOf(parseAsString).withDefault([]);
-
-// Define parsers for each filter type
-const keyMap = {
-  brand: parser,
-  state: parser,
-  productType: parser,
-  riskState: parser,
-  transaction: parser,
-  province: parser,
-  language: parser,
-} as const;
+import type { FilterState } from "../../types";
+import { usePortfolioQueryState } from "../../hooks/usePortfolioQuery";
 
 export interface PortfolioCollapseFilterProps {
   title: string;
-  stateKey: keyof typeof keyMap;
+  stateKey: keyof FilterState;
   values: LookupValue[];
   isLoading?: boolean;
   isOpen?: boolean;
@@ -50,7 +36,7 @@ export function PortfolioCollapseFilter({
   isOpen,
   setIsOpen,
 }: PortfolioCollapseFilterProps) {
-  const [state, setState] = usePortfolioQueryStates(keyMap);
+  const [state, setState] = usePortfolioQueryState();
 
   const items = values.map((item) => item.code);
 
