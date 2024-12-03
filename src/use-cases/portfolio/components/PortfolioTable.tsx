@@ -13,7 +13,7 @@ import { useEffect, useState, useTransition } from "react";
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
 import { usePortfolioColumns } from "../hooks/usePortfolioColumns";
-import { usePaginationSearchParams } from "../usePaginationSearchParams";
+import { usePaginationSearchParams } from "../hooks/usePaginationSearchParams";
 import { PortfolioViewChanger } from "./PortfolioViewChanger";
 import { Suspense } from "react";
 import { SearchInput } from "@/components/ui/search-input";

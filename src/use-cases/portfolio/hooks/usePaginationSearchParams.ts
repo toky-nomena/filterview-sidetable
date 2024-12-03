@@ -18,7 +18,7 @@ const paginationParsers = {
     .withDefault(0)
     .withOptions({ clearOnDefault: false }),
   pageSize: parseAsInteger
-    .withDefault(10)
+    .withDefault(20)
     .withOptions({ clearOnDefault: false }),
 };
 

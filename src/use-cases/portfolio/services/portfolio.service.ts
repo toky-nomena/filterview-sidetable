@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-import type { FilterState } from "@/use-cases/portfolio/store/portfolioFilterStore";
+import type { FilterState } from "@/use-cases/portfolio/types";
 
 import { getLookupRandomCode } from "./data";
 

@@ -1,9 +1,5 @@
 import { ChevronRight, Ellipsis } from "lucide-react";
-import {
-  usePortfolioFilterState,
-  update,
-  type FilterState,
-} from "@/use-cases/portfolio/store/portfolioFilterStore";
+import type { FilterState } from "@/use-cases/portfolio/types";
 import { motion, AnimatePresence } from "framer-motion";
 
 import {
@@ -21,6 +17,7 @@ import type { LookupValue } from "@/use-cases/lookup/lookup.types";
 
 import { SidebarFilterHeader } from "./SidebarFilterHeader";
 import { SidebarFilterItem } from "./SidebarFilterItem";
+import { usePortfolioQueryState } from "../../hooks/usePortfolioQueryState";
 
 export interface PortfolioCollapseFilterProps {
   title: string;
@@ -39,7 +36,7 @@ export function PortfolioCollapseFilter({
   isOpen,
   setIsOpen,
 }: PortfolioCollapseFilterProps) {
-  const state = usePortfolioFilterState();
+  const [state, update] = usePortfolioQueryState();
 
   const items = values.map((item) => item.code);
 

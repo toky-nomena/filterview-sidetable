@@ -1,12 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-
-import {
-  type FilterState,
-  usePortfolioFilterState,
-} from "@/use-cases/portfolio/store/portfolioFilterStore";
-import { getFilteredPortfolio } from "@/use-cases/portfolio/services/portfolio.service";
 import loadable from "@loadable/component";
-import { useSearchParams } from "react-router-dom";
+import { usePortfolioQuery } from "@/use-cases/portfolio/hooks/usePortfolioQuery";
 
 export const PortfolioTable = loadable(() =>
   import("@/use-cases/portfolio/components/PortfolioTable").then((mod) => ({
@@ -21,23 +14,6 @@ export const PortfolioTablePlaceholoder = loadable(() =>
     default: mod.PortfolioTablePlaceholder,
   })),
 );
-
-function getPortfolioQueryKey(state: FilterState, variation: string) {
-  return ["portfolio", state, variation];
-}
-
-function usePortfolioQuery() {
-  const state = usePortfolioFilterState();
-  const [searchParams] = useSearchParams();
-
-  return useQuery({
-    queryKey: getPortfolioQueryKey(
-      state,
-      searchParams.get("variation") || "minimum",
-    ),
-    queryFn: () => getFilteredPortfolio(state),
-  });
-}
 
 export function Index() {
   // Query portfolio
