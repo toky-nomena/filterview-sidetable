@@ -1,10 +1,12 @@
 import { parseAsArrayOf, parseAsString, useQueryStates } from "nuqs";
 
+// Create a type-safe array parser with default options
 const parser = parseAsArrayOf(parseAsString).withDefault([]).withOptions({
   clearOnDefault: false,
 });
 
-const paginationParsers = {
+// Define parsers for each filter type
+const keyMap = {
   brand: parser,
   state: parser,
   productType: parser,
@@ -12,22 +14,24 @@ const paginationParsers = {
   transaction: parser,
   province: parser,
   language: parser,
-};
+} as const;
 
-const keys = Object.keys(paginationParsers).reduce((acc, key) => {
-  acc[key] = key;
-  return acc;
-}, {});
+// Create URL keys that match the filter names
+const urlKeys = Object.fromEntries(
+  Object.keys(keyMap).map((key) => [key, key]),
+);
+
+type UpdateFunction = (
+  key: keyof typeof keyMap,
+  setter: (prev: string[]) => string[],
+) => void;
 
 export function usePortfolioQueryState() {
-  const [state, setState] = useQueryStates(paginationParsers, {
-    urlKeys: keys,
-  });
+  const [state, setState] = useQueryStates(keyMap, { urlKeys });
 
-  const update = (
-    key: keyof typeof state,
-    setter: (state: string[]) => string[],
-  ) => setState((prev) => ({ ...prev, [key]: setter(prev[key]) }));
+  const update: UpdateFunction = (key, setter) => {
+    setState((prev) => ({ ...prev, [key]: setter(prev[key]) }));
+  };
 
   return [state, update] as const;
 }
