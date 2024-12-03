@@ -10,7 +10,7 @@ interface VariationItem {
 interface VariationRadioProps {
   items: VariationItem[];
   value?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: "minimum" | "maximum") => void;
   className?: string;
 }
 
@@ -33,7 +33,7 @@ export function VariationRadio({
           className={cn(
             "group relative flex flex-1 cursor-pointer items-center gap-3 rounded-lg border bg-background py-2 px-4 hover:bg-accent/50",
             value === item.value
-              ? "border-primary bg-primary/5 text-primary"
+              ? "border-primary bg-primary/5 text-primary border-2"
               : "border-border text-muted-foreground",
           )}
         >

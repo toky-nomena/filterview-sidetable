@@ -24,6 +24,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
   onPageSizeChange: (size: number) => void;
   className?: string;
+  disabled?: boolean;
 }
 
 export function Pagination({
@@ -34,6 +35,7 @@ export function Pagination({
   onPageChange,
   onPageSizeChange,
   className,
+  disabled,
 }: PaginationProps) {
   const totalPages = Math.ceil(totalItems / pageSize);
   const startItem = (currentPage - 1) * pageSize + 1;
@@ -50,8 +52,9 @@ export function Pagination({
         <Select
           value={pageSize.toString()}
           onValueChange={(value) => onPageSizeChange(Number(value))}
+          disabled={disabled}
         >
-          <SelectTrigger className="h-8 w-[110px]">
+          <SelectTrigger className="h-8 w-[110px]" disabled={disabled}>
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -70,7 +73,8 @@ export function Pagination({
           size="icon"
           className="h-8 w-8"
           onClick={() => onPageChange(1)}
-          disabled={currentPage === 1}
+          disabled={currentPage === 1 || disabled}
+          aria-label="First page"
         >
           <ChevronFirst className="h-4 w-4" />
         </Button>
@@ -79,7 +83,8 @@ export function Pagination({
           size="icon"
           className="h-8 w-8"
           onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1}
+          disabled={currentPage === 1 || disabled}
+          aria-label="Previous page"
         >
           <ChevronLeft className="h-4 w-4" />
         </Button>
@@ -94,7 +99,8 @@ export function Pagination({
           size="icon"
           className="h-8 w-8"
           onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
+          disabled={currentPage === totalPages || disabled}
+          aria-label="Next page"
         >
           <ChevronRight className="h-4 w-4" />
         </Button>
@@ -103,7 +109,8 @@ export function Pagination({
           size="icon"
           className="h-8 w-8"
           onClick={() => onPageChange(totalPages)}
-          disabled={currentPage === totalPages}
+          disabled={currentPage === totalPages || disabled}
+          aria-label="Last page"
         >
           <ChevronLast className="h-4 w-4" />
         </Button>

@@ -22,6 +22,7 @@ import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { useCallback, useState } from "react";
 import { VariationRadio } from "./VariationRadio";
+import { parseAsString, parseAsStringEnum, useQueryState } from "nuqs";
 
 interface FilterGroup {
   title: string;
@@ -84,7 +85,10 @@ export function PortfolioSidebarFilter({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   const [state, { reset, toggle }] = useToggleArray(items.length, true);
-  const [policyType, setPolicyType] = useState("minimum");
+  const [policyType, setPolicyType] = useQueryState(
+    "policyType",
+    parseAsStringEnum(["minimum", "maximum"]).withDefault("minimum"),
+  );
 
   return (
     <Sidebar {...props}>
