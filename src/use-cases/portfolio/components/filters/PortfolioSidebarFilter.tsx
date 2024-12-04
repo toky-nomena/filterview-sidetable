@@ -24,6 +24,7 @@ import { useCallback, useState } from "react";
 import { VariationRadio } from "./VariationRadio";
 import { parseAsStringEnum, useQueryState } from "nuqs";
 import { PortfolioCustomFilter } from "./PortfolioCustomFilter";
+import { useVariationQueryState } from "../../hooks/useVariationQueryState";
 
 interface FilterGroup {
   title: string;
@@ -86,12 +87,7 @@ export function PortfolioSidebarFilter({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   const [state, { reset, toggle }] = useToggleArray(items.length, true);
-  const [variation, setVariation] = useQueryState(
-    "variation",
-    parseAsStringEnum(["minimum", "maximum"])
-      .withDefault("minimum")
-      .withOptions({ clearOnDefault: false }),
-  );
+  const [variation, setVariation] = useVariationQueryState();
 
   return (
     <Sidebar {...props}>
