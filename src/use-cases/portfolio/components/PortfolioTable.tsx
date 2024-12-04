@@ -28,9 +28,10 @@ import { PortfolioTablePlaceholder } from "./placeholders/PortfolioTablePlacehol
 
 interface PortfolioTableProps {
   data: Portfolio[];
+  count: number;
 }
 
-export function PortfolioTable({ data }: PortfolioTableProps) {
+export function PortfolioTable({ data, count }: PortfolioTableProps) {
   const [, startTransition] = useTransition();
   const [sorting, onSortingChange] = useState<SortingState>([]);
   const [columnVisibility, onColumnVisibilityChange] =
@@ -106,7 +107,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
         className="sticky bottom-0 z-10 w-full bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t"
         currentPage={pagination.pageIndex + 1}
         pageSize={pagination.pageSize}
-        totalItems={table.getFilteredRowModel().rows.length}
+        totalItems={count}
         onPageChange={(page) => {
           startTransition(() => {
             onPaginationChange({ ...pagination, pageIndex: page - 1 });

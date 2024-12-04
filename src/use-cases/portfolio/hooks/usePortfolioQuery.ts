@@ -6,6 +6,7 @@ import {
   useQueryState,
   useQueryStates,
 } from "nuqs";
+import { usePaginationQueryStates } from "./usePaginationQueryStates";
 
 // Create a type-safe array parser with default options
 const parser = parseAsArrayOf(parseAsString).withDefault([]);
@@ -29,8 +30,9 @@ export function usePortfolioQuery() {
   const [variation] = useQueryState("variation");
   const [state] = usePortfolioQueryStates();
 
+  const [pagination] = usePaginationQueryStates();
   return useQuery({
-    queryKey: ["portfolio", variation, state],
-    queryFn: () => getFilteredPortfolio(state),
+    queryKey: ["portfolio", variation, state, pagination],
+    queryFn: () => getFilteredPortfolio(state, variation, pagination),
   });
 }

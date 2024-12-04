@@ -17,11 +17,11 @@ export const PortfolioTablePlaceholoder = loadable(() =>
 
 export function Index() {
   // Query portfolio
-  const { data = [], isLoading } = usePortfolioQuery();
+  const { data, isLoading } = usePortfolioQuery();
 
   if (isLoading) {
     return <PortfolioTablePlaceholoder />;
   }
 
-  return <PortfolioTable data={data} />;
+  return <PortfolioTable data={data?.result ?? []} count={data?.count ?? 0} />;
 }

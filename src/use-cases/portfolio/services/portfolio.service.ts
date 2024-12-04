@@ -12,6 +12,7 @@ export interface Portfolio {
   province: string;
   productType: string;
   riskState: string;
+  variation: string;
   creationDate: string;
   links?: string[];
 }
@@ -36,6 +37,7 @@ function generatePortfolio(): Portfolio {
       min: 100000000000,
       max: 999999999999,
     })}`,
+    variation: faker.helpers.arrayElement(["minimum", "maximum"]),
     businessKey: faker.string.alphanumeric(8).toUpperCase(),
     brand: getLookupRandomCode("brand"),
     language: getLookupRandomCode("language"),
@@ -68,12 +70,28 @@ const validateFilter = <Data, T extends keyof Data>(
 
 const portfolio = Array.from({ length: 140 }, generatePortfolio);
 
-export const getFilteredPortfolio = async (filters: FilterState) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+export const getFilteredPortfolio = async (
+  state: FilterState,
+  variation: string,
+  pagination: { pageIndex: number; pageSize: number },
+) => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  return portfolio.filter((portfolio) => {
-    return keys.every((field) =>
-      validateFilter(filters[field], field, portfolio),
+  // First filter the portfolio based on state and variation
+  const filteredPortfolio = portfolio.filter((item) => {
+    const stateMatches = keys.every((field) =>
+      validateFilter(state[field], field, item),
     );
+    const variationMatches = !variation || item.variation === variation;
+    return stateMatches && variationMatches;
   });
+
+  // Calculate pagination
+  const start = pagination.pageIndex * pagination.pageSize;
+  const end = start + pagination.pageSize;
+
+  return {
+    result: filteredPortfolio.slice(start, end),
+    count: filteredPortfolio.length,
+  };
 };
