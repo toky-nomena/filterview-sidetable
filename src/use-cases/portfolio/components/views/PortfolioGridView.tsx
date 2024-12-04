@@ -1,6 +1,6 @@
+import type { Table } from "@tanstack/react-table";
 import type { Portfolio } from "../../services/portfolio.service";
 import { PortfolioGridItem } from "./PortfolioGridItem";
-import type { Table } from "@tanstack/react-table";
 
 interface PortfolioGridViewProps {
   table: Table<Portfolio>;

@@ -1,8 +1,8 @@
 import loadable from "@loadable/component";
 
-import { TablePlaceholders } from "../placeholders/list/TablePlaceholders";
 import { GridPlaceholders } from "../placeholders/list/GridPlaceholders";
 import { ListPlaceholders } from "../placeholders/list/ListPlaceholders";
+import { TablePlaceholders } from "../placeholders/list/TablePlaceholders";
 
 export const PortfolioTableView = loadable(
   async () => {

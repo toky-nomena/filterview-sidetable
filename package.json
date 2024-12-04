@@ -8,7 +8,7 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "format": "npx @biomejs/biome format --write ./src",
+    "format": "npx @biomejs/biome check  --formatter-enabled=false --linter-enabled=false  --organize-imports-enabled=true  --write ./src",
     "lint:fix": "npx @biomejs/biome lint --write ./src",
     "preview": "vite preview"
   },

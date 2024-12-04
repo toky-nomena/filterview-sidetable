@@ -5,9 +5,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LookupList } from "./LookupList";
-import type { ComponentProps } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { ComponentProps } from "react";
+import { LookupList } from "./LookupList";
 
 interface LookupSelectProps extends ComponentProps<typeof Select> {
   name: string;

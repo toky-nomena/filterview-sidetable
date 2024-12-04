@@ -1,4 +1,3 @@
-import { Layers, ChevronDown, ChevronUp } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -9,22 +8,23 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { ChevronDown, ChevronUp, Layers } from "lucide-react";
 
+import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { LookupList } from "@/use-cases/lookup/components/LookupList";
+import { LookupName } from "@/use-cases/lookup/lookup.service";
+import { parseAsStringEnum, useQueryState } from "nuqs";
+import { useCallback, useState } from "react";
+import { useVariationQueryState } from "../../hooks/useVariationQueryState";
 import {
   PortfolioCollapseFilter,
   type PortfolioCollapseFilterProps,
 } from "./PortfolioCollapseFilter";
-import { LookupName } from "@/use-cases/lookup/lookup.service";
-import { LookupList } from "@/use-cases/lookup/components/LookupList";
-import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Input } from "@/components/ui/input";
-import { useCallback, useState } from "react";
-import { VariationRadio } from "./VariationRadio";
-import { parseAsStringEnum, useQueryState } from "nuqs";
 import { PortfolioCustomFilter } from "./PortfolioCustomFilter";
-import { useVariationQueryState } from "../../hooks/useVariationQueryState";
+import { VariationRadio } from "./VariationRadio";
 
 interface FilterGroup {
   title: string;

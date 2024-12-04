@@ -1,5 +1,5 @@
-import { Circle, CircleCheck, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Circle, CircleCheck, Loader2 } from "lucide-react";
 import { FilterStateIcon } from "./FilterStateIcon";
 
 export interface SidebarFilterHeaderProps {

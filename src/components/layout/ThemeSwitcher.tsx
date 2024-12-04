@@ -1,4 +1,4 @@
-import { ChevronsUpDown, Sun, Moon, LaptopMinimal } from "lucide-react";
+import { ChevronsUpDown, LaptopMinimal, Moon, Sun } from "lucide-react";
 
 import {
   DropdownMenu,

@@ -1,5 +1,5 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight, Ellipsis } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 
 import {
   Collapsible,
@@ -14,10 +14,10 @@ import {
 } from "@/components/ui/sidebar";
 import type { LookupValue } from "@/use-cases/lookup/lookup.types";
 
+import { usePortfolioQueryStates } from "../../hooks/usePortfolioQuery";
+import type { FilterState } from "../../types";
 import { SidebarFilterHeader } from "./SidebarFilterHeader";
 import { SidebarFilterItem } from "./SidebarFilterItem";
-import type { FilterState } from "../../types";
-import { usePortfolioQueryStates } from "../../hooks/usePortfolioQuery";
 
 export interface PortfolioCollapseFilterProps {
   title: string;

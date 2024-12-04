@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { flexRender, type Table as TableType } from "@tanstack/react-table";
+import { type Table as TableType, flexRender } from "@tanstack/react-table";
 import type { Portfolio } from "../../services/portfolio.service";
 
 interface PortfolioTableViewProps {

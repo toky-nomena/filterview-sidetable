@@ -1,11 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
+import { parseAsArrayOf, parseAsString, useQueryStates } from "nuqs";
 import { getFilteredPortfolio } from "../services/portfolio.service";
-import {
-  parseAsArrayOf,
-  parseAsString,
-  useQueryState,
-  useQueryStates,
-} from "nuqs";
 import { usePaginationQueryStates } from "./usePaginationQueryStates";
 import { useVariationQueryState } from "./useVariationQueryState";
 

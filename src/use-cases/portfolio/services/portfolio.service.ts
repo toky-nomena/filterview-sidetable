@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 
-import { getLookupRandomCode } from "./data";
 import type { FilterState } from "../types";
+import { getLookupRandomCode } from "./data";
 
 export interface Portfolio {
   id: string;

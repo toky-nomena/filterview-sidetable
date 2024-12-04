@@ -1,9 +1,9 @@
 import { Ellipsis } from "lucide-react";
 
-import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Lookup } from "@/use-cases/lookup/components/lookup";
 import { LookupName } from "@/use-cases/lookup/lookup.service";
+import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
 import { PortfolioDetailsSection } from "./PortfolioDetailsSection";
 import { PortfolioLookupBadge } from "./PortfolioLookupBadge";

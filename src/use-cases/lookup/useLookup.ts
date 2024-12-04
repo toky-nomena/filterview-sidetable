@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
 import {
   getLookupValue,
   getLookupValues,
 } from "@/use-cases/lookup/lookup.service";
 import type { LookupValue } from "@/use-cases/lookup/lookup.types";
+import { useQuery } from "@tanstack/react-query";
 
 // Cache forever since lookup values are static
 const CACHE_OPTIONS = {

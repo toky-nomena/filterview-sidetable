@@ -1,11 +1,11 @@
-import language from "../../lookup/data/language.json";
+import { faker } from "@faker-js/faker";
 import brand from "../../lookup/data/brand.json";
+import language from "../../lookup/data/language.json";
 import productType from "../../lookup/data/product-type.json";
 import province from "../../lookup/data/province.json";
 import riskState from "../../lookup/data/risk-state.json";
 import state from "../../lookup/data/state.json";
 import transaction from "../../lookup/data/transaction.json";
-import { faker } from "@faker-js/faker";
 
 const lookups = {
   language,

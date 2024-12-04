@@ -1,10 +1,10 @@
 import { parseAsString, useQueryState } from "nuqs";
 
-import { TablePlaceholders } from "./list/TablePlaceholders";
-import { ListPlaceholders } from "./list/ListPlaceholders";
+import { FooterPlaceholder } from "./list/FooterPlaceholder";
 import { GridPlaceholders } from "./list/GridPlaceholders";
 import { HeaderPlaceholder } from "./list/HeaderPlaceholder";
-import { FooterPlaceholder } from "./list/FooterPlaceholder";
+import { ListPlaceholders } from "./list/ListPlaceholders";
+import { TablePlaceholders } from "./list/TablePlaceholders";
 
 export function PortfolioTablePlaceholder() {
   const [viewMode] = useQueryState(

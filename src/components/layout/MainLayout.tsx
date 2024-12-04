@@ -1,11 +1,11 @@
-import type { PropsWithChildren } from "react";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { EnvSelector } from "./EnvSelector";
 import { PortfolioSidebarFilter } from "@/use-cases/portfolio/components/PortfolioSidebarLazy";
+import type { PropsWithChildren } from "react";
+import { EnvSelector } from "./EnvSelector";
 
 export const MainLayout = ({ children }: PropsWithChildren) => {
   return (

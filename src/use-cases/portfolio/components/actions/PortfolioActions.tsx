@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -6,9 +7,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
-import { PortfolioDetails } from "../PortfolioDetails";
-import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
+import { PortfolioDetails } from "../PortfolioDetails";
 
 interface PortfolioActionsProps {
   portfolio: Portfolio;

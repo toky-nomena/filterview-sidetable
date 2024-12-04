@@ -1,9 +1,9 @@
-import { useTransition } from "react";
 import loadable from "@loadable/component";
+import { useTransition } from "react";
 
-import { usePortfolioQuery } from "@/use-cases/portfolio/hooks/usePortfolioQuery";
-import { usePaginationQueryStates } from "@/use-cases/portfolio/hooks/usePaginationQueryStates";
 import { Pagination } from "@/components/ui/pagination";
+import { usePaginationQueryStates } from "@/use-cases/portfolio/hooks/usePaginationQueryStates";
+import { usePortfolioQuery } from "@/use-cases/portfolio/hooks/usePortfolioQuery";
 
 export const PortfolioTable = loadable(() =>
   import("@/use-cases/portfolio/components/PortfolioTable").then((mod) => ({

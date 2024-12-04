@@ -1,9 +1,9 @@
 import {
+  type SortingState,
+  type VisibilityState,
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
-  type SortingState,
-  type VisibilityState,
 } from "@tanstack/react-table";
 import { useReactTable } from "@tanstack/react-table";
 import { parseAsStringEnum, useQueryState } from "nuqs";
@@ -11,18 +11,18 @@ import { useEffect, useState, useTransition } from "react";
 
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
-import { usePortfolioColumns } from "../hooks/usePortfolioColumns";
-import { PortfolioViewChanger } from "./PortfolioViewChanger";
-import { Suspense } from "react";
+import { Button } from "@/components/ui/button";
 import { SearchInput } from "@/components/ui/search-input";
 import { PortfolioColumnToggle } from "@/use-cases/portfolio/components/PortfolioColumnToggle";
+import { Suspense } from "react";
+import { usePortfolioColumns } from "../hooks/usePortfolioColumns";
+import { PortfolioViewChanger } from "./PortfolioViewChanger";
+import { PortfolioTablePlaceholder } from "./placeholders/PortfolioTablePlaceholder";
 import {
   PortfolioGridView,
   PortfolioListView,
   PortfolioTableView,
 } from "./views/PortfolioViewsLazy";
-import { PortfolioTablePlaceholder } from "./placeholders/PortfolioTablePlaceholder";
-import { Button } from "@/components/ui/button";
 
 interface PortfolioTableProps {
   data: Portfolio[];

@@ -1,16 +1,16 @@
-import { useMemo } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
+import { useMemo } from "react";
 
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
+import { Skeleton } from "@/components/ui/skeleton";
+import { SortButton } from "@/components/ui/sort-button";
 import { Lookup } from "@/use-cases/lookup/components/lookup";
 import { LookupName } from "@/use-cases/lookup/lookup.service";
 import { PortfolioLookupBadge } from "../components/PortfolioLookupBadge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { SortButton } from "@/components/ui/sort-button";
-import { PortfolioActionsLazy } from "../components/actions/PortfolioActionsLazy";
 import { BusinessKeyLink } from "../components/actions/BusinessKeyLink";
 import { CustomerNumberLink } from "../components/actions/CustomerNumberLink";
+import { PortfolioActionsLazy } from "../components/actions/PortfolioActionsLazy";
 
 export function usePortfolioColumns() {
   return useMemo<ColumnDef<Portfolio>[]>(
