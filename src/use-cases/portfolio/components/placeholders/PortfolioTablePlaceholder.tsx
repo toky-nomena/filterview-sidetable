@@ -20,6 +20,7 @@ export function PortfolioTablePlaceholder() {
         {viewMode === "grid" && <GridPlaceholders />}
         {viewMode === "list" && <ListPlaceholders />}
       </div>
+      <FooterPlaceholder />
     </div>
   );
 }

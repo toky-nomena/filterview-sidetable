@@ -87,7 +87,6 @@ export function PortfolioTable({ data, totalItems }: PortfolioTableProps) {
               disabled={viewMode !== "table"}
             />
           </div>
-          <Button>Total: {totalItems}</Button>
           <PortfolioViewChanger viewMode={viewMode} setViewMode={setViewMode} />
         </div>
       </div>

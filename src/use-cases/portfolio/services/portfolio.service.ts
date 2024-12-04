@@ -86,11 +86,12 @@ export const getFilteredPortfolio = async (
     return stateMatches && variationMatches;
   });
 
+  // Calculate pagination slice
+  const start = pagination.pageIndex * pagination.pageSize;
+  const end = start + pagination.pageSize;
+
   return {
-    result: filteredPortfolio.slice(
-      pagination.pageIndex * pagination.pageSize,
-      pagination.pageSize,
-    ),
+    result: filteredPortfolio.slice(start, end),
     totalItems: filteredPortfolio.length,
   };
 };

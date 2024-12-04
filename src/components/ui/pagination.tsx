@@ -31,7 +31,7 @@ export function Pagination({
   currentPage,
   pageSize,
   totalItems,
-  pageSizeOptions = [10, 20, 50, 100],
+  pageSizeOptions = [10, 20, 50, 100, 200],
   onPageChange,
   onPageSizeChange,
   className,

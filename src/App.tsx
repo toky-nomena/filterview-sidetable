@@ -24,7 +24,10 @@ function App() {
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <NuqsAdapter>
         <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
+          <ReactQueryDevtools
+            initialIsOpen={false}
+            buttonPosition="top-right"
+          />
           <TooltipProvider>
             <Toaster />
             <BrowserRouter>

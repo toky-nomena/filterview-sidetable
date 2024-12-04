@@ -1,7 +1,8 @@
+import { useTransition } from "react";
 import loadable from "@loadable/component";
+
 import { usePortfolioQuery } from "@/use-cases/portfolio/hooks/usePortfolioQuery";
 import { usePaginationQueryStates } from "@/use-cases/portfolio/hooks/usePaginationQueryStates";
-import { useTransition } from "react";
 import { Pagination } from "@/components/ui/pagination";
 
 export const PortfolioTable = loadable(() =>
