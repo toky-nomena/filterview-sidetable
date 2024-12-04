@@ -27,7 +27,7 @@ const paginationUrlKeys = {
   pageSize: "pageSize",
 };
 
-export function usePaginationSearchParams() {
+export function usePaginationQueryStates() {
   return useQueryStates(paginationParsers, {
     urlKeys: paginationUrlKeys,
   });

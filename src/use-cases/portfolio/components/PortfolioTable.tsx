@@ -13,7 +13,7 @@ import { useEffect, useState, useTransition } from "react";
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
 import { usePortfolioColumns } from "../hooks/usePortfolioColumns";
-import { usePaginationSearchParams } from "../hooks/usePaginationSearchParams";
+import { usePaginationQueryStates } from "../hooks/usePaginationQueryStates";
 import { PortfolioViewChanger } from "./PortfolioViewChanger";
 import { Suspense } from "react";
 import { SearchInput } from "@/components/ui/search-input";
@@ -44,7 +44,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
   );
 
   const columns = usePortfolioColumns();
-  const [pagination, onPaginationChange] = usePaginationSearchParams();
+  const [pagination, onPaginationChange] = usePaginationQueryStates();
 
   useEffect(() => {
     PortfolioGridView.preload();

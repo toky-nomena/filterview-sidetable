@@ -21,13 +21,13 @@ const keyMap = {
   language: parser,
 } as const;
 
-export function usePortfolioQueryState() {
+export function usePortfolioQueryStates() {
   return useQueryStates(keyMap);
 }
 
 export function usePortfolioQuery() {
   const [variation] = useQueryState("variation");
-  const [state] = usePortfolioQueryState();
+  const [state] = usePortfolioQueryStates();
 
   return useQuery({
     queryKey: ["portfolio", variation, state],

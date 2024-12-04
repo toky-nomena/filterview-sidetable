@@ -17,7 +17,7 @@ import type { LookupValue } from "@/use-cases/lookup/lookup.types";
 import { SidebarFilterHeader } from "./SidebarFilterHeader";
 import { SidebarFilterItem } from "./SidebarFilterItem";
 import type { FilterState } from "../../types";
-import { usePortfolioQueryState } from "../../hooks/usePortfolioQuery";
+import { usePortfolioQueryStates } from "../../hooks/usePortfolioQuery";
 
 export interface PortfolioCollapseFilterProps {
   title: string;
@@ -36,7 +36,7 @@ export function PortfolioCollapseFilter({
   isOpen,
   setIsOpen,
 }: PortfolioCollapseFilterProps) {
-  const [state, setState] = usePortfolioQueryState();
+  const [state, setState] = usePortfolioQueryStates();
 
   const items = values.map((item) => item.code);
 
