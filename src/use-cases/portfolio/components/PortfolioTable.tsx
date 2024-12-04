@@ -1,7 +1,6 @@
 import {
   getCoreRowModel,
   getFilteredRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   type SortingState,
   type VisibilityState,
@@ -13,25 +12,24 @@ import { useEffect, useState, useTransition } from "react";
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
 import { usePortfolioColumns } from "../hooks/usePortfolioColumns";
-import { usePaginationQueryStates } from "../hooks/usePaginationQueryStates";
 import { PortfolioViewChanger } from "./PortfolioViewChanger";
 import { Suspense } from "react";
 import { SearchInput } from "@/components/ui/search-input";
 import { PortfolioColumnToggle } from "@/use-cases/portfolio/components/PortfolioColumnToggle";
-import { Pagination } from "@/components/ui/pagination";
 import {
   PortfolioGridView,
   PortfolioListView,
   PortfolioTableView,
 } from "./views/PortfolioViewsLazy";
 import { PortfolioTablePlaceholder } from "./placeholders/PortfolioTablePlaceholder";
+import { Button } from "@/components/ui/button";
 
 interface PortfolioTableProps {
   data: Portfolio[];
-  count: number;
+  totalItems: number;
 }
 
-export function PortfolioTable({ data, count }: PortfolioTableProps) {
+export function PortfolioTable({ data, totalItems }: PortfolioTableProps) {
   const [, startTransition] = useTransition();
   const [sorting, onSortingChange] = useState<SortingState>([]);
   const [columnVisibility, onColumnVisibilityChange] =
@@ -45,7 +43,6 @@ export function PortfolioTable({ data, count }: PortfolioTableProps) {
   );
 
   const columns = usePortfolioColumns();
-  const [pagination, onPaginationChange] = usePaginationQueryStates();
 
   useEffect(() => {
     PortfolioGridView.preload();
@@ -56,24 +53,21 @@ export function PortfolioTable({ data, count }: PortfolioTableProps) {
   const table = useReactTable({
     data,
     columns,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onSortingChange,
-    onColumnVisibilityChange,
-    onPaginationChange,
     state: {
       sorting,
-      pagination,
       columnVisibility,
       globalFilter,
     },
+    onSortingChange,
+    onColumnVisibilityChange,
     onGlobalFilterChange,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
   });
 
   return (
-    <div className="flex h-full flex-col">
+    <>
       <div className="sticky top-0 z-10 w-full bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
         <div className="flex items-center justify-between gap-4">
           <div className="flex flex-1 items-center gap-4">
@@ -93,6 +87,7 @@ export function PortfolioTable({ data, count }: PortfolioTableProps) {
               disabled={viewMode !== "table"}
             />
           </div>
+          <Button>Total: {totalItems}</Button>
           <PortfolioViewChanger viewMode={viewMode} setViewMode={setViewMode} />
         </div>
       </div>
@@ -103,22 +98,6 @@ export function PortfolioTable({ data, count }: PortfolioTableProps) {
           {viewMode === "list" && <PortfolioListView table={table} />}
         </Suspense>
       </div>
-      <Pagination
-        className="sticky bottom-0 z-10 w-full bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t"
-        currentPage={pagination.pageIndex + 1}
-        pageSize={pagination.pageSize}
-        totalItems={count}
-        onPageChange={(page) => {
-          startTransition(() => {
-            onPaginationChange({ ...pagination, pageIndex: page - 1 });
-          });
-        }}
-        onPageSizeChange={(size) => {
-          startTransition(() => {
-            onPaginationChange({ ...pagination, pageIndex: 0, pageSize: size });
-          });
-        }}
-      />
-    </div>
+    </>
   );
 }

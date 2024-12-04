@@ -68,7 +68,7 @@ const validateFilter = <Data, T extends keyof Data>(
   );
 };
 
-const portfolio = Array.from({ length: 140 }, generatePortfolio);
+const portfolio = Array.from({ length: 500 }, generatePortfolio);
 
 export const getFilteredPortfolio = async (
   state: FilterState,
@@ -86,12 +86,11 @@ export const getFilteredPortfolio = async (
     return stateMatches && variationMatches;
   });
 
-  // Calculate pagination
-  const start = pagination.pageIndex * pagination.pageSize;
-  const end = start + pagination.pageSize;
-
   return {
-    result: filteredPortfolio.slice(start, end),
-    count: filteredPortfolio.length,
+    result: filteredPortfolio.slice(
+      pagination.pageIndex * pagination.pageSize,
+      pagination.pageSize,
+    ),
+    totalItems: filteredPortfolio.length,
   };
 };
