@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+
 import brand from "../../lookup/data/brand.json";
 import language from "../../lookup/data/language.json";
 import productType from "../../lookup/data/product-type.json";

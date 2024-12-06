@@ -1,7 +1,8 @@
+import { parseAsString, useQueryStates } from "nuqs";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SidebarMenuItem } from "@/components/ui/sidebar";
-import { parseAsString, useQueryStates } from "nuqs";
 
 const parser = parseAsString.withDefault("");
 

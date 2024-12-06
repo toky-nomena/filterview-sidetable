@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
@@ -7,7 +9,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useId } from "react";
 
 export function TablePlaceholders() {
   const id = useId();

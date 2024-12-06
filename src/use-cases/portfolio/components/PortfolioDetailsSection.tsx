@@ -1,5 +1,6 @@
-import { Separator } from "@/components/ui/separator";
 import type { ReactNode } from "react";
+
+import { Separator } from "@/components/ui/separator";
 
 interface PortfolioDetailsSectionProps {
   title: string;

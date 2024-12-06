@@ -1,3 +1,6 @@
+import type { Table } from "@tanstack/react-table";
+import { Grid2x2Check } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,8 +11,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { Table } from "@tanstack/react-table";
-import { Grid2x2Check } from "lucide-react";
 
 interface PortfolioColumnToggleProps<TData> {
   table: Table<TData>;

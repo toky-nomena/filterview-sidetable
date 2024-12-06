@@ -7,14 +7,13 @@ import {
 } from "@tanstack/react-table";
 import { useReactTable } from "@tanstack/react-table";
 import { parseAsStringEnum, useQueryState } from "nuqs";
-import { useEffect, useState, useTransition } from "react";
+import { Suspense, useEffect, useState, useTransition } from "react";
 
 import type { Portfolio } from "@/use-cases/portfolio/services/portfolio.service";
 
-import { Button } from "@/components/ui/button";
 import { SearchInput } from "@/components/ui/search-input";
 import { PortfolioColumnToggle } from "@/use-cases/portfolio/components/PortfolioColumnToggle";
-import { Suspense } from "react";
+
 import { usePortfolioColumns } from "../hooks/usePortfolioColumns";
 import { PortfolioViewChanger } from "./PortfolioViewChanger";
 import { PortfolioTablePlaceholder } from "./placeholders/PortfolioTablePlaceholder";

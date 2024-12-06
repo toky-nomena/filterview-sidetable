@@ -1,3 +1,6 @@
+import { Layers } from "lucide-react";
+import { useCallback, useState } from "react";
+
 import {
   Sidebar,
   SidebarContent,
@@ -8,16 +11,12 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { ChevronDown, ChevronUp, Layers } from "lucide-react";
 
 import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { LookupList } from "@/use-cases/lookup/components/LookupList";
 import { LookupName } from "@/use-cases/lookup/lookup.service";
-import { parseAsStringEnum, useQueryState } from "nuqs";
-import { useCallback, useState } from "react";
 import { useVariationQueryState } from "../../hooks/useVariationQueryState";
 import {
   PortfolioCollapseFilter,
@@ -32,27 +31,29 @@ interface FilterGroup {
   lookupName: LookupName;
 }
 
-function useToggleArray(length: number, defaultValue = false) {
-  const [state, update] = useState<boolean[]>(Array(length).fill(defaultValue));
-
-  // Reset all values to false
-  const reset = useCallback(
-    (value: boolean) => update((items) => Array(items.length).fill(value)),
-    [],
+function useBooleanArray(length: number, defaultValue = false) {
+  const [state, setState] = useState<boolean[]>(
+    Array(length).fill(defaultValue)
   );
 
   // Reset all values to false
-  const toggle = useCallback(
+  const reset = useCallback(
+    (value: boolean) => setState((items) => Array(items.length).fill(value)),
+    []
+  );
+
+  // Reset all values to false
+  const update = useCallback(
     (value: boolean, index: number) =>
-      update((prev) => {
+      setState((prev) => {
         const newValues = [...prev];
         newValues[index] = value;
         return newValues;
       }),
-    [],
+    []
   );
 
-  return [state, { reset, toggle }] as const;
+  return [state, { reset, update }] as const;
 }
 
 const items: FilterGroup[] = [
@@ -86,7 +87,7 @@ const items: FilterGroup[] = [
 export function PortfolioSidebarFilter({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
-  const [state, { reset, toggle }] = useToggleArray(items.length, true);
+  const [state, { reset, update }] = useBooleanArray(items.length, true);
   const [variation, setVariation] = useVariationQueryState();
 
   return (
@@ -155,7 +156,7 @@ export function PortfolioSidebarFilter({
                   stateKey={item.stateKey}
                   values={values}
                   isLoading={isLoading}
-                  setIsOpen={(isOpen) => toggle(isOpen, index)}
+                  setIsOpen={(isOpen) => update(isOpen, index)}
                 />
               )}
             </LookupList>
