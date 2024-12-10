@@ -5,9 +5,9 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { NuqsAdapter } from "nuqs/adapters/react-router";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { MainLayout } from "./components/layout/MainLayout";
-import { ThemeProvider } from "./lib/themes";
 import { Index } from "./pages/Index";
 import { preloadLookups } from "./use-cases/lookup/lookup.service";
+import { ThemeProvider } from "next-themes";
 
 const queryClient = new QueryClient({
   defaultOptions: {

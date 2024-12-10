@@ -13,7 +13,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useState } from "react";
-import { useTheme } from "../../lib/themes";
+import { useTheme } from "next-themes";
 
 const themes = [
   {
@@ -36,7 +36,7 @@ const themes = [
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
   const [activeTheme, setActiveTheme] = useState(() =>
-    themes.find((t) => t.value === theme),
+    themes.find((t) => t.value === theme)
   );
 
   return (
@@ -71,7 +71,11 @@ export function ThemeSwitcher() {
                   setActiveTheme(theme);
                   setTheme(theme.value);
                 }}
-                className={`gap-2 p-2 ${theme.value === activeTheme.value ? "bg-sidebar-accent text-sidebar-accent-foreground" : ""}`}
+                className={`gap-2 p-2 ${
+                  theme.value === activeTheme.value
+                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                    : ""
+                }`}
               >
                 <div className="flex size-6 items-center justify-center rounded-sm border">
                   <theme.icon className="size-4 shrink-0" />
